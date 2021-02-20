@@ -1,0 +1,8 @@
+.tab-header-background {
+    -fx-background-color: skyblue;
+}
+
+.tab{
+    -fx-pref-height: 75;
+    -fx-pref-width: 50;
+}
