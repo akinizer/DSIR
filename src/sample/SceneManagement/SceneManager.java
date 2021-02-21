@@ -17,7 +17,27 @@ import sample.Controller;
 import java.util.List;
 
 public class SceneManager {
+
     public static void run(Stage primaryStage, Class mainclass) throws Exception{
+        //access tabs via controller
+        FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
+        Parent root = loader.load(); //prepare loader
+        primaryStage.setScene(new Scene(root));
+        Controller controller = loader.getController(); //bind controller to loader
+
+        //retrieve contents
+        List<Tab> gametabs = controller.getGameTabs();
+        List<Label> townbuildings = controller.getTownBuildings();
+        Label dojobuilding = controller.getTownBuilding("dojo");
+        System.out.println("Town: "+townbuildings);
+        System.out.println("Dojo: "+dojobuilding);
+
+        primaryStage.setTitle("DSIR");
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
+    public static void runFXML(Stage primaryStage, Class mainclass) throws Exception{
         //access tabs via frame components
         TabPane tabpane = FXMLLoader.load(mainclass.getResource("/sample/sample.fxml")); //get tabpane from the fxml file
         primaryStage.setTitle("DSIR");
@@ -42,12 +62,11 @@ public class SceneManager {
             System.out.println(gametab.getText());
         }
 
-
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
-    public static void test(Stage primaryStage){
+    public static void testNonFXML(Stage primaryStage){
         primaryStage.setTitle("DSIR");
 
         //First group element
