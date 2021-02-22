@@ -22,7 +22,7 @@ public class CurrencyManager {
     }
 
     //update currencies
-    public void updateGold(Label goldamount, Label diamonamount, int gain){
+    public void updateGoldIncrease(Label goldamount, Label diamonamount, int gain){
         int gold = Integer.parseInt(goldamount.getText());
         int diamond = Integer.parseInt(diamonamount.getText());
         gold=gold+gain;
@@ -34,6 +34,33 @@ public class CurrencyManager {
 
         goldamount.setText(gold+"");
         diamonamount.setText(diamond+"");
+    }
+    public void updateGoldDecrease(Label goldamount, Label diamonamount, int loss){
+        int gold = Integer.parseInt(goldamount.getText());
+        int diamond = Integer.parseInt(diamonamount.getText());
+        gold=gold+loss;
+
+        if(gold+loss>=0){
+            gold=gold+loss;
+
+            goldamount.setText(gold+"");
+            diamonamount.setText(diamond+"");
+            return;
+        }
+
+        int diamondasgold=diamond*100;
+        int currencyasgold=diamondasgold+gold;
+
+        if(currencyasgold+loss>=0){
+            int newvalueasgold=currencyasgold+loss;
+            int newdiamond=newvalueasgold/100;
+            int newgold=newvalueasgold%100;
+
+            goldamount.setText(newgold+"");
+            diamonamount.setText(newdiamond+"");
+        }
+
+
     }
 
     public void updateDiamond(Label diamonamount, int gain){

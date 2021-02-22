@@ -97,8 +97,12 @@ public class Controller {
     private void addInnListener(){
         System.out.println("Inn is clicked");
 
-        addGoldListener(((int)(Math.random()*25))+15);
-        energybar.setProgress(1);
+        int costGold=120;
+        int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
+        if(currencyasgold>=costGold) {
+            addGoldListener(-costGold);
+            energybar.setProgress(1);
+        }
     }
 
     @FXML
@@ -145,8 +149,11 @@ public class Controller {
 
     ////////////////////// CURRENCY ACTIONS //////////////////////
     @FXML
-    private void addGoldListener(int gain){
-        currencyManager.updateGold(goldamount,diamondamount,gain);
+    private void addGoldListener(int change){
+        if(change>0)
+            currencyManager.updateGoldIncrease(goldamount,diamondamount,change);
+        else if(change<0 && energybar.getProgress()<1)
+            currencyManager.updateGoldDecrease(goldamount,diamondamount,change);
     }
     @FXML
     private void addBattlecoinListener(int gain){
