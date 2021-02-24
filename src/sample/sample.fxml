@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <!-- Grid primary stage-->
@@ -23,382 +24,387 @@
 </Scene>
 -->
 
-<Pane fx:id="mainpanel" prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+
+<StackPane fx:id="stackpanel" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <TabPane fx:id="maintab" cache="true" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="600.0" side="BOTTOM" stylesheets="@../resources/stylesheets/tabpanebg.css" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="towntab" closable="false" style="-fx-background-color: orange; -fx-alignment: CENTER;" text="Town">
-            <content>
-              <AnchorPane fx:id="townpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgreen;">
-                     <children>
-                        <Label fx:id="inn" alignment="CENTER" layoutX="127.0" layoutY="68.0" onMouseReleased="#addInnListener" prefHeight="75.0" prefWidth="42.0" style="-fx-background-color: lightblue;" text="Inn">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: Inn&#10;Function: Refreshes Energy in the cost of Time" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="thedarkforest" alignment="CENTER" layoutX="258.0" layoutY="30.0" onMouseReleased="#addTheDarkPortalListener" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: lightblue;" text="The Dark Portal">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: The Dark Portal&#10;Function: Campaign Missions, XP, Item Farm" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="cityhall" alignment="CENTER" layoutX="68.0" layoutY="169.0" onMouseReleased="#addCityHallListener" prefHeight="91.0" prefWidth="95.0" style="-fx-background-color: lightblue;" text="City Hall">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip autoHide="true" text="Name: City Hall&#10;Function: Management" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="dojo" alignment="CENTER" layoutX="410.0" layoutY="79.0" onMouseReleased="#addDojoListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Dojo">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: Dojo&#10;Function: Training for Items, Difficulty" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="gym" alignment="CENTER" layoutX="439.0" layoutY="159.0" onMouseReleased="#addGymListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Gym">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: Gym&#10;Function: Training for Skills" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="thegreatestwall" alignment="CENTER" layoutX="47.0" layoutY="303.0" onMouseReleased="#addTheGreatestWallListener" prefHeight="19.0" prefWidth="510.0" style="-fx-background-color: lightblue;" text="The Greatest Wall">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: The Greatest Wall&#10;Function: Defense Management" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="townsquare" alignment="CENTER" layoutX="264.0" layoutY="152.0" onMouseReleased="#addTownSquareListener" prefHeight="78.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Town Square">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: Town Square&#10;Function: Daily Challenges" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="wellspring" alignment="CENTER" layoutX="399.0" layoutY="228.0" onMouseReleased="#addWellspringListener" prefHeight="65.0" prefWidth="61.0" style="-fx-background-color: lightblue;" text="Wellspring">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: Wellspring&#10;Function: Wish, Roll for Items" />
-                           </tooltip>
-                        </Label>
-                        <Label fx:id="barracks" alignment="CENTER" layoutX="180.0" layoutY="241.0" onMouseReleased="#addBarrackListener" prefHeight="52.0" prefWidth="65.0" style="-fx-background-color: lightblue;" text="Barracks">
-                           <effect>
-                              <ColorAdjust />
-                           </effect>
-                           <tooltip>
-                              <Tooltip text="Name: Military Barracks&#10;Function: Army Management" />
-                           </tooltip>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab fx:id="dungeontab" closable="false" style="-fx-background-color: orange;" text="Dungeon">
-            <content>
-              <AnchorPane fx:id="collessiumpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: tan;">
-                     <children>
-                        <Label fx:id="towerofgodbuilding" layoutX="97.0" layoutY="33.0" prefHeight="160.0" prefWidth="73.0" style="-fx-background-color: pink;" text="Tower of God" />
-                        <Label fx:id="elvenforestbuilding" layoutX="319.0" layoutY="63.0" prefHeight="70.0" prefWidth="124.0" style="-fx-background-color: pink;" text="Elven Forest" />
-                        <Label fx:id="lakeofnympsbuilding" layoutX="228.0" layoutY="158.0" prefHeight="70.0" prefWidth="124.0" style="-fx-background-color: pink;" text="Lake of Nymps" />
-                        <Label fx:id="ruinsbuilding" layoutX="134.0" layoutY="264.0" prefHeight="70.0" prefWidth="124.0" style="-fx-background-color: pink;" text="Ruins" />
-                        <Label fx:id="dwarvenminesbuilding" layoutX="371.0" layoutY="186.0" prefHeight="159.0" prefWidth="85.0" style="-fx-background-color: pink;" text="Dwarven Mines" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab fx:id="colessiumntab" closable="false" style="-fx-background-color: orange;" text="Colessium">
-               <content>
-                  <AnchorPane fx:id="dungeonpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: khaki;">
-                     <children>
-                        <Label fx:id="competitivebuilding" layoutX="131.0" layoutY="177.0" prefHeight="50.0" prefWidth="80.0" style="-fx-background-color: darkorange;" text="Competitive" />
-                        <Label fx:id="grandbuilding" layoutX="245.0" layoutY="164.0" prefHeight="76.0" prefWidth="76.0" style="-fx-background-color: darkorange;" text="Grand" />
-                        <Label fx:id="electivebuilding" layoutX="258.0" layoutY="271.0" prefHeight="50.0" prefWidth="49.0" style="-fx-background-color: darkorange;" text="Elective" />
-                        <Label fx:id="scorebillbuilding" layoutX="356.0" layoutY="177.0" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: darkorange;" text="ScoreBill" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab fx:id="storetab" closable="false" style="-fx-background-color: orange;" text="Store">
-               <content>
-                  <AnchorPane fx:id="storepane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TabPane layoutX="-6.0" prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
-                          <tabs>
-                              <Tab closable="false" style="-fx-background-color: lightblue;">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
-                                       <children>
-                                          <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
-                                             <content>
-                                                <GridPane fx:id="storegridpane5" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
-                                                  <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                  </columnConstraints>
-                                                  <rowConstraints>
-                                                    <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
-                                                  </rowConstraints>
-                                                   <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                               </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                   </children>
-                                                </GridPane>
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Affliction" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                              </Tab>
-                              <Tab closable="false" style="-fx-background-color: lightblue;">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
-                                       <children>
-                                          <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
-                                             <content>
-                                                <GridPane fx:id="storegridpane" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                   </children>
-                                                </GridPane>
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Battle" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                              </Tab>
-                              <Tab closable="false" style="-fx-background-color: lightblue;">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
-                                       <children>
-                                          <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
-                                             <content>
-                                                <GridPane fx:id="storegridpane2" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                   </children>
-                                                </GridPane>
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="33.0" text="Pet" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                              </Tab>
-                              <Tab closable="false" style="-fx-background-color: lightblue;">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
-                                       <children>
-                                          <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
-                                             <content>
-                                                <GridPane fx:id="storegridpane3" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                   </children>
-                                                </GridPane>
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                                       <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="35.0" text="Armor" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                              </Tab>
-                              <Tab closable="false" style="-fx-background-color: lightblue;">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
-                                       <children>
-                                          <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
-                                             <content>
-                                                <GridPane fx:id="storegridpane4" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                         <graphic>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
-                                                         </graphic>
-                                                      </Label>
-                                                   </children>
-                                                </GridPane>
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                                 <graphic>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="35.0" text="Item" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                              </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab fx:id="neighborhoodtab" closable="false" style="-fx-background-color: orange;" text="Neighborhood">
-               <content>
-                  <AnchorPane fx:id="neighborhoodpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightskyblue;" />
-               </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Pane fx:id="statusbar" layoutY="-1.0" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: lightgray;">
+      <Pane fx:id="mainpanel" prefHeight="430.0" prefWidth="600.0">
          <children>
-            <Label fx:id="goldamount" layoutX="56.0" layoutY="6.0" text="0" />
-            <Label fx:id="battlecoinlabel" layoutX="178.0" layoutY="7.0" text="BC:" />
-            <Label fx:id="battlecoinamount" layoutX="205.0" layoutY="7.0" text="0" />
-            <Label fx:id="goldlabel" layoutX="14.0" layoutY="6.0" text="Gold:" />
-            <Label fx:id="energylabel" layoutX="340.0" layoutY="6.0" prefHeight="17.0" prefWidth="46.0" text="Energy:" />
-            <ProgressBar fx:id="energybar" layoutX="386.0" layoutY="6.0" prefWidth="200.0" progress="1.0" style="-fx-background-color: blue;" />
-            <Label fx:id="diamondlabel" layoutX="75.0" layoutY="6.0" text="Diamond:" />
-            <Label fx:id="diamondamount" layoutX="133.0" layoutY="7.0" text="0" />
-            <Label fx:id="levellabel" layoutX="251.0" layoutY="6.0" text="Level:" />
-            <Label fx:id="levelamount" layoutX="287.0" layoutY="6.0" text="1" />
+            <TabPane fx:id="maintab" cache="true" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="600.0" side="BOTTOM" stylesheets="@../resources/stylesheets/tabpanebg.css" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="towntab" closable="false" style="-fx-background-color: orange; -fx-alignment: CENTER;" text="Town">
+                  <content>
+                    <AnchorPane fx:id="townpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgreen;">
+                           <children>
+                              <Label fx:id="inn" alignment="CENTER" layoutX="127.0" layoutY="68.0" onMouseReleased="#addInnListener" prefHeight="75.0" prefWidth="42.0" style="-fx-background-color: lightblue;" text="Inn">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: Inn&#10;Function: Refreshes Energy in the cost of Time" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="thedarkforest" alignment="CENTER" layoutX="258.0" layoutY="30.0" onMouseReleased="#addTheDarkPortalListener" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: lightblue;" text="The Dark Portal">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: The Dark Portal&#10;Function: Campaign Missions, XP, Item Farm" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="cityhall" alignment="CENTER" layoutX="68.0" layoutY="169.0" onMouseReleased="#addCityHallListener" prefHeight="91.0" prefWidth="95.0" style="-fx-background-color: lightblue;" text="City Hall">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip autoHide="true" text="Name: City Hall&#10;Function: Management" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="dojo" alignment="CENTER" layoutX="410.0" layoutY="79.0" onMouseReleased="#addDojoListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Dojo">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: Dojo&#10;Function: Training for Items, Difficulty" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="gym" alignment="CENTER" layoutX="439.0" layoutY="159.0" onMouseReleased="#addGymListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Gym">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: Gym&#10;Function: Training for Skills" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="thegreatestwall" alignment="CENTER" layoutX="47.0" layoutY="303.0" onMouseReleased="#addTheGreatestWallListener" prefHeight="19.0" prefWidth="510.0" style="-fx-background-color: lightblue;" text="The Greatest Wall">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: The Greatest Wall&#10;Function: Defense Management" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="townsquare" alignment="CENTER" layoutX="264.0" layoutY="152.0" onMouseReleased="#addTownSquareListener" prefHeight="78.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Town Square">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: Town Square&#10;Function: Daily Challenges" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="wellspring" alignment="CENTER" layoutX="399.0" layoutY="228.0" onMouseReleased="#addWellspringListener" prefHeight="65.0" prefWidth="61.0" style="-fx-background-color: lightblue;" text="Wellspring">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: Wellspring&#10;Function: Wish, Roll for Items" />
+                                 </tooltip>
+                              </Label>
+                              <Label fx:id="barracks" alignment="CENTER" layoutX="180.0" layoutY="241.0" onMouseReleased="#addBarrackListener" prefHeight="52.0" prefWidth="65.0" style="-fx-background-color: lightblue;" text="Barracks">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <tooltip>
+                                    <Tooltip text="Name: Military Barracks&#10;Function: Army Management" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="dungeontab" closable="false" style="-fx-background-color: orange;" text="Dungeon">
+                  <content>
+                    <AnchorPane fx:id="collessiumpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: tan;">
+                           <children>
+                              <Label fx:id="towerofgodbuilding" layoutX="97.0" layoutY="33.0" prefHeight="160.0" prefWidth="73.0" style="-fx-background-color: pink;" text="Tower of God" />
+                              <Label fx:id="elvenforestbuilding" layoutX="319.0" layoutY="63.0" prefHeight="70.0" prefWidth="124.0" style="-fx-background-color: pink;" text="Elven Forest" />
+                              <Label fx:id="lakeofnympsbuilding" layoutX="228.0" layoutY="158.0" prefHeight="70.0" prefWidth="124.0" style="-fx-background-color: pink;" text="Lake of Nymps" />
+                              <Label fx:id="ruinsbuilding" layoutX="134.0" layoutY="264.0" prefHeight="70.0" prefWidth="124.0" style="-fx-background-color: pink;" text="Ruins" />
+                              <Label fx:id="dwarvenminesbuilding" layoutX="371.0" layoutY="186.0" prefHeight="159.0" prefWidth="85.0" style="-fx-background-color: pink;" text="Dwarven Mines" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="colessiumntab" closable="false" style="-fx-background-color: orange;" text="Colessium">
+                     <content>
+                        <AnchorPane fx:id="dungeonpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: khaki;">
+                           <children>
+                              <Label fx:id="competitivebuilding" layoutX="131.0" layoutY="177.0" prefHeight="50.0" prefWidth="80.0" style="-fx-background-color: darkorange;" text="Competitive" />
+                              <Label fx:id="grandbuilding" layoutX="245.0" layoutY="164.0" prefHeight="76.0" prefWidth="76.0" style="-fx-background-color: darkorange;" text="Grand" />
+                              <Label fx:id="electivebuilding" layoutX="258.0" layoutY="271.0" prefHeight="50.0" prefWidth="49.0" style="-fx-background-color: darkorange;" text="Elective" />
+                              <Label fx:id="scorebillbuilding" layoutX="356.0" layoutY="177.0" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: darkorange;" text="ScoreBill" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="storetab" closable="false" style="-fx-background-color: orange;" text="Store">
+                     <content>
+                        <AnchorPane fx:id="storepane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TabPane layoutX="-6.0" prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                    <Tab closable="false" style="-fx-background-color: lightblue;">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
+                                             <children>
+                                                <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
+                                                   <content>
+                                                      <GridPane fx:id="storegridpane5" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                                     </Label>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                       <graphic>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" text="Affliction" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Label>
+                                       </graphic>
+                                    </Tab>
+                                    <Tab closable="false" style="-fx-background-color: lightblue;">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
+                                             <children>
+                                                <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
+                                                   <content>
+                                                      <GridPane fx:id="storegridpane" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                       <graphic>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" text="Battle" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Label>
+                                       </graphic>
+                                    </Tab>
+                                    <Tab closable="false" style="-fx-background-color: lightblue;">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
+                                             <children>
+                                                <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
+                                                   <content>
+                                                      <GridPane fx:id="storegridpane2" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                       <graphic>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="33.0" text="Pet" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Label>
+                                       </graphic>
+                                    </Tab>
+                                    <Tab closable="false" style="-fx-background-color: lightblue;">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
+                                             <children>
+                                                <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
+                                                   <content>
+                                                      <GridPane fx:id="storegridpane3" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                             <graphic>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="35.0" text="Armor" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Label>
+                                       </graphic>
+                                    </Tab>
+                                    <Tab closable="false" style="-fx-background-color: lightblue;">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0" style="-fx-background-color: darkslateblue;">
+                                             <children>
+                                                <ScrollPane hbarPolicy="NEVER" prefHeight="372.0" prefWidth="526.0">
+                                                   <content>
+                                                      <GridPane fx:id="storegridpane4" prefHeight="452.0" prefWidth="513.0" style="-fx-background-color: pink;">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="254.0" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                               <graphic>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="104.0" text="Label" />
+                                                               </graphic>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                       <graphic>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="35.0" text="Item" textAlignment="CENTER">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Label>
+                                       </graphic>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="neighborhoodtab" closable="false" style="-fx-background-color: orange;" text="Neighborhood">
+                     <content>
+                        <AnchorPane fx:id="neighborhoodpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightskyblue;" />
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <Pane layoutX="14.0" layoutY="5.0">
+               <children>
+                  <Label fx:id="goldamount" layoutX="42.0" text="0" />
+                  <Label fx:id="battlecoinlabel" layoutX="164.0" layoutY="1.0" text="BC:" />
+                  <Label fx:id="battlecoinamount" layoutX="191.0" layoutY="1.0" text="0" />
+                  <Label fx:id="goldlabel" text="Gold:" />
+                  <Label fx:id="energylabel" layoutX="326.0" prefHeight="17.0" prefWidth="46.0" text="Energy:" />
+                  <ProgressBar fx:id="energybar" layoutX="372.0" prefWidth="200.0" progress="1.0" style="-fx-background-color: blue;" />
+                  <Label fx:id="diamondlabel" layoutX="61.0" text="Diamond:" />
+                  <Label fx:id="diamondamount" layoutX="119.0" layoutY="1.0" text="0" />
+                  <Label fx:id="levellabel" layoutX="237.0" text="Level:" />
+                  <Label fx:id="levelamount" layoutX="273.0" text="1" />
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
-</Pane>
+</StackPane>

@@ -3,12 +3,12 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import sample.CurrencyManagement.CurrencyManager;
 import sample.UtilityManagement.UtilityManager;
@@ -20,8 +20,10 @@ import java.util.List;
 
 public class Controller {
 
-    ////////////////////// LOCATIONS //////////////////////
+    ////////////////////// CONTAINERS //////////////////////
+    @FXML private StackPane stackPane;
 
+    ////////////////////// LOCATIONS //////////////////////
     @FXML private Tab towntab;
     @FXML private Tab dungeontab;
     @FXML private Tab colessiumntab;
@@ -78,8 +80,8 @@ public class Controller {
     private void addDojoListener(){
         System.out.println("Dojo is clicked");
 
-        //color randomizer
-        dojo.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.rgb((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256))));
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        initDojoBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
@@ -109,10 +111,8 @@ public class Controller {
     private void addGymListener(){
         System.out.println("Gym is clicked");
 
-        if(energybar.getProgress()*100>=25) {
-            addExperienceListener((((int) (Math.random() * 5)) + 50) * Integer.parseInt(levelamount.getText()));
-            addEnergyListener(-20);
-        }
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        initGymBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
@@ -165,6 +165,82 @@ public class Controller {
     }
     @FXML void addEnergyListener(int change){
         currencyManager.updateEnergyStatus(energybar,change);
+    }
+
+    /// ACTION PANES ///
+    @FXML void initGymBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("Battle Scene is Activated");
+
+        //Action Label settings
+        Label actionLabel = new Label();
+
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.SKYBLUE));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        Button actionButton = new Button("battle time!");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+            if(energybar.getProgress()*100>=25) {
+                addExperienceListener((((int) (Math.random() * 5)) + 50) * Integer.parseInt(levelamount.getText()));
+                addEnergyListener(-20);
+                addGoldListener((int)Math.round(200*Integer.parseInt(levelamount.getText())*1.2));
+            }
+
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(actionLabel);
+        stackPane.getChildren().add(actionButton);
+
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
+    @FXML void initDojoBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("Battle Scene is Activated");
+
+        //Action Label settings
+        Label actionLabel = new Label();
+
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.SKYBLUE));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        Button actionButton = new Button("battle time!");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+            //color randomizer
+            dojo.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.rgb((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256))));
+
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(actionLabel);
+        stackPane.getChildren().add(actionButton);
+
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
     }
 
 }
