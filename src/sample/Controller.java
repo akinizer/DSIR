@@ -1,5 +1,9 @@
 package sample;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -10,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import sample.CurrencyManagement.CurrencyManager;
 import sample.UtilityManagement.UtilityManager;
 
@@ -207,6 +212,11 @@ public class Controller {
         towntab.setContent(stackPane);
     }
 
+    private double duration=10;
+    private int red=(int)(Math.random()*256), green=(int)(Math.random()*256), blue=(int)(Math.random()*256);
+
+    private boolean isToggleupRed=true, isToggleupGreen=false, isToggleupBlue=true;
+
     @FXML void initDojoBattleScene(int x, int y, double width, double height){
         //Log Message
         System.out.println("Battle Scene is Activated");
@@ -214,7 +224,57 @@ public class Controller {
         //Action Label settings
         Label actionLabel = new Label();
 
-        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.SKYBLUE));
+        //color transition for background of dojo battle scene
+        Timeline timer = new Timeline(
+        new KeyFrame(Duration.millis(duration), event -> {
+            //transition of red
+            if(red>=0 && red<256){
+               if(red==0)
+                   isToggleupRed=true;
+               else if(red==255)
+                   isToggleupRed=false;
+
+               if (isToggleupRed)
+                   red++;
+               else {
+                   red--;
+
+               }
+            }
+            //transition of green
+            if(green>=0 && green<256){
+                if(green==0)
+                    isToggleupGreen=true;
+                else if(green==255)
+                    isToggleupGreen=false;
+
+                if (isToggleupGreen)
+                    green++;
+                else {
+                    green--;
+
+                }
+            }
+            //transition of blue
+            if(blue>=0 && blue<256){
+                if(blue==0)
+                    isToggleupBlue=true;
+                else if(blue==255)
+                    isToggleupBlue=false;
+
+                if (isToggleupBlue)
+                    blue++;
+                else {
+                    blue--;
+
+                }
+            }
+
+            actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.rgb(red,green,blue)));
+        }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+
         actionLabel.setLayoutX(x);
         actionLabel.setLayoutY(y);
         actionLabel.setPrefWidth(width);
@@ -228,10 +288,8 @@ public class Controller {
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnMouseReleased(mouseEvent -> {
-            //color randomizer
-            dojo.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.rgb((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256))));
-
             actionLabel.setVisible(false);
+            timer.pause();
             towntab.setContent(contentSaved);
         });
 
