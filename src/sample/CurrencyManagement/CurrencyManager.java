@@ -5,8 +5,15 @@ import javafx.scene.control.ProgressBar;
 
 public class CurrencyManager {
 
+    //general variables
     private int exp;
     private int lvllimiter=100;
+
+    ///stats
+    private int level;
+    private String name;
+    private String classtype;
+    private int atk,hp;
 
     //update experience
     public void updateExperience(Label level, int gain){
@@ -19,6 +26,23 @@ public class CurrencyManager {
         }
 
         level.setText(lvl+"");
+        setLevel(lvl);
+
+        //classtype update//
+        if(lvl>=100)
+            setClasstype("GrandChampion");
+        else if(lvl>=80)
+            setClasstype("Champion");
+        else if(lvl>=60)
+            setClasstype("Knight");
+        else if(lvl>=40)
+            setClasstype("Squire");
+        else if(lvl>=20)
+            setClasstype("AspiringWarrior");
+
+        //warrior
+        String[] classtyperegex=getClasstype().split(" ");
+        if(lvl%4!=0 && lvl%5==0) setClasstype(classtyperegex[0]+" "+lvl/5);
     }
 
     //update currencies
@@ -85,5 +109,46 @@ public class CurrencyManager {
         else if(newratio<0) newratio=0;
 
         progressBar.setProgress(newratio);
+    }
+
+    //setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setAtk(int atk) {
+        this.atk = atk;
+    }
+
+    public void setClasstype(String classtype) {
+        this.classtype = classtype;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+    //getters
+    public String getName() {
+        return name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getAtk() {
+        return atk;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public String getClasstype() {
+        return classtype;
     }
 }

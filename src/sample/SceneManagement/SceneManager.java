@@ -24,6 +24,7 @@ public class SceneManager {
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
         Controller controller = loader.getController(); //bind controller to loader
+        controller.updateCharacterInfo("Johnny","Warrior",100,1000);
 
         //retrieve contents
         List<Tab> gametabs = controller.getGameTabs();

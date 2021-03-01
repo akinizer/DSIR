@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,7 +27,8 @@ import java.util.List;
 public class Controller {
 
     ////////////////////// CONTAINERS //////////////////////
-    @FXML private StackPane stackPane;
+    @FXML private StackPane stackpanel;
+    @FXML private Pane mainpanel;
 
     ////////////////////// LOCATIONS //////////////////////
     @FXML private Tab towntab;
@@ -46,10 +48,39 @@ public class Controller {
     @FXML private Label wellspring;
     @FXML private Label barracks;
 
-    CurrencyManager currencyManager;
+    private CurrencyManager currencyManager;
 
     public Controller(){
         currencyManager=new CurrencyManager();
+    }
+    public void updateCharacterInfo(String name, String classname, int atk, int hp){
+        if(!name.isEmpty())
+            currencyManager.setName(name);
+
+        if(!classname.isEmpty())
+            currencyManager.setClasstype(classname);
+
+        currencyManager.setLevel(0);
+
+        if(atk>0 && hp>0) {
+            currencyManager.setAtk(atk);
+            currencyManager.setHp(hp);
+        }
+    }
+    public void updateCharacterInfo(String name, String classname, int atk, int hp, int level){
+        if(!name.isEmpty())
+            currencyManager.setName(name);
+
+        if(!classname.isEmpty())
+            currencyManager.setClasstype(classname);
+
+        if(level>=0)
+            currencyManager.setLevel(level);
+
+        if(atk>0 && hp>0) {
+            currencyManager.setAtk(atk);
+            currencyManager.setHp(hp);
+        }
     }
 
     public List<Tab> getGameTabs(){
@@ -152,7 +183,55 @@ public class Controller {
     @FXML Label levelamount;
     @FXML ProgressBar energybar;
 
+    @FXML Label informationPanel;
+
     ////////////////////// CURRENCY ACTIONS //////////////////////
+    @FXML
+    private void addInformationLabelListener(){
+        System.out.println("hi");
+        initInformationWindow(mainpanel.getLayoutX(),mainpanel.getLayoutY(),mainpanel.getWidth(),mainpanel.getHeight());
+    }
+
+    private void initInformationWindow(double x, double y, double width, double height){
+        System.out.println("Character Window is shown");
+
+        //Action Label settings
+        Label actionLabel = new Label(
+                "Name:"+currencyManager.getName()
+                        +"\nAtk:" +currencyManager.getAtk()+
+                        "\nHP:" +currencyManager.getHp()+
+                        "\nLevel:" +currencyManager.getLevel()+
+                        "\nClass:" +currencyManager.getClasstype()+
+                        "\n\n");
+
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.GREENYELLOW));
+
+        //Save instance of the tab
+        Node contentSaved = stackpanel.getChildren().get(0);
+
+        Button actionButton = new Button("Return");
+        actionButton.setLayoutX(0);
+        actionButton.setLayoutY(0);
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            stackpanel.getChildren().removeAll(actionLabel,actionButton);
+            stackpanel.getChildren().add(contentSaved);
+            stackpanel.setAlignment(Pos.CENTER);
+        });
+
+        //Initiate Battle Scene
+        stackpanel.getChildren().remove(contentSaved);
+        stackpanel.getChildren().addAll(actionLabel,actionButton);
+        stackpanel.setAlignment(Pos.TOP_LEFT);
+    }
+
     @FXML
     private void addGoldListener(int change){
         if(change>0)
