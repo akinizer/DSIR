@@ -2,24 +2,18 @@ package sample;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sample.CurrencyManagement.CurrencyManager;
+import sample.StatsManagement.StatsManager;
 import sample.UtilityManagement.UtilityManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +29,6 @@ public class Controller {
     @FXML private Tab dungeontab;
     @FXML private Tab colessiumntab;
     @FXML private Tab storetab;
-    @FXML private Tab neighborhoodtab;
 
     ////////////////////// TOWN //////////////////////
     @FXML private Label inn;
@@ -48,10 +41,10 @@ public class Controller {
     @FXML private Label wellspring;
     @FXML private Label barracks;
 
-    private CurrencyManager currencyManager;
+    private StatsManager currencyManager;
 
     public Controller(){
-        currencyManager=new CurrencyManager();
+        currencyManager=new StatsManager();
     }
     public void updateCharacterInfo(String name, String classname, int atk, int hp){
         if(!name.isEmpty())
@@ -84,7 +77,11 @@ public class Controller {
     }
 
     public List<Tab> getGameTabs(){
-        return Arrays.asList(towntab,dungeontab,colessiumntab,storetab,neighborhoodtab);
+        return Arrays.asList(towntab,dungeontab,colessiumntab,storetab);
+    }
+
+    public List<AnchorPane> getGameTabContents(){
+        return Arrays.asList((AnchorPane)towntab.getContent(),(AnchorPane)dungeontab.getContent(),(AnchorPane)colessiumntab.getContent(),(AnchorPane)storetab.getContent());
     }
 
     public List<Label> getTownBuildings(){
@@ -116,7 +113,7 @@ public class Controller {
     private void addDojoListener(){
         System.out.println("Dojo is clicked");
 
-        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();
         initDojoBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
@@ -331,7 +328,6 @@ public class Controller {
                     green++;
                 else {
                     green--;
-
                 }
             }
             //transition of blue
@@ -345,7 +341,6 @@ public class Controller {
                     blue++;
                 else {
                     blue--;
-
                 }
             }
 

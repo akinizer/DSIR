@@ -1,9 +1,9 @@
-package sample.CurrencyManagement;
+package sample.StatsManagement;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
-public class CurrencyManager {
+public class StatsManager {
 
     //general variables
     private int exp;
@@ -131,6 +131,7 @@ public class CurrencyManager {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
     //getters
     public String getName() {
         return name;

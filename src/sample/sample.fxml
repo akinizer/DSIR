@@ -139,7 +139,7 @@
                      <content>
                         <AnchorPane fx:id="storepane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TabPane layoutX="-6.0" prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane fx:id="storetabpanel" layoutX="-6.0" prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                     <Tab closable="false" style="-fx-background-color: lightblue;">
                                        <content>
