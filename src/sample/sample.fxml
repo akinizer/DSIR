@@ -74,7 +74,7 @@
                                     <Tooltip text="Name: Gym&#10;Function: Training for Skills" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="thegreatestwall" alignment="CENTER" layoutX="47.0" layoutY="303.0" onMouseReleased="#addTheGreatestWallListener" prefHeight="19.0" prefWidth="510.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="The Greatest Wall">
+                              <Label fx:id="thegreatestwall" alignment="CENTER" layoutX="47.0" layoutY="328.0" onMouseReleased="#addTheGreatestWallListener" prefHeight="19.0" prefWidth="510.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="The Greatest Wall">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>

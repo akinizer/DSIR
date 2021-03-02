@@ -123,37 +123,10 @@ public class Controller {
 
     @FXML
     private void addTheDarkPortalListener(){
-        thedarkportal.setOnMouseReleased(mouseEvent -> {
-            /**Two separate clicks handled at the same time, new click starts a new instance and doesnt overwrite previous click
-            System.out.println("Primary button: "+!mouseEvent.isPrimaryButtonDown());
-            System.out.println("Secondary button: "+!mouseEvent.isSecondaryButtonDown());
-            */
+        System.out.println("The Dark Portal is clicked");
 
-            //One click handler at a time, when another clic happens, previous click is terminated
-            if(mouseEvent.getButton()== MouseButton.PRIMARY) {
-                //function1: on left click
-                System.out.println("Primary button is clicked");
-
-                if (energybar.getProgress() * 100 >= 15) {
-                    addGoldListener(((int) (Math.random() * 15) + 35) * Integer.parseInt(levelamount.getText()));
-                    addExperienceListener(((int) (Math.random() * 15) + 15) * Integer.parseInt(levelamount.getText()));
-                    addEnergyListener(-15);
-                }
-            }
-
-            if(mouseEvent.getButton()== MouseButton.SECONDARY) {
-                //function2: on right click
-                System.out.println("Secondary button is clicked");
-            }
-
-            if(mouseEvent.getButton()== MouseButton.MIDDLE) {
-                //function3: on wheel click
-                System.out.println("Middle button is clicked");
-            }
-
-
-
-        });
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();
+        initTheDarkPortalBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
@@ -272,14 +245,16 @@ public class Controller {
     private void addExperienceListener(int gain){
         currencyManager.updateExperience(levelamount,gain);
     }
-    @FXML void addEnergyListener(int change){
+    @FXML
+    private void addEnergyListener(int change){
         currencyManager.updateEnergyStatus(energybar,change);
     }
 
     /// ACTION PANES ///
-    @FXML void initGymBattleScene(int x, int y, double width, double height){
+    @FXML
+    private void initGymBattleScene(int x, int y, double width, double height){
         //Log Message
-        System.out.println("Battle Scene is Activated");
+        System.out.println("Gym Window is Activated");
 
         //Action Label settings
         Label actionLabel = new Label();
@@ -294,7 +269,14 @@ public class Controller {
         //Save instance of the tab
         Node contentSaved = towntab.getContent();
 
+        //action button presets
         Button actionButton = new Button("battle time!");
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnMouseReleased(mouseEvent -> {
@@ -303,32 +285,37 @@ public class Controller {
                 addEnergyListener(-20);
                 addGoldListener((int)Math.round(200*Integer.parseInt(levelamount.getText())*1.2));
             }
+        });
 
+        returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             towntab.setContent(contentSaved);
         });
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(actionLabel);
-        stackPane.getChildren().add(actionButton);
-
+        stackPane.getChildren().addAll(actionLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }
 
-    private double duration=10;
     private int red=(int)(Math.random()*256), green=(int)(Math.random()*256), blue=(int)(Math.random()*256);
 
     private boolean isToggleupRed=true, isToggleupGreen=false, isToggleupBlue=true;
 
-    @FXML void initDojoBattleScene(int x, int y, double width, double height){
+    int dailydojoattempts=2;
+
+    @FXML
+    private void initDojoBattleScene(int x, int y, double width, double height){
         //Log Message
-        System.out.println("Battle Scene is Activated");
+        System.out.println("Dojo Window is Activated");
 
         //Action Label settings
         Label actionLabel = new Label();
 
         //color transition for background of dojo battle scene
+        double duration = 10;
+
         Timeline timer = new Timeline(
         new KeyFrame(Duration.millis(duration), event -> {
             //transition of red
@@ -386,19 +373,119 @@ public class Controller {
         //Save instance of the tab
         Node contentSaved = towntab.getContent();
 
-        Button actionButton = new Button("battle time!");
+        //action button presets
+        Button actionButton = new Button("attempt: "+dailydojoattempts);
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnMouseReleased(mouseEvent -> {
+            if(dailydojoattempts>0 && energybar.getProgress()*100>=50) {
+                    //update loots
+                    addExperienceListener((((int) (Math.random() * 500*Integer.parseInt(levelamount.getText()))) + 50) * Integer.parseInt(levelamount.getText()));
+                    addGoldListener((int)Math.round(200*Integer.parseInt(levelamount.getText())*0.2));
+                    addEnergyListener(-50);
+
+                    //update attempts
+                    dailydojoattempts--;
+                    actionButton.setText("attempt: "+dailydojoattempts);
+            }
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             timer.pause();
             towntab.setContent(contentSaved);
         });
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(actionLabel);
-        stackPane.getChildren().add(actionButton);
+        stackPane.getChildren().addAll(actionLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
 
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
+    private int thedarkportalstage=1;
+
+    private void initTheDarkPortalBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("Gym Window is Activated");
+
+        //Action Label settings
+        Label actionLabel = new Label();
+
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIME));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        //action button presets
+        Button actionButton = new Button("Stage Battle"+thedarkportalstage);
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+            /**Two separate clicks handled at the same time, new click starts a new instance and doesnt overwrite previous click
+             System.out.println("Primary button: "+!mouseEvent.isPrimaryButtonDown());
+             System.out.println("Secondary button: "+!mouseEvent.isSecondaryButtonDown());
+             */
+
+            //One click handler at a time, when another clic happens, previous click is terminated
+            if(mouseEvent.getButton()== MouseButton.PRIMARY) {
+                //function1: on left click
+                System.out.println("Primary button is clicked");
+
+                if (energybar.getProgress() * 100 >= 15) {
+                    /*Take level as loot amplifier
+
+                    addGoldListener(((int) (Math.random() * 15) + 35) * Integer.parseInt(levelamount.getText()));
+                    addExperienceListener(((int) (Math.random() * 15) + 15) * Integer.parseInt(levelamount.getText()));
+                    addEnergyListener(-15);
+                    */
+
+                    //Take stage number as amplifier
+                    addGoldListener(((int) (Math.random() * 15) + 35) * thedarkportalstage);
+                    addExperienceListener(((int) (Math.random() * 15) + 15) * thedarkportalstage);
+                    addEnergyListener(-15);
+
+                    actionButton.setText("Stage Battle "+ ++thedarkportalstage);
+                }
+            }
+
+            if(mouseEvent.getButton()== MouseButton.SECONDARY) {
+                //function2: on right click
+                System.out.println("Secondary button is clicked");
+            }
+
+            if(mouseEvent.getButton()== MouseButton.MIDDLE) {
+                //function3: on wheel click
+                System.out.println("Middle button is clicked");
+            }
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(actionLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }
