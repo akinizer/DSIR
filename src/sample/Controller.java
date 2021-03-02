@@ -2,10 +2,14 @@ package sample;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -32,7 +36,7 @@ public class Controller {
 
     ////////////////////// TOWN //////////////////////
     @FXML private Label inn;
-    @FXML private Label thedarkforest;
+    @FXML private Label thedarkportal;
     @FXML private Label cityhall;
     @FXML private Label dojo;
     @FXML private Label gym;
@@ -119,13 +123,37 @@ public class Controller {
 
     @FXML
     private void addTheDarkPortalListener(){
-        System.out.println("The Dark Portal is clicked");
+        thedarkportal.setOnMouseReleased(mouseEvent -> {
+            /**Two separate clicks handled at the same time, new click starts a new instance and doesnt overwrite previous click
+            System.out.println("Primary button: "+!mouseEvent.isPrimaryButtonDown());
+            System.out.println("Secondary button: "+!mouseEvent.isSecondaryButtonDown());
+            */
 
-        if(energybar.getProgress()*100>=15) {
-            addGoldListener(((int) (Math.random() * 15) + 35) * Integer.parseInt(levelamount.getText()));
-            addExperienceListener(((int) (Math.random() * 15) + 15) * Integer.parseInt(levelamount.getText()));
-            addEnergyListener(-15);
-        }
+            //One click handler at a time, when another clic happens, previous click is terminated
+            if(mouseEvent.getButton()== MouseButton.PRIMARY) {
+                //function1: on left click
+                System.out.println("Primary button is clicked");
+
+                if (energybar.getProgress() * 100 >= 15) {
+                    addGoldListener(((int) (Math.random() * 15) + 35) * Integer.parseInt(levelamount.getText()));
+                    addExperienceListener(((int) (Math.random() * 15) + 15) * Integer.parseInt(levelamount.getText()));
+                    addEnergyListener(-15);
+                }
+            }
+
+            if(mouseEvent.getButton()== MouseButton.SECONDARY) {
+                //function2: on right click
+                System.out.println("Secondary button is clicked");
+            }
+
+            if(mouseEvent.getButton()== MouseButton.MIDDLE) {
+                //function3: on wheel click
+                System.out.println("Middle button is clicked");
+            }
+
+
+
+        });
     }
 
     @FXML

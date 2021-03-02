@@ -34,7 +34,7 @@
                   <content>
                     <AnchorPane fx:id="townpane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightgreen;">
                            <children>
-                              <Label fx:id="inn" alignment="CENTER" layoutX="127.0" layoutY="68.0" onMouseReleased="#addInnListener" prefHeight="75.0" prefWidth="42.0" style="-fx-background-color: lightblue;" text="Inn">
+                              <Label fx:id="inn" alignment="CENTER" layoutX="127.0" layoutY="68.0" onMouseReleased="#addInnListener" prefHeight="75.0" prefWidth="42.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="Inn">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -42,7 +42,7 @@
                                     <Tooltip text="Name: Inn&#10;Function: Refreshes Energy in the cost of Time" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="thedarkforest" alignment="CENTER" layoutX="258.0" layoutY="30.0" onMouseReleased="#addTheDarkPortalListener" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: lightblue;" text="The Dark Portal">
+                              <Label fx:id="thedarkportal" alignment="CENTER" layoutX="258.0" layoutY="30.0" onMouseReleased="#addTheDarkPortalListener" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="The Dark Portal">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -50,7 +50,7 @@
                                     <Tooltip text="Name: The Dark Portal&#10;Function: Campaign Missions, XP, Item Farm" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="cityhall" alignment="CENTER" layoutX="68.0" layoutY="169.0" onMouseReleased="#addCityHallListener" prefHeight="91.0" prefWidth="95.0" style="-fx-background-color: lightblue;" text="City Hall">
+                              <Label fx:id="cityhall" alignment="CENTER" layoutX="68.0" layoutY="169.0" onMouseReleased="#addCityHallListener" prefHeight="91.0" prefWidth="95.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="City Hall">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -58,7 +58,7 @@
                                     <Tooltip autoHide="true" text="Name: City Hall&#10;Function: Management" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="dojo" alignment="CENTER" layoutX="410.0" layoutY="79.0" onMouseReleased="#addDojoListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Dojo">
+                              <Label fx:id="dojo" alignment="CENTER" layoutX="410.0" layoutY="79.0" onMouseReleased="#addDojoListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="Dojo">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -66,7 +66,7 @@
                                     <Tooltip text="Name: Dojo&#10;Function: Training for Items, Difficulty" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="gym" alignment="CENTER" layoutX="439.0" layoutY="159.0" onMouseReleased="#addGymListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Gym">
+                              <Label fx:id="gym" alignment="CENTER" layoutX="439.0" layoutY="159.0" onMouseReleased="#addGymListener" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="Gym">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -74,7 +74,7 @@
                                     <Tooltip text="Name: Gym&#10;Function: Training for Skills" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="thegreatestwall" alignment="CENTER" layoutX="47.0" layoutY="303.0" onMouseReleased="#addTheGreatestWallListener" prefHeight="19.0" prefWidth="510.0" style="-fx-background-color: lightblue;" text="The Greatest Wall">
+                              <Label fx:id="thegreatestwall" alignment="CENTER" layoutX="47.0" layoutY="303.0" onMouseReleased="#addTheGreatestWallListener" prefHeight="19.0" prefWidth="510.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="The Greatest Wall">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -82,7 +82,7 @@
                                     <Tooltip text="Name: The Greatest Wall&#10;Function: Defense Management" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="townsquare" alignment="CENTER" layoutX="264.0" layoutY="152.0" onMouseReleased="#addTownSquareListener" prefHeight="78.0" prefWidth="73.0" style="-fx-background-color: lightblue;" text="Town Square">
+                              <Label fx:id="townsquare" alignment="CENTER" layoutX="264.0" layoutY="152.0" onMouseReleased="#addTownSquareListener" prefHeight="78.0" prefWidth="73.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="Town Square">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -90,7 +90,7 @@
                                     <Tooltip text="Name: Town Square&#10;Function: Daily Challenges" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="wellspring" alignment="CENTER" layoutX="399.0" layoutY="228.0" onMouseReleased="#addWellspringListener" prefHeight="65.0" prefWidth="61.0" style="-fx-background-color: lightblue;" text="Wellspring">
+                              <Label fx:id="wellspring" alignment="CENTER" layoutX="399.0" layoutY="228.0" onMouseReleased="#addWellspringListener" prefHeight="65.0" prefWidth="61.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="Wellspring">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
@@ -98,7 +98,7 @@
                                     <Tooltip text="Name: Wellspring&#10;Function: Wish, Roll for Items" />
                                  </tooltip>
                               </Label>
-                              <Label fx:id="barracks" alignment="CENTER" layoutX="180.0" layoutY="241.0" onMouseReleased="#addBarrackListener" prefHeight="52.0" prefWidth="65.0" style="-fx-background-color: lightblue;" text="Barracks">
+                              <Label fx:id="barracks" alignment="CENTER" layoutX="180.0" layoutY="241.0" onMouseReleased="#addBarrackListener" prefHeight="52.0" prefWidth="65.0" style="-fx-background-color: lightblue; -fx-border-color: blue;" text="Barracks">
                                  <effect>
                                     <ColorAdjust />
                                  </effect>
