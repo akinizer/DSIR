@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -15,7 +17,9 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.StatsManagement.StatsManager;
 import sample.UtilityManagement.UtilityManager;
+import javafx.scene.image.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -287,23 +291,50 @@ public class Controller {
         //action button presets
         Button returnButton = new Button("return");
 
-        Button actionButtonNap = new Button("nap time!");
-        actionButtonNap.setPrefSize(100,28);
-        actionButtonNap.setTranslateX(width/2 - actionButtonNap.getPrefWidth()/2);
-        actionButtonNap.setTranslateY(height-35);
+        //nap
+        ImageView ivnap = new ImageView(new Image(getClass().getResource("/sample/Resources/couch.png").toExternalForm()));
+        ivnap.setFitHeight(100);
+        ivnap.setPreserveRatio(true);
 
-        Button actionButtonSleep = new Button("sleep time!");
-        actionButtonSleep.setPrefSize(100,28);
-        actionButtonSleep.setTranslateX(width/2-actionButtonNap.getPrefWidth()/2 + actionButtonSleep.getPrefWidth()+10);
-        actionButtonSleep.setTranslateY(height-35);
+        Label labelnap = new Label("",ivnap);
+        labelnap.setPrefWidth(100);
+        labelnap.setPrefHeight(100);
+        labelnap.setTranslateX(width/2 - labelnap.getPrefWidth()/2);
+        labelnap.setTranslateY(height/2 -ivnap.getFitHeight()/2);
+        labelnap.setAlignment(Pos.CENTER);
+        labelnap.setOpacity(0.5);
+        labelnap.setTooltip(new Tooltip("--Nap--\nCost: 80 G\nEnergy Refill: 66%"));
 
-        Button actionButtonBreak = new Button("break time!");
-        actionButtonBreak.setPrefSize(100,28);
-        actionButtonBreak.setTranslateX(width/2-actionButtonNap.getPrefWidth()/2 - actionButtonBreak.getPrefWidth()-10);
-        actionButtonBreak.setTranslateY(height-35);
+        //sleep
+        ImageView ivsleep = new ImageView(new Image(getClass().getResource("/sample/Resources/bed.png").toExternalForm()));
+        ivsleep.setFitHeight(100);
+        ivsleep.setPreserveRatio(true);
+
+        Label labelsleep = new Label("",ivsleep);
+        labelsleep.setPrefWidth(100);
+        labelsleep.setPrefHeight(100);
+        labelsleep.setTranslateX(width/2 - labelnap.getPrefWidth()/2 + labelsleep.getPrefWidth() + 50);
+        labelsleep.setTranslateY(height/2 -ivsleep.getFitHeight()/2);
+        labelsleep.setAlignment(Pos.CENTER);
+        labelsleep.setOpacity(0.5);
+        labelsleep.setTooltip(new Tooltip("--Sleep--\nCost: 120 G\nEnergy Refill: 100%"));
+
+        ///break
+        ImageView ivbreak = new ImageView(new Image(getClass().getResource("/sample/Resources/armchair.png").toExternalForm()));
+        ivbreak.setFitHeight(100);
+        ivbreak.setPreserveRatio(true);
+
+        Label labelbreak = new Label("",ivbreak);
+        labelbreak.setPrefWidth(100);
+        labelbreak.setPrefHeight(100);
+        labelbreak.setTranslateX(width/2 - labelnap.getPrefWidth()/2 - labelbreak.getPrefWidth() - 50);
+        labelbreak.setTranslateY(height/2 - ivbreak.getFitHeight()/2);
+        labelbreak.setAlignment(Pos.CENTER);
+        labelbreak.setOpacity(0.5);
+        labelbreak.setTooltip(new Tooltip("--Break--\nCost: 40 G\nEnergy Refill: 33%"));
 
         //Load saved instance of tab on leaving Battle Scene
-        actionButtonNap.setOnMouseReleased(mouseEvent -> {
+        labelnap.setOnMouseReleased(mouseEvent -> {
             int costGold=40;
             int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
             if(currencyasgold>=costGold) {
@@ -313,7 +344,7 @@ public class Controller {
             }
         });
 
-        actionButtonSleep.setOnMouseReleased(mouseEvent -> {
+        labelsleep.setOnMouseReleased(mouseEvent -> {
             int costGold=120;
             int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
             if(currencyasgold>=costGold) {
@@ -322,7 +353,7 @@ public class Controller {
             }
         });
 
-        actionButtonBreak.setOnMouseReleased(mouseEvent -> {
+        labelbreak.setOnMouseReleased(mouseEvent -> {
             int costGold=80;
             int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
             if(currencyasgold>=costGold) {
@@ -337,8 +368,31 @@ public class Controller {
             towntab.setContent(contentSaved);
         });
 
+        //hover effects
+        labelnap.setOnMouseEntered(mouseEvent -> {
+            labelnap.setOpacity(1);
+        });
+        labelnap.setOnMouseExited(mouseEvent -> {
+            labelnap.setOpacity(0.5);
+        });
+        //
+        labelbreak.setOnMouseEntered(mouseEvent -> {
+            labelbreak.setOpacity(1);
+        });
+        labelbreak.setOnMouseExited(mouseEvent -> {
+            labelbreak.setOpacity(0.5);
+        });
+        //
+        labelsleep.setOnMouseEntered(mouseEvent -> {
+            labelsleep.setOpacity(1);
+        });
+        labelsleep.setOnMouseExited(mouseEvent -> {
+            labelsleep.setOpacity(0.5);
+        });
+
+
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButtonNap,actionButtonBreak,actionButtonSleep,returnButton);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,labelbreak,labelnap,labelsleep,returnButton);
         stackPane.setAlignment(Pos.TOP_LEFT);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
@@ -525,7 +579,7 @@ public class Controller {
 
         //Action Label settings
         Label titleLabel = new Label("THE DARK PORTAL");
-        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefWidth(200);
         titleLabel.setPrefHeight(28);
         titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
         titleLabel.setTranslateY(25);
