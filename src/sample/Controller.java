@@ -10,9 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.StatsManagement.StatsManager;
@@ -133,12 +131,8 @@ public class Controller {
     private void addInnListener(){
         System.out.println("Inn is clicked");
 
-        int costGold=120;
-        int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
-        if(currencyasgold>=costGold) {
-            addGoldListener(-costGold);
-            energybar.setProgress(1);
-        }
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();
+        initInnBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
@@ -152,26 +146,41 @@ public class Controller {
     @FXML
     private void addTownSquareListener(){
         System.out.println("Town Square is clicked");
+
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        initTownSquareBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
     private void addCityHallListener(){
         System.out.println("City Hall is clicked");
+
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        initCityHallBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
     private void addWellspringListener(){
         System.out.println("Wellspring is clicked");
+
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        initWellspringBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
     private void addBarrackListener(){
         System.out.println("Barrack is clicked");
+
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        initBarrackBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     @FXML
     private void addTheGreatestWallListener(){
         System.out.println("The Greatest Wall is clicked");
+
+        AnchorPane anchorPane = (AnchorPane)towntab.getContent();;
+        initTheGreatestWallBattleScene(0,0,anchorPane.getWidth(),anchorPane.getHeight());
     }
 
     ////////////////////// CURRENCY //////////////////////
@@ -186,7 +195,7 @@ public class Controller {
     ////////////////////// CURRENCY ACTIONS //////////////////////
     @FXML
     private void addInformationLabelListener(){
-        System.out.println("hi");
+        System.out.println("Information Window is activated");
         initInformationWindow(mainpanel.getLayoutX(),mainpanel.getLayoutY(),mainpanel.getWidth(),mainpanel.getHeight());
     }
 
@@ -251,15 +260,105 @@ public class Controller {
     }
 
     /// ACTION PANES ///
-    @FXML
+    private void initInnBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("Inn Window is Activated");
+
+        //Action Label settings
+        Label titleLabel = new Label("INN");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
+
+        Label actionLabel = new Label();
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.SKYBLUE));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        //action button presets
+        Button returnButton = new Button("return");
+
+        Button actionButtonNap = new Button("nap time!");
+        actionButtonNap.setPrefSize(100,28);
+        actionButtonNap.setTranslateX(width/2 - actionButtonNap.getPrefWidth()/2);
+        actionButtonNap.setTranslateY(height-35);
+
+        Button actionButtonSleep = new Button("sleep time!");
+        actionButtonSleep.setPrefSize(100,28);
+        actionButtonSleep.setTranslateX(width/2-actionButtonNap.getPrefWidth()/2 + actionButtonSleep.getPrefWidth()+10);
+        actionButtonSleep.setTranslateY(height-35);
+
+        Button actionButtonBreak = new Button("break time!");
+        actionButtonBreak.setPrefSize(100,28);
+        actionButtonBreak.setTranslateX(width/2-actionButtonNap.getPrefWidth()/2 - actionButtonBreak.getPrefWidth()-10);
+        actionButtonBreak.setTranslateY(height-35);
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButtonNap.setOnMouseReleased(mouseEvent -> {
+            int costGold=40;
+            int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
+            if(currencyasgold>=costGold) {
+                addGoldListener(-costGold);
+                double progress=energybar.getProgress()+0.66;
+                energybar.setProgress(Math.min(progress,1));
+            }
+        });
+
+        actionButtonSleep.setOnMouseReleased(mouseEvent -> {
+            int costGold=120;
+            int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
+            if(currencyasgold>=costGold) {
+                addGoldListener(-costGold);
+                energybar.setProgress(1);
+            }
+        });
+
+        actionButtonBreak.setOnMouseReleased(mouseEvent -> {
+            int costGold=80;
+            int currencyasgold=Integer.parseInt(goldamount.getText())+Integer.parseInt(diamondamount.getText())*100;
+            if(currencyasgold>=costGold) {
+                addGoldListener(-costGold);
+                double progress=energybar.getProgress()+0.33;
+                energybar.setProgress(Math.min(progress,1));
+            }
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButtonNap,actionButtonBreak,actionButtonSleep,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
     private void initGymBattleScene(int x, int y, double width, double height){
         //Log Message
         System.out.println("Gym Window is Activated");
 
         //Action Label settings
-        Label actionLabel = new Label();
+        Label titleLabel = new Label("GYM");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
 
-        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.SKYBLUE));
+        Label actionLabel = new Label();
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIGHTPINK));
         actionLabel.setLayoutX(x);
         actionLabel.setLayoutY(y);
         actionLabel.setPrefWidth(width);
@@ -293,7 +392,7 @@ public class Controller {
         });
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel,actionButton,returnButton);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
         stackPane.setAlignment(Pos.TOP_LEFT);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
@@ -311,6 +410,14 @@ public class Controller {
         System.out.println("Dojo Window is Activated");
 
         //Action Label settings
+        Label titleLabel = new Label("DOJO");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
+
         Label actionLabel = new Label();
 
         //color transition for background of dojo battle scene
@@ -403,7 +510,7 @@ public class Controller {
         });
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel,actionButton,returnButton);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
         stackPane.setAlignment(Pos.TOP_LEFT);
 
         //Initiate Battle Scene
@@ -414,11 +521,18 @@ public class Controller {
 
     private void initTheDarkPortalBattleScene(int x, int y, double width, double height){
         //Log Message
-        System.out.println("Gym Window is Activated");
+        System.out.println("The Dark Portal Window is Activated");
 
         //Action Label settings
-        Label actionLabel = new Label();
+        Label titleLabel = new Label("THE DARK PORTAL");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
 
+        Label actionLabel = new Label();
         actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIME));
         actionLabel.setLayoutX(x);
         actionLabel.setLayoutY(y);
@@ -451,13 +565,6 @@ public class Controller {
                 System.out.println("Primary button is clicked");
 
                 if (energybar.getProgress() * 100 >= 15) {
-                    /*Take level as loot amplifier
-
-                    addGoldListener(((int) (Math.random() * 15) + 35) * Integer.parseInt(levelamount.getText()));
-                    addExperienceListener(((int) (Math.random() * 15) + 15) * Integer.parseInt(levelamount.getText()));
-                    addEnergyListener(-15);
-                    */
-
                     //Take stage number as amplifier
                     addGoldListener(((int) (Math.random() * 15) + 35) * thedarkportalstage);
                     addExperienceListener(((int) (Math.random() * 15) + 15) * thedarkportalstage);
@@ -484,7 +591,257 @@ public class Controller {
         });
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel,actionButton,returnButton);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
+    private void initTownSquareBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("Town Square Window is Activated");
+
+        //Action Label settings
+        Label titleLabel = new Label("TOWN SQUARE");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
+
+        Label actionLabel = new Label();
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIGHTGRAY));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        //action button presets
+        Button actionButton = new Button("no action");
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
+    private void initCityHallBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("City Hall Window is Activated");
+
+        //Action Label settings
+        Label titleLabel = new Label("CITY HALL");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
+
+        Label actionLabel = new Label();
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.YELLOW));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        //action button presets
+        Button actionButton = new Button("no action");
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
+    private void initWellspringBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("Wellspring Window is Activated");
+
+        //Action Label settings
+        Label titleLabel = new Label("WELLSPRING");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
+
+        Label actionLabel = new Label();
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIGHTCORAL));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        //action button presets
+        Button actionButton = new Button("no action");
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
+    private void initBarrackBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("Barrack Window is Activated");
+
+        //Action Label settings
+        Label titleLabel = new Label("BARRACK");
+        titleLabel.setPrefWidth(100);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
+
+        Label actionLabel = new Label();
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIGHTSTEELBLUE));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        //action button presets
+        Button actionButton = new Button("no action");
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
+        stackPane.setAlignment(Pos.TOP_LEFT);
+        //Initiate Battle Scene
+        towntab.setContent(stackPane);
+    }
+
+    private void initTheGreatestWallBattleScene(int x, int y, double width, double height){
+        //Log Message
+        System.out.println("The Greatest Wall Window is Activated");
+
+        //Action Label settings
+        Label titleLabel = new Label("THE GREATEST WALL");
+        titleLabel.setPrefWidth(200);
+        titleLabel.setPrefHeight(28);
+        titleLabel.setTranslateX(width/2 - titleLabel.getPrefWidth()/2);
+        titleLabel.setTranslateY(25);
+        titleLabel.setAlignment(Pos.CENTER);
+        titleLabel.setStyle("-fx-border-color: White");
+
+        Label actionLabel = new Label();
+        actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIGHTCYAN));
+        actionLabel.setLayoutX(x);
+        actionLabel.setLayoutY(y);
+        actionLabel.setPrefWidth(width);
+        actionLabel.setPrefHeight(height);
+        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+
+        //Save instance of the tab
+        Node contentSaved = towntab.getContent();
+
+        //action button presets
+        Button actionButton = new Button("no action");
+        actionButton.setPrefSize(100,28);
+
+        actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
+        actionButton.setTranslateY(height-35);
+
+        Button returnButton = new Button("return");
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnMouseReleased(mouseEvent -> {
+
+        });
+
+        returnButton.setOnMouseReleased(mouseEvent -> {
+            actionLabel.setVisible(false);
+            towntab.setContent(contentSaved);
+        });
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
         stackPane.setAlignment(Pos.TOP_LEFT);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
