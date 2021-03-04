@@ -2,6 +2,7 @@ package sample;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -207,22 +209,67 @@ public class Controller {
 
     private void initInformationWindow(double x, double y, double width, double height){
         System.out.println("Character Window is shown");
+        stackpanel.requestFocus();
 
         //Action Label settings
-        Label actionLabel = new Label(
-                "Name:"+currencyManager.getName()
-                        +"\nAtk:" +currencyManager.getAtk()+
-                        "\nHP:" +currencyManager.getHp()+
-                        "\nLevel:" +currencyManager.getLevel()+
-                        "\nClass:" +currencyManager.getClasstype()+
-                        "\n\n");
+        Label actionLabel = new Label("\nAtk:" +currencyManager.getAtk()+
+                                        "\nHP:" +currencyManager.getHp()+
+                                        "\nLevel:" +currencyManager.getLevel()+
+                                        "\nClass:" +currencyManager.getClasstype()+
+                                        "\n\n");
 
         actionLabel.setLayoutX(x);
         actionLabel.setLayoutY(y);
         actionLabel.setPrefWidth(width);
         actionLabel.setPrefHeight(height);
-        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+        actionLabel.setAlignment(Pos.CENTER);
         actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.GREENYELLOW));
+
+        //Name textfield settings
+        TextField namefield = new TextField();
+        namefield.setText(currencyManager.getName());
+        namefield.setMaxWidth(150);
+        namefield.setTranslateX(width/2 - namefield.getMaxWidth()/2);
+        namefield.setTranslateY(height/3);
+        namefield.setAlignment(Pos.CENTER);
+
+        //select all text on click
+        namefield.setOnMouseClicked(actionEvent->namefield.selectAll());
+
+        //namefield typing operations
+        namefield.setOnKeyReleased(actionEvent -> {
+            //character limit is 10
+            String curname = currencyManager.getName();
+            if(namefield.getText().length()>10) {
+                namefield.setText(namefield.getText().substring(0, 10));
+            }
+
+            //list of permitted characters
+            ArrayList<String> includedChars=new ArrayList<>(Arrays.asList("a","b","c","d","e","f","g","h","i","j","k","l","m","n","p","r","s","t","u","v",
+                    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Z",
+                    "w","x","z","1","2","3","4","5","6","7","8","9","0","_"));
+
+            //permission condition
+            boolean isIncluded=includedChars.indexOf(actionEvent.getText())!=-1;
+
+            //check whether a new character is allowed
+            if(!isIncluded){
+                namefield.setText(namefield.getText().replace(actionEvent.getText(),""));
+            }
+
+            //save the name input to the system if it has changed
+            if(actionEvent.getCode().equals(KeyCode.ENTER)) {
+                if(!namefield.getText().equals(curname)) {
+                    curname=namefield.getText();
+                    currencyManager.setName(namefield.getText());
+                    System.out.println(currencyManager.getName());
+                }
+            }
+
+            //set caret cursor position to last
+            namefield.positionCaret(Math.min(namefield.getText().length()+1,10));
+        });
+
 
         //Save instance of the tab
         Node contentSaved = stackpanel.getChildren().get(0);
@@ -232,16 +279,21 @@ public class Controller {
         actionButton.setLayoutY(0);
 
         //Load saved instance of tab on leaving Battle Scene
-        actionButton.setOnMouseReleased(mouseEvent -> {
+        actionButton.setOnKeyPressed(mouseEvent -> {
             actionLabel.setVisible(false);
             stackpanel.getChildren().removeAll(actionLabel,actionButton);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
 
+        //Remove focus from namefield
+        actionLabel.setOnMouseClicked(mouseEvent -> {
+            actionLabel.requestFocus();
+        });
+
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionLabel,actionButton);
+        stackpanel.getChildren().addAll(actionLabel,namefield,actionButton);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 

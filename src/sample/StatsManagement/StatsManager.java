@@ -23,6 +23,8 @@ public class StatsManager {
         if(exp>=lvl*lvllimiter++){
             exp=0;
             lvl++;
+            atk=atk+2;
+            hp=hp+250;
         }
 
         level.setText(lvl+"");
