@@ -20,6 +20,8 @@ import sample.UtilityManagement.UtilityManager;
 import javafx.scene.image.*;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -577,7 +579,7 @@ public class Controller {
         //Log Message
         System.out.println("The Dark Portal Window is Activated");
 
-        //Action Label settings
+        //Title Label
         Label titleLabel = new Label("THE DARK PORTAL");
         titleLabel.setPrefWidth(200);
         titleLabel.setPrefHeight(28);
@@ -586,13 +588,26 @@ public class Controller {
         titleLabel.setAlignment(Pos.CENTER);
         titleLabel.setStyle("-fx-border-color: White");
 
+        //Background Label
         Label actionLabel = new Label();
         actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.LIME));
-        actionLabel.setLayoutX(x);
-        actionLabel.setLayoutY(y);
+        actionLabel.setTranslateX(x);
+        actionLabel.setTranslateY(y);
         actionLabel.setPrefWidth(width);
         actionLabel.setPrefHeight(height);
-        actionLabel.setContentDisplay(ContentDisplay.CENTER);
+        actionLabel.setAlignment(Pos.CENTER);
+
+        //Effect Label
+        ImageView iveffect = new ImageView(new Image(getClass().getResource("/sample/Resources/slash.gif").toExternalForm()));
+
+        Label effectlabel = new Label("",iveffect);
+        effectlabel.setPrefWidth(100);
+        effectlabel.setPrefHeight(178);
+        effectlabel.setTranslateX(width/2 - 9*effectlabel.getPrefWidth()/8);
+        effectlabel.setTranslateY(height/2 - effectlabel.getPrefHeight()/2);
+        effectlabel.setAlignment(Pos.CENTER);
+
+        effectlabel.setVisible(false);
 
         //Save instance of the tab
         Node contentSaved = towntab.getContent();
@@ -618,12 +633,32 @@ public class Controller {
                 //function1: on left click
                 System.out.println("Primary button is clicked");
 
-                if (energybar.getProgress() * 100 >= 15) {
-                    //Take stage number as amplifier
-                    addGoldListener(((int) (Math.random() * 15) + 35) * thedarkportalstage);
-                    addExperienceListener(((int) (Math.random() * 15) + 15) * thedarkportalstage);
-                    addEnergyListener(-15);
+                //Battle
+                if(actionButton.getText().startsWith("Stage Battle")) {
+                    if (energybar.getProgress() * 100 >= 15) {
+                        //stage battle
+                        addGoldListener(((int) (Math.random() * 15) + 35) * thedarkportalstage);
+                        addExperienceListener(((int) (Math.random() * 15) + 15) * thedarkportalstage);
+                        addEnergyListener(-15);
+                        effectlabel.setVisible(true);
 
+                        //update button for next stage
+                        actionButton.setText("Next");
+
+                        //disable next stage access for 3 seconds
+                        double duration = 5;
+                        actionButton.setDisable(true);
+                        Timeline timer = new Timeline(new KeyFrame(Duration.seconds(duration), event -> {
+                            actionButton.setDisable(false);
+                            effectlabel.setVisible(false);
+                        }));
+                        timer.setCycleCount(Timeline.INDEFINITE);
+                        timer.play();
+
+                    }
+                }
+                else if(actionButton.getText().equals("Next")){
+                    //update text for the current stage
                     actionButton.setText("Stage Battle "+ ++thedarkportalstage);
                 }
             }
@@ -645,7 +680,7 @@ public class Controller {
         });
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,effectlabel,actionButton,returnButton);
         stackPane.setAlignment(Pos.TOP_LEFT);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
