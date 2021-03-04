@@ -826,15 +826,33 @@ public class Controller {
 
         Button returnButton = new Button("return");
 
+        //speed button presets
+        Button speedButton = new Button("Off");
+        speedButton.setPrefSize(35,35);
+
+        speedButton.setTranslateX(width - speedButton.getPrefWidth());
+        speedButton.setTranslateY(actionButton.getTranslateY());
+        speedButton.setDisable(true);
+
         //RUNNER CLASS
-        Label runnerLabel = new Runner(maintab,width,height,actionButton,towntab);
+        Runner runnerLabel = new Runner(maintab,width,height,actionButton,speedButton,towntab,stackPane);
+        speedButton.setOnMouseClicked(mouseEvent -> {
+            if(speedButton.getText().equals("On")) {
+                speedButton.setText("Off");
+                runnerLabel.setSpeed(1);
+            }
+            else if(speedButton.getText().equals("Off")) {
+                speedButton.setText("On");
+                runnerLabel.setSpeed(5);
+            }
+        });
 
         returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             towntab.setContent(contentSaved);
         });
 
-        stackPane.getChildren().addAll(actionLabel,titleLabel,runnerLabel,actionButton,returnButton);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,runnerLabel,actionButton,speedButton,returnButton);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }
