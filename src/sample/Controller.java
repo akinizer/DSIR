@@ -12,11 +12,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import sample.RunnerManagement.Runner;
 import sample.StatsManagement.StatsManager;
 import sample.UtilityManagement.UtilityManager;
 import javafx.scene.image.*;
@@ -33,6 +35,7 @@ public class Controller {
     ////////////////////// CONTAINERS //////////////////////
     @FXML private StackPane stackpanel;
     @FXML private Pane mainpanel;
+    @FXML private TabPane maintab;
 
     ////////////////////// LOCATIONS //////////////////////
     @FXML private Tab towntab;
@@ -791,6 +794,8 @@ public class Controller {
     private void initCityHallBattleScene(int x, int y, double width, double height){
         //Log Message
         System.out.println("City Hall Window is Activated");
+        StackPane stackPane = new StackPane();
+        stackPane.setAlignment(Pos.TOP_LEFT);
 
         //Action Label settings
         Label titleLabel = new Label("CITY HALL");
@@ -803,8 +808,8 @@ public class Controller {
 
         Label actionLabel = new Label();
         actionLabel.setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.YELLOW));
-        actionLabel.setLayoutX(x);
-        actionLabel.setLayoutY(y);
+        actionLabel.setTranslateX(x);
+        actionLabel.setTranslateY(y);
         actionLabel.setPrefWidth(width);
         actionLabel.setPrefHeight(height);
         actionLabel.setContentDisplay(ContentDisplay.CENTER);
@@ -813,7 +818,7 @@ public class Controller {
         Node contentSaved = towntab.getContent();
 
         //action button presets
-        Button actionButton = new Button("no action");
+        Button actionButton = new Button("start!");
         actionButton.setPrefSize(100,28);
 
         actionButton.setTranslateX(width/2-actionButton.getPrefWidth()/2);
@@ -821,19 +826,15 @@ public class Controller {
 
         Button returnButton = new Button("return");
 
-        //Load saved instance of tab on leaving Battle Scene
-        actionButton.setOnMouseReleased(mouseEvent -> {
-
-        });
+        //RUNNER CLASS
+        Label runnerLabel = new Runner(maintab,width,height,actionButton,towntab);
 
         returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             towntab.setContent(contentSaved);
         });
 
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel,titleLabel,actionButton,returnButton);
-        stackPane.setAlignment(Pos.TOP_LEFT);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,runnerLabel,actionButton,returnButton);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }
