@@ -2,6 +2,7 @@ package sample.RunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,6 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.UtilityManagement.UtilityManager;
+
+import java.util.Timer;
 
 public class Runner extends Label {
 
@@ -22,7 +25,8 @@ public class Runner extends Label {
 
     private int speed;
     private int distancecounter;
-    private double firerate;
+    private double firerate, cooldown=2;
+
 
     public Runner(TabPane maintab, double width, double height, Button actionButton, Button speedButton, Tab towntab, StackPane stackPane){
         this.maintab=maintab;
@@ -35,7 +39,8 @@ public class Runner extends Label {
 
         speed=1;
         distancecounter=0;
-        firerate=0;
+        firerate=1;
+        cooldown=0;
 
         setPresets();
         setMouseListener();
@@ -78,12 +83,9 @@ public class Runner extends Label {
     private int direction=0;
     private void setKeyListener(){
         maintab.setOnKeyPressed(keyEvent -> {
-
             if(towntab.isSelected()) {
                 //TODO: this setting disables cross movement,
                 // to ENABLE cross movement set all cases if and assign cross movement images with additional if cases
-
-
                 switch (keyEvent.getText().toLowerCase()) {
                     case "d":
                         iv.setRotate(90);
@@ -113,11 +115,17 @@ public class Runner extends Label {
                     default:
                         System.out.println("Key pressed: " + keyEvent.getText().toLowerCase());
                 }
+
+                long elapsed=(System.currentTimeMillis() - starttime)/1000;
+                if(starttime!=-1 && elapsed < cooldown) return;
+
                 if(keyEvent.getText().toLowerCase().equals("f")){
                     Projectile projectile = new Projectile(getTranslateX()+getWidth()/2.5,getTranslateY()+getHeight()/2.5);
                     stackPane.getChildren().add(projectile);
                     projectile.fire(direction,"missile");
                     firerate=projectile.getSpeed();
+                    cooldown=1/firerate;
+                    initiateCooldown();
                 }
             }
             setTooltip();
@@ -139,6 +147,13 @@ public class Runner extends Label {
 
     public void setSpeed(int speed){
         this.speed=speed;
+    }
+
+
+    ///cooldown
+    private long starttime=-1;
+    private void initiateCooldown(){
+        starttime=System.currentTimeMillis();
     }
 
 }
