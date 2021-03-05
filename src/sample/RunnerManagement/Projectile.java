@@ -14,6 +14,7 @@ public class Projectile extends Label {
     //attributes
     private double x,y;
     private double speed;
+    private double cooldown;
 
     //constructor
     public Projectile(double x, double y) { //up 1, right 2, down 3, left 4
@@ -34,79 +35,144 @@ public class Projectile extends Label {
     }
     private boolean adjust=false;
     void fire(int direction,String projectileType){
-        if(projectileType.equals("bullet")) {
-            setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.RED));
-            speed=100;
+        switch ( projectileType ) {
+            case "minigun": {
+                setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.RED));
+                speed = 50;
+                cooldown = 0.1;
 
-            switch ( direction ) {
-                case 0:
-                    setVisible(false);
-                    break;
-                case 1:
-                    setTranslateY(getTranslateY() - 5);
-                    setRotate(0);
-                    break;
-                case 2:
-                    setTranslateX(getTranslateX() + 5);
-                    setRotate(90);
-                    break;
-                case 3:
-                    setTranslateY(getTranslateY() + 5);
-                    setRotate(180);
-                    break;
-                case 4:
-                    setTranslateX(getTranslateX() - 5);
-                    setRotate(270);
-                    break;
-            }
-
-
-        }
-        else if(projectileType.equals("missile")) {
-            setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.BLACK));
-            speed=1;
-
-            Timeline timer = new Timeline(new KeyFrame(Duration.millis(100/speed), event -> {
-                switch ( direction ) {
-                    case 1:
-                        setTranslateY(getTranslateY() - getMinHeight());
-                        setRotate(0);
-                        setVisible(true);
-                        break;
-                    case 2:
-                        setTranslateX(getTranslateX() + 5);
-                        setRotate(90);
-                        if(!adjust){
+                Timeline timer = new Timeline(new KeyFrame(Duration.millis(100 / speed), event -> {
+                    switch ( direction ) {
+                        case 1:
                             setTranslateY(getTranslateY() - getMinHeight());
-                            System.out.println((getTranslateY()));
-                            System.out.println(y);
-                            adjust=true;
-                        }
-                        setVisible(true);
-                        break;
-                    case 3:
-                        setTranslateY(getTranslateY() + 5);
-                        setRotate(180);
-                        setVisible(true);
-                        break;
-                    case 4:
-                        setTranslateX(getTranslateX() - 5);
-                        setRotate(270);
-                        if(!adjust){
-                            setTranslateY(getTranslateY() - 5);
-                            adjust=true;
-                        }
-                        setVisible(true);
-                        break;
-                }
-            }));
-            timer.setCycleCount(Timeline.INDEFINITE);
-            timer.play();
+                            setRotate(0);
+                            setVisible(true);
+                            break;
+                        case 2:
+                            setTranslateX(getTranslateX() + 5);
+                            setRotate(90);
+                            if (!adjust) {
+                                setTranslateY(getTranslateY() - getMinHeight());
+                                System.out.println((getTranslateY()));
+                                System.out.println(y);
+                                adjust = true;
+                            }
+                            setVisible(true);
+                            break;
+                        case 3:
+                            setTranslateY(getTranslateY() + 5);
+                            setRotate(180);
+                            setVisible(true);
+                            break;
+                        case 4:
+                            setTranslateX(getTranslateX() - 5);
+                            setRotate(270);
+                            if (!adjust) {
+                                setTranslateY(getTranslateY() - 5);
+                                adjust = true;
+                            }
+                            setVisible(true);
+                            break;
+                    }
+                }));
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                break;
+            }
+            case "missile": {
+                setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.BLACK));
+                speed = 1;
+                cooldown = 4;
+
+                Timeline timer = new Timeline(new KeyFrame(Duration.millis(100 / speed), event -> {
+                    switch ( direction ) {
+                        case 1:
+                            setTranslateY(getTranslateY() - getMinHeight());
+                            setRotate(0);
+                            setVisible(true);
+                            break;
+                        case 2:
+                            setTranslateX(getTranslateX() + 5);
+                            setRotate(90);
+                            if (!adjust) {
+                                setTranslateY(getTranslateY() - getMinHeight());
+                                System.out.println((getTranslateY()));
+                                System.out.println(y);
+                                adjust = true;
+                            }
+                            setVisible(true);
+                            break;
+                        case 3:
+                            setTranslateY(getTranslateY() + 5);
+                            setRotate(180);
+                            setVisible(true);
+                            break;
+                        case 4:
+                            setTranslateX(getTranslateX() - 5);
+                            setRotate(270);
+                            if (!adjust) {
+                                setTranslateY(getTranslateY() - 5);
+                                adjust = true;
+                            }
+                            setVisible(true);
+                            break;
+                    }
+                }));
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                break;
+            }
+            case "sniper": {
+                setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.LIGHTGRAY));
+                speed = 100;
+                cooldown = 5;
+
+                Timeline timer = new Timeline(new KeyFrame(Duration.millis(100 / speed), event -> {
+                    switch ( direction ) {
+                        case 1:
+                            setTranslateY(getTranslateY() - getMinHeight());
+                            setRotate(0);
+                            setVisible(true);
+                            break;
+                        case 2:
+                            setTranslateX(getTranslateX() + 5);
+                            setRotate(90);
+                            if (!adjust) {
+                                setTranslateY(getTranslateY() - getMinHeight());
+                                System.out.println((getTranslateY()));
+                                System.out.println(y);
+                                adjust = true;
+                            }
+                            setVisible(true);
+                            break;
+                        case 3:
+                            setTranslateY(getTranslateY() + 5);
+                            setRotate(180);
+                            setVisible(true);
+                            break;
+                        case 4:
+                            setTranslateX(getTranslateX() - 5);
+                            setRotate(270);
+                            if (!adjust) {
+                                setTranslateY(getTranslateY() - 5);
+                                adjust = true;
+                            }
+                            setVisible(true);
+                            break;
+                    }
+                }));
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                break;
+            }
         }
     }
 
     //getters and setters
     public double getSpeed(){
         return this.speed;
+    }
+    public double getCooldown(){
+        return this.cooldown;
     }
 }

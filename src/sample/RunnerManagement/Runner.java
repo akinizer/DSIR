@@ -135,12 +135,11 @@ public class Runner extends Label {
                     //projectile
                     Projectile projectile = new Projectile(getTranslateX()+getWidth()/2.5,getTranslateY()+getHeight()/2.5);
                     stackPane.getChildren().add(projectile);
-                    projectile.fire(direction,"missile");
+                    projectile.fire(direction,"minigun");
 
                     //get firerate and cooldown values from the projectile
                     firerate=projectile.getSpeed();
-                    cooldown=1/firerate;
-
+                    cooldown=projectile.getCooldown();
                     //cooldown on fire
                     initiateCooldown();
                 }
@@ -177,7 +176,7 @@ public class Runner extends Label {
     }
     private boolean isCooldownActive(){
         long elapsed=(System.currentTimeMillis() - starttime)/1000;
-        return starttime!=-1 && elapsed < cooldown;
+        return starttime!=-1 && elapsed < (long)cooldown;
     }
 
 }
