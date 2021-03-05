@@ -14,6 +14,7 @@ public class Runner extends Label {
 
     private TabPane maintab;
     private Tab towntab;
+    StackPane stackPane;
     private boolean isRunnerActive=false;
     private double width, height;
     private Button actionButton, speedButton;
@@ -21,6 +22,7 @@ public class Runner extends Label {
 
     private int speed;
     private int distancecounter;
+    private double firerate;
 
     public Runner(TabPane maintab, double width, double height, Button actionButton, Button speedButton, Tab towntab, StackPane stackPane){
         this.maintab=maintab;
@@ -29,9 +31,11 @@ public class Runner extends Label {
         this.actionButton=actionButton;
         this.speedButton=speedButton;
         this.towntab=towntab;
+        this.stackPane=stackPane;
 
         speed=1;
         distancecounter=0;
+        firerate=0;
 
         setPresets();
         setMouseListener();
@@ -39,7 +43,6 @@ public class Runner extends Label {
     }
 
     private void setPresets(){
-        //setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.RED) + "; -fx-background-radius: 30px");
         setCarView();
         setGraphic(iv);
         setTranslateX(width);
@@ -71,43 +74,62 @@ public class Runner extends Label {
             timer.play();
         });
     }
+
+    private int direction=0;
     private void setKeyListener(){
         maintab.setOnKeyPressed(keyEvent -> {
+
             if(towntab.isSelected()) {
                 //TODO: this setting disables cross movement,
                 // to ENABLE cross movement set all cases if and assign cross movement images with additional if cases
 
-                switch ( keyEvent.getText().toLowerCase() ) {
+
+                switch (keyEvent.getText().toLowerCase()) {
                     case "d":
                         iv.setRotate(90);
                         setTranslateX(getTranslateX() + 2*speed);
                         distancecounter+=2*speed;
+                        direction=2;
                         break;
                     case "a":
                         iv.setRotate(-90);
                         setTranslateX(getTranslateX() - 2*speed);
                         distancecounter+=2*speed;
+                        direction=4;
                         break;
                     case "s":
                         iv.setRotate(180);
                         setTranslateY(getTranslateY() + 2*speed);
                         distancecounter+=2*speed;
+                        direction=3;
                         break;
                     case "w":
                         iv.setRotate(0);
                         setTranslateY(getTranslateY() - 2*speed);
                         distancecounter+=2*speed;
+                        direction=1;
                         break;
+
                     default:
                         System.out.println("Key pressed: " + keyEvent.getText().toLowerCase());
+                }
+                if(keyEvent.getText().toLowerCase().equals("f")){
+                    Projectile projectile = new Projectile(getTranslateX(),getTranslateY());
+                    stackPane.getChildren().add(projectile);
+                    projectile.fire(direction,"missile");
+                    firerate=projectile.getSpeed();
                 }
             }
             setTooltip();
         });
     }
+
     private void setTooltip(){
         setTooltip(new Tooltip("Position: ("+getTranslateX()+":"+getTranslateY()+")"
-                +"Distance: "+distancecounter+ " px"));
+                                +"\nDistance: "+distancecounter+ " px"
+                                +"\nSpeed: "+speed
+                                +"\nFirerate: "+firerate
+                ));
     }
     private void setCarView(){
         iv=new ImageView(new Image(getClass().getResource("/sample/Resources/car-up.png").toExternalForm()));
