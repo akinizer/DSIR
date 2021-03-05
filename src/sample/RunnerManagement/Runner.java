@@ -114,7 +114,7 @@ public class Runner extends Label {
                         System.out.println("Key pressed: " + keyEvent.getText().toLowerCase());
                 }
                 if(keyEvent.getText().toLowerCase().equals("f")){
-                    Projectile projectile = new Projectile(getTranslateX(),getTranslateY());
+                    Projectile projectile = new Projectile(getTranslateX()+getWidth()/2.5,getTranslateY()+getHeight()/2.5);
                     stackPane.getChildren().add(projectile);
                     projectile.fire(direction,"missile");
                     firerate=projectile.getSpeed();

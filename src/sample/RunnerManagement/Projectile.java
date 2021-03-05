@@ -30,9 +30,9 @@ public class Projectile extends Label {
         setMinWidth(5);
         setMinHeight(5);
         setAlignment(Pos.CENTER);
-        setVisible(true);
+        setVisible(false);
     }
-
+    private boolean adjust=false;
     void fire(int direction,String projectileType){
         if(projectileType.equals("bullet")) {
             setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.RED));
@@ -66,26 +66,38 @@ public class Projectile extends Label {
         else if(projectileType.equals("missile")) {
             setStyle("-fx-background-color: "+ UtilityManager.getHexColor(Color.BLACK));
             speed=1;
+
             Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), event -> {
                 switch ( direction ) {
-                    case 0:
-                        setVisible(false);
-                        break;
                     case 1:
-                        setTranslateY(getTranslateY() - 5);
+                        setTranslateY(getTranslateY() - getMinHeight());
                         setRotate(0);
+                        setVisible(true);
                         break;
                     case 2:
                         setTranslateX(getTranslateX() + 5);
                         setRotate(90);
+                        if(!adjust){
+                            setTranslateY(getTranslateY() - getMinHeight());
+                            System.out.println((getTranslateY()));
+                            System.out.println(y);
+                            adjust=true;
+                        }
+                        setVisible(true);
                         break;
                     case 3:
                         setTranslateY(getTranslateY() + 5);
                         setRotate(180);
+                        setVisible(true);
                         break;
                     case 4:
                         setTranslateX(getTranslateX() - 5);
                         setRotate(270);
+                        if(!adjust){
+                            setTranslateY(getTranslateY() - 5);
+                            adjust=true;
+                        }
+                        setVisible(true);
                         break;
                 }
             }));
