@@ -834,8 +834,16 @@ public class Controller {
         speedButton.setTranslateY(actionButton.getTranslateY());
         speedButton.setDisable(true);
 
+        //vehicle button presets
+        Button vehicleButton = new Button("Car");
+        vehicleButton.setPrefSize(70,35);
+
+        vehicleButton.setTranslateX(width - speedButton.getPrefWidth() - vehicleButton.getPrefWidth());
+        vehicleButton.setTranslateY(actionButton.getTranslateY());
+        vehicleButton.setDisable(true);
+
         //RUNNER CLASS
-        Runner runnerLabel = new Runner(maintab,width,height,actionButton,speedButton,towntab,stackPane);
+        Runner runnerLabel = new Runner(maintab,width,height,actionButton,speedButton,vehicleButton,towntab,stackPane);
         speedButton.setOnMouseClicked(mouseEvent -> {
             if(speedButton.getText().equals("On")) {
                 speedButton.setText("Off");
@@ -847,12 +855,27 @@ public class Controller {
             }
         });
 
+        vehicleButton.setOnMouseClicked(mouseEvent -> {
+            if(vehicleButton.getText().equals("Car")) {
+                vehicleButton.setText("Jeep");
+                runnerLabel.setJeepView();
+            }
+            else if(vehicleButton.getText().equals("Jeep")) {
+                vehicleButton.setText("Truck");
+                runnerLabel.setTruckView();
+            }
+            else if(vehicleButton.getText().equals("Truck")) {
+                vehicleButton.setText("Car");
+                runnerLabel.setCarView();
+            }
+        });
+
         returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             towntab.setContent(contentSaved);
         });
 
-        stackPane.getChildren().addAll(actionLabel,titleLabel,runnerLabel,actionButton,speedButton,returnButton);
+        stackPane.getChildren().addAll(actionLabel,titleLabel,runnerLabel,actionButton,speedButton,vehicleButton,returnButton);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }

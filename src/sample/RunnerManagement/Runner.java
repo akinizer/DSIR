@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.UtilityManagement.UtilityManager;
 
+import java.net.URL;
 import java.util.Timer;
 
 public class Runner extends Label {
@@ -21,7 +22,7 @@ public class Runner extends Label {
     StackPane stackPane;
     private boolean isRunnerActive=false;
     private double width, height;
-    private Button actionButton, speedButton;
+    private Button actionButton, speedButton, vehicleButton;
     private ImageView iv;
 
     //Attributes
@@ -30,13 +31,14 @@ public class Runner extends Label {
     private double firerate, cooldown;
 
     //Constructor
-    public Runner(TabPane maintab, double width, double height, Button actionButton, Button speedButton, Tab towntab, StackPane stackPane){
+    public Runner(TabPane maintab, double width, double height, Button actionButton, Button speedButton, Button vehicleButton,Tab towntab, StackPane stackPane){
         //component settings
         this.maintab=maintab;
         this.width=width/2 -5;
         this.height=height/2 -5;
         this.actionButton=actionButton;
         this.speedButton=speedButton;
+        this.vehicleButton=vehicleButton;
         this.towntab=towntab;
         this.stackPane=stackPane;
 
@@ -45,6 +47,7 @@ public class Runner extends Label {
         distancecounter=0;
         firerate=1;
         cooldown=0;
+        direction=1;
 
         //settings initialization
         setPresets();
@@ -68,15 +71,18 @@ public class Runner extends Label {
     //mouse events: start button, reset button, tooltip
     private void setMouseListener(){
         actionButton.setOnMouseReleased(mouseEvent -> {
+            direction=1;
+            cooldown=0;
+            iv.setRotate(0);
             setTranslateX(width);
             setTranslateY(height);
             setVisible(true);
 
             maintab.requestFocus();
-            iv.setRotate(0);
 
             actionButton.setText("restart!");
             speedButton.setDisable(false);
+            vehicleButton.setDisable(false);
             isRunnerActive=true;
             distancecounter=0;
 
@@ -89,7 +95,7 @@ public class Runner extends Label {
     }
 
     //key events: movement, firing projectiles
-    private int direction=0;
+    private int direction;
     private void setKeyListener(){
         maintab.setOnKeyPressed(keyEvent -> {
             if(towntab.isSelected()) {
@@ -135,7 +141,18 @@ public class Runner extends Label {
                     //projectile
                     Projectile projectile = new Projectile(getTranslateX()+getWidth()/2.5,getTranslateY()+getHeight()/2.5);
                     stackPane.getChildren().add(projectile);
-                    projectile.fire(direction,"minigun");
+
+                    switch ( vehicleButton.getText() ) {
+                        case "Car":
+                            projectile.fire(direction, "minigun");
+                            break;
+                        case "Jeep":
+                            projectile.fire(direction, "sniper");
+                            break;
+                        case "Truck":
+                            projectile.fire(direction, "missile");
+                            break;
+                    }
 
                     //get firerate and cooldown values from the projectile
                     firerate=projectile.getSpeed();
@@ -158,10 +175,29 @@ public class Runner extends Label {
         ));
     }
     //Runner View Interface
-    private void setCarView(){
+    public void setCarView(){
         iv=new ImageView(new Image(getClass().getResource("/sample/Resources/car-up.png").toExternalForm()));
         iv.setFitWidth(25);
         iv.setPreserveRatio(true);
+        System.out.println("direction: "+(direction-1)*90);
+        iv.setRotate((direction-1)*90);
+        setGraphic(iv);
+    }
+    public void setJeepView(){
+        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/jeep.png").toExternalForm()));
+        iv.setFitWidth(25);
+        iv.setPreserveRatio(true);
+        System.out.println("direction: "+(direction-1)*90);
+        iv.setRotate((direction-1)*90);
+        setGraphic(iv);
+    }
+    public void setTruckView(){
+        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/truck.png").toExternalForm()));
+        iv.setFitWidth(25);
+        iv.setPreserveRatio(true);
+        System.out.println("direction: "+(direction-1)*90);
+        iv.setRotate((direction-1)*90);
+        setGraphic(iv);
     }
 
     //Runner Movement Speed Update

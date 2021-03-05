@@ -19,6 +19,8 @@ public class Projectile extends Label {
     private double speed;
     private double cooldown;
 
+
+
     //constructor
     public Projectile(double x, double y) { //up 1, right 2, down 3, left 4
         this.x=x;
@@ -37,6 +39,7 @@ public class Projectile extends Label {
         setVisible(false);
     }
     private boolean adjust=false;
+    private double counterCycle;
     void fire(int direction,String projectileType){
         switch ( projectileType ) {
             case "minigun": {
@@ -46,7 +49,7 @@ public class Projectile extends Label {
 
                 Timeline timer = new Timeline();
                 timer.getKeyFrames().add(new KeyFrame(Duration.millis(100 / speed), event -> {
-                    //remove the projectile out of battle scene
+                    //remove the projectile out of City Hall
                     StackPane parent = ((StackPane)getParent());
                     boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
                     boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
@@ -103,18 +106,35 @@ public class Projectile extends Label {
                 speed = 1;
                 cooldown = 4;
 
-                Timeline timer = new Timeline(new KeyFrame(Duration.millis(100 / speed), event -> {
+                counterCycle=0;
+                Timeline timer = new Timeline();
+                timer.getKeyFrames().add(new KeyFrame(Duration.millis(100 / speed), event -> {
+                    //remove the projectile out of City Hall
+                    StackPane parent = ((StackPane)getParent());
+                    boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
+                    boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+
+                    if(!(validIntervalX && validIntervalY)){
+                        timer.stop();
+                        parent.getChildren().remove(this);
+                        return;
+                    }
+                    //if projectile is inside battle scene, execute fire projectile operation
+                    System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+
+                    counterCycle++;
                     switch ( direction ) {
+
                         case 1:
-                            setTranslateY(getTranslateY() - getMinHeight());
+                            setTranslateY(getTranslateY() - counterCycle/2);
                             setRotate(0);
                             setVisible(true);
                             break;
                         case 2:
-                            setTranslateX(getTranslateX() + 5);
+                            setTranslateX(getTranslateX() + counterCycle/2);
                             setRotate(90);
                             if (!adjust) {
-                                setTranslateY(getTranslateY() - getMinHeight());
+                                setTranslateY(getTranslateY() - 5);
                                 System.out.println((getTranslateY()));
                                 System.out.println(y);
                                 adjust = true;
@@ -122,12 +142,12 @@ public class Projectile extends Label {
                             setVisible(true);
                             break;
                         case 3:
-                            setTranslateY(getTranslateY() + 5);
+                            setTranslateY(getTranslateY() + counterCycle/2);
                             setRotate(180);
                             setVisible(true);
                             break;
                         case 4:
-                            setTranslateX(getTranslateX() - 5);
+                            setTranslateX(getTranslateX() - counterCycle/2);
                             setRotate(270);
                             if (!adjust) {
                                 setTranslateY(getTranslateY() - 5);
@@ -142,11 +162,25 @@ public class Projectile extends Label {
                 break;
             }
             case "sniper": {
-                setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.LIGHTGRAY));
+                setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.BLUE));
                 speed = 100;
                 cooldown = 5;
 
-                Timeline timer = new Timeline(new KeyFrame(Duration.millis(100 / speed), event -> {
+                Timeline timer = new Timeline();
+                timer.getKeyFrames().add(new KeyFrame(Duration.millis(100 / speed), event -> {
+                    //remove the projectile out of City Hall
+                    StackPane parent = ((StackPane)getParent());
+                    boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
+                    boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+
+                    if(!(validIntervalX && validIntervalY)){
+                        timer.stop();
+                        parent.getChildren().remove(this);
+                        return;
+                    }
+                    //if projectile is inside battle scene, execute fire projectile operation
+                    System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+
                     switch ( direction ) {
                         case 1:
                             setTranslateY(getTranslateY() - getMinHeight());
