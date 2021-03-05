@@ -6,9 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.UtilityManagement.UtilityManager;
+
+import java.util.TimerTask;
 
 public class Projectile extends Label {
     //attributes
@@ -41,7 +44,21 @@ public class Projectile extends Label {
                 speed = 50;
                 cooldown = 0.1;
 
-                Timeline timer = new Timeline(new KeyFrame(Duration.millis(100 / speed), event -> {
+                Timeline timer = new Timeline();
+                timer.getKeyFrames().add(new KeyFrame(Duration.millis(100 / speed), event -> {
+                    //remove the projectile out of battle scene
+                    StackPane parent = ((StackPane)getParent());
+                    boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
+                    boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+
+                    if(!(validIntervalX && validIntervalY)){
+                        timer.stop();
+                        parent.getChildren().remove(this);
+                        return;
+                    }
+                    //if projectile is inside battle scene, execute fire projectile operation
+                    System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+
                     switch ( direction ) {
                         case 1:
                             setTranslateY(getTranslateY() - getMinHeight());
@@ -75,8 +92,10 @@ public class Projectile extends Label {
                             break;
                     }
                 }));
+
                 timer.setCycleCount(Timeline.INDEFINITE);
                 timer.play();
+
                 break;
             }
             case "missile": {
