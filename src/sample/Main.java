@@ -10,8 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //SceneManager.run(primaryStage, getClass());
-        UnitTestManager.UnitTest_getGameTabContents(primaryStage,getClass());
+        UnitTestManager.UnitTest_runApplicationWithLoginPage(primaryStage,getClass());
     }
 
     public static void main(String[] args) {

@@ -263,7 +263,6 @@ public class Controller {
             //save the name input to the system if it has changed
             if(actionEvent.getCode().equals(KeyCode.ENTER)) {
                 if(!namefield.getText().equals(curname)) {
-                    curname=namefield.getText();
                     currencyManager.setName(namefield.getText());
                     System.out.println(currencyManager.getName());
                 }
@@ -282,9 +281,9 @@ public class Controller {
         actionButton.setLayoutY(0);
 
         //Load saved instance of tab on leaving Battle Scene
-        actionButton.setOnKeyPressed(mouseEvent -> {
+        actionButton.setOnAction(event -> {
             actionLabel.setVisible(false);
-            stackpanel.getChildren().removeAll(actionLabel,actionButton);
+            stackpanel.getChildren().removeAll(actionLabel,namefield,actionButton);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
