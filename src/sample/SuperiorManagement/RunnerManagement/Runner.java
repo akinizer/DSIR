@@ -1,5 +1,6 @@
 package sample.SuperiorManagement.RunnerManagement;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.*;
@@ -22,6 +23,9 @@ public class Runner extends Label {
     private int speed;
     private int distancecounter;
     private double firerate, cooldown;
+
+    Timeline cooldownTimer;
+    Projectile projectile;
 
     //Constructor
     public Runner(TabPane maintab, double width, double height, Button actionButton, Button speedButton, Button vehicleButton,Tab towntab, StackPane stackPane){
@@ -120,7 +124,8 @@ public class Runner extends Label {
                         distancecounter+=2*speed;
                         direction=1;
                         break;
-
+                    case "f":
+                        break;
                     default:
                         System.out.println("Key pressed: " + keyEvent.getText().toLowerCase());
                 }
@@ -128,10 +133,16 @@ public class Runner extends Label {
                 //cooldown validation
                 if(isCooldownActive()) return;
 
+                //COOLDOWN IS NO MORE ACTIVE AFTER THIS POINT
+                if(cooldownTimer!=null) {
+                    cooldownTimer.stop();
+                    cooldownTimer = null;
+                }
+
                 //projectile generation and firing
                 if(keyEvent.getText().toLowerCase().equals("f")){
                     //projectile
-                    Projectile projectile = new Projectile(getTranslateX()+getWidth()/2.5,getTranslateY()+getHeight()/2.5);
+                    projectile = new Projectile(getTranslateX()+getWidth()/2.5,getTranslateY()+getHeight()/2.5);
                     stackPane.getChildren().add(projectile);
 
                     switch ( vehicleButton.getText() ) {
@@ -201,6 +212,23 @@ public class Runner extends Label {
     private long starttime=-1;
     private void initiateCooldown(){
         starttime=System.currentTimeMillis();
+
+        if(cooldownTimer==null){
+            cooldownTimer = new Timeline();
+            cooldownTimer.getKeyFrames().add(new KeyFrame(Duration.seconds(1),event->{
+                long elapsed = ((System.currentTimeMillis() - starttime)/1000);
+                if(elapsed<projectile.getCooldown()) {
+                    System.out.println("Time left: " + (projectile.getCooldown()-elapsed));
+                }
+                else {
+                    cooldownTimer.stop();
+                    System.out.println("Ready to Fire!");
+                }
+            }));
+            cooldownTimer.setCycleCount(Animation.INDEFINITE);
+            cooldownTimer.play();
+        }
+
     }
     private boolean isCooldownActive(){
         long elapsed=(System.currentTimeMillis() - starttime)/1000;

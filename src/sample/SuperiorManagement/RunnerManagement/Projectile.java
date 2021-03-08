@@ -15,8 +15,6 @@ public class Projectile extends Label {
     private double speed;
     private double cooldown;
 
-
-
     //constructor
     public Projectile(double x, double y) { //up 1, right 2, down 3, left 4
         this.x=x;
@@ -56,7 +54,7 @@ public class Projectile extends Label {
                         return;
                     }
                     //if projectile is inside battle scene, execute fire projectile operation
-                    System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+                        //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
 
                     switch ( direction ) {
                         case 1:
@@ -116,7 +114,7 @@ public class Projectile extends Label {
                         return;
                     }
                     //if projectile is inside battle scene, execute fire projectile operation
-                    System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+                        //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
 
                     counterCycle++;
                     switch ( direction ) {
@@ -175,7 +173,7 @@ public class Projectile extends Label {
                         return;
                     }
                     //if projectile is inside battle scene, execute fire projectile operation
-                    System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+                        //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
 
                     switch ( direction ) {
                         case 1:

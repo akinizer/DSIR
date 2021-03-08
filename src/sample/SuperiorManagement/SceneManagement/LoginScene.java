@@ -56,7 +56,13 @@ public class LoginScene extends GeneralScene{
                 statsManager.setName(name.getText());
                 statsManager.setClasstype(occupation.getText());
                 isClosedFlag=true;
-                loginStage.close();
+
+                Timeline timer = new Timeline(new KeyFrame(Duration.millis(2),eventCloser->{
+                    loginStage.close();
+                }));
+                timer.setCycleCount(Animation.INDEFINITE);
+                timer.play();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
