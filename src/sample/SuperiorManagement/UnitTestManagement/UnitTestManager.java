@@ -17,6 +17,7 @@ import java.util.List;
 
 public abstract class UnitTestManager{
 
+    //Unit Test1
     public static void UnitTest_getTownBuildings(Stage primaryStage, Class mainclass) throws Exception{
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
@@ -36,6 +37,7 @@ public abstract class UnitTestManager{
         primaryStage.show();
     }
 
+    //Unit Test2
     public static void UnitTest_getDojoBuilding(Stage primaryStage, Class mainclass) throws Exception{
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
@@ -53,6 +55,7 @@ public abstract class UnitTestManager{
         primaryStage.show();
     }
 
+    //Unit Test3
     public static void UnitTest_getGameTabContents(Stage primaryStage, Class mainclass) throws Exception{
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
@@ -71,6 +74,7 @@ public abstract class UnitTestManager{
         primaryStage.show();
     }
 
+    //Unit Test4
     public static void UnitTest_runApplicationWithDefaultCharacterPresets(Stage primaryStage, Class mainclass) throws Exception{
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
@@ -84,9 +88,8 @@ public abstract class UnitTestManager{
         primaryStage.show();
     }
 
+    //Unit Test5
     public static void UnitTest_runApplicationWithAlertPage(Stage primaryStage, Class mainclass) throws Exception{
-
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Start DSIR?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
@@ -96,7 +99,7 @@ public abstract class UnitTestManager{
 
     }
 
-    ///stage loaders
+    ///stage Loaders
     private static void initDefaultStageLoader(Stage primaryStage, Class mainclass) throws Exception{
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file

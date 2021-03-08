@@ -45,12 +45,15 @@ public class Controller {
     @FXML private Label wellspring;
     @FXML private Label barracks;
 
+    //StatsManager instance
     private StatsManager currencyManager;
 
+    //Access StatsManager
     public void setStatsManager(StatsManager statsManager){
         this.currencyManager=statsManager;
     }
 
+    //Set Initial Values for the Character
     public void setCharacterBaseInfo(String name, String classname) {
         if (!name.isEmpty())
             currencyManager.setName(name);
@@ -62,6 +65,7 @@ public class Controller {
 
     }
 
+    //Change Values for the Character
     public void updateCharacterInfo(String name, String classname, int atk, int hp){
         if(!name.isEmpty())
             currencyManager.setName(name);
@@ -90,14 +94,17 @@ public class Controller {
         }
     }
 
+    //Access Game Tabs
     public List<Tab> getGameTabs(){
         return Arrays.asList(towntab,dungeontab,colessiumntab,storetab);
     }
 
+    //Access Game Tab Containers
     public List<AnchorPane> getGameTabContents(){
         return Arrays.asList((AnchorPane)towntab.getContent(),(AnchorPane)dungeontab.getContent(),(AnchorPane)colessiumntab.getContent(),(AnchorPane)storetab.getContent());
     }
 
+    //Access Buildings in Town Tab
     public List<Label> getTownBuildings(){
         AnchorPane townAnchorPane = (AnchorPane)towntab.getContent();
 
@@ -109,6 +116,7 @@ public class Controller {
         return resultlist;
     }
 
+    //Access a Specific Building in Town Tab
     public Label getTownBuilding(String name){
        for (Label label:getTownBuildings()) {
             if(label.getText().toLowerCase().equals(name.toLowerCase()))
@@ -117,6 +125,7 @@ public class Controller {
        return null;
     }
 
+    //Change Name of a Specific Building in Town Tab
     public void setTownBuildingName(String name, String newname){
         getTownBuilding(name).setText(newname);
     }

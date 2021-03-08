@@ -11,25 +11,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.Controller;
 
 public class LoginScene extends GeneralScene{
 
+    //Attributes
     private Stage loginStage;
     private boolean isClosedFlag;
 
-    LoginScene(){}
-
-    public boolean isClosed(){
-        return isClosedFlag;
+    LoginScene(){
+        //Stage Implementation
+        loginStage=new Stage();
     }
 
     public void run(){
-        loginStage=new Stage();
-
+        //Container
         VBox box = new VBox();
         box.setPrefSize(250,250);
 
+        //Name Entry
         TextField name = new TextField("Enter Name");
         name.setPrefSize(125,28);
         name.setOnMouseClicked(mouseEvent -> {
@@ -39,6 +38,7 @@ public class LoginScene extends GeneralScene{
                 name.selectAll();
         });
 
+        //Occupation Entry
         TextField occupation = new TextField("Enter Occupation");
         occupation.setPrefSize(256,28);
         occupation.setOnMouseClicked(mouseEvent -> {
@@ -48,6 +48,7 @@ public class LoginScene extends GeneralScene{
                 occupation.selectAll();
         });
 
+        //OK Button
         Button button = new Button("OK");
         button.setOnAction(event -> {
             try {
@@ -63,11 +64,11 @@ public class LoginScene extends GeneralScene{
 
         box.getChildren().addAll(name,occupation,button);
 
+        //Stage Settings
         loginStage.setScene(new Scene(box));
         loginStage.setResizable(false);
         loginStage.show();
         isClosedFlag=false;
-
 
         //Timeout
         Timeline timer = new Timeline(new KeyFrame(Duration.minutes(5), event -> {
@@ -75,6 +76,10 @@ public class LoginScene extends GeneralScene{
         }));
         timer.setCycleCount(Animation.INDEFINITE);
         timer.play();
+    }
 
+    //Check Closed Status
+    boolean isClosed(){
+        return isClosedFlag;
     }
 }

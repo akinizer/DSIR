@@ -13,8 +13,7 @@ public class Runner extends Label {
     //Components
     private TabPane maintab;
     private Tab towntab;
-    StackPane stackPane;
-    private boolean isRunnerActive=false;
+    private StackPane stackPane;
     private double width, height;
     private Button actionButton, speedButton, vehicleButton;
     private ImageView iv;
@@ -77,7 +76,6 @@ public class Runner extends Label {
             actionButton.setText("restart!");
             speedButton.setDisable(false);
             vehicleButton.setDisable(false);
-            isRunnerActive=true;
             distancecounter=0;
 
             setTooltip();
