@@ -1,18 +1,12 @@
-package sample.RunnerManagement;
+package sample.SuperiorManagement.RunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sample.UtilityManagement.UtilityManager;
-
-import java.net.URL;
-import java.util.Timer;
 
 public class Runner extends Label {
 

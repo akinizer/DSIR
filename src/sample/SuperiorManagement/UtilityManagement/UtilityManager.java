@@ -1,8 +1,8 @@
-package sample.UtilityManagement;
+package sample.SuperiorManagement.UtilityManagement;
 
 import javafx.scene.paint.Color;
 
-public class UtilityManager {
+public abstract class UtilityManager {
     public static String getHexColor(Color color ){
         return String.format( "#%02X%02X%02X",
                 (int)( color.getRed() * 255 ),

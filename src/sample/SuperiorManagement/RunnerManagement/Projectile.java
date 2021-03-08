@@ -1,17 +1,13 @@
-package sample.RunnerManagement;
+package sample.SuperiorManagement.RunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sample.UtilityManagement.UtilityManager;
-
-import java.util.TimerTask;
+import sample.SuperiorManagement.UtilityManagement.UtilityManager;
 
 public class Projectile extends Label {
     //attributes
