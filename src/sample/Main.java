@@ -11,8 +11,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         //UnitTestManager.UnitTest_runApplicationWithLoginPage(primaryStage,getClass());
-        SceneManager sceneManager = new SceneManager();
-        sceneManager.getLoginScene().run(primaryStage,getClass());
+        SceneManager sceneManager = new SceneManager(primaryStage,getClass());
+        sceneManager.start();
     }
 
     public static void main(String[] args) {

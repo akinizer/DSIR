@@ -13,9 +13,17 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.Controller;
 
-public class LoginScene {
+public class LoginScene{
 
-    public void run(Stage primaryStage,Class mainclass){
+    private Stage primaryStage;
+    private Class mainclass;
+
+    LoginScene(Stage primaryStage,Class mainclass){
+        this.primaryStage=primaryStage;
+        this.mainclass=mainclass;
+    }
+
+    public void run(){
         Stage loginStage=new Stage();
 
         VBox box = new VBox();
@@ -42,7 +50,7 @@ public class LoginScene {
         Button button = new Button("OK");
         button.setOnAction(event -> {
             try {
-                initDefaultStageLoaderParamaters(primaryStage, mainclass,name.getText(),occupation.getText());
+                initDefaultStageLoaderParamaters(name.getText(),occupation.getText());
                 loginStage.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -64,7 +72,7 @@ public class LoginScene {
         timer.play();
 
     }
-    private static void initDefaultStageLoaderParamaters(Stage primaryStage, Class mainclass, String name, String occupation) throws Exception{
+    private void initDefaultStageLoaderParamaters(String name, String occupation) throws Exception{
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader

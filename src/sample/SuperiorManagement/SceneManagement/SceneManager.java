@@ -1,27 +1,31 @@
 package sample.SuperiorManagement.SceneManagement;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.stage.Stage;
-
 import javafx.scene.Scene;
-import sample.Controller;
+import javafx.stage.Stage;
 import sample.Main;
-import sample.SuperiorManagement.UnitTestManagement.UnitTestManager;
 
 public class SceneManager {
 
     private LoginScene loginScene;
     private MainScene mainScene;
 
-    public SceneManager(){
-        loginScene = new LoginScene();
+    public SceneManager(Stage primaryStage,Class mainclass){
+        loginScene = new LoginScene(primaryStage,mainclass);
+        mainScene = new MainScene(primaryStage,mainclass);
     }
 
-    public LoginScene getLoginScene(){
+    public void start(){
+        getLoginScene().run();
+    }
+
+    private LoginScene getLoginScene(){
         return loginScene;
     }
+    private MainScene getMainScene(){
+        return mainScene;
+    }
 
-    public void disposeLoginScene(){}
+    private void disposeLoginScene(){}
+    private void disposeMainScene(){}
 
 }
