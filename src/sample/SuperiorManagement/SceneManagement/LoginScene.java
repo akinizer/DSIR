@@ -13,18 +13,23 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.Controller;
 
-public class LoginScene{
+public class LoginScene extends GeneralScene{
 
-    private Stage primaryStage;
+    private Stage primaryStage, loginStage;
     private Class mainclass;
+    private boolean isClosedFlag;
 
     LoginScene(Stage primaryStage,Class mainclass){
         this.primaryStage=primaryStage;
         this.mainclass=mainclass;
     }
 
+    public boolean isClosed(){
+        return isClosedFlag;
+    }
+
     public void run(){
-        Stage loginStage=new Stage();
+        loginStage=new Stage();
 
         VBox box = new VBox();
         box.setPrefSize(250,250);
@@ -50,7 +55,10 @@ public class LoginScene{
         Button button = new Button("OK");
         button.setOnAction(event -> {
             try {
-                initDefaultStageLoaderParamaters(name.getText(),occupation.getText());
+                //initDefaultStageLoaderParamaters(name.getText(),occupation.getText());
+                statsManager.setName(name.getText());
+                statsManager.setClasstype(occupation.getText());
+                isClosedFlag=true;
                 loginStage.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -62,6 +70,7 @@ public class LoginScene{
         loginStage.setScene(new Scene(box));
         loginStage.setResizable(false);
         loginStage.show();
+        isClosedFlag=false;
 
 
         //Timeout

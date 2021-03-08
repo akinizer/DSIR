@@ -47,17 +47,27 @@ public class Controller {
 
     private StatsManager currencyManager;
 
-    public Controller(){
-        currencyManager=new StatsManager();
+    public void setStatsManager(StatsManager statsManager){
+        this.currencyManager=statsManager;
     }
+
+    public void setCharacterBaseInfo(String name, String classname) {
+        if (!name.isEmpty())
+            currencyManager.setName(name);
+
+        if (!classname.isEmpty())
+            currencyManager.setClasstype(classname);
+
+        currencyManager.setLevel(0);
+
+    }
+
     public void updateCharacterInfo(String name, String classname, int atk, int hp){
         if(!name.isEmpty())
             currencyManager.setName(name);
 
         if(!classname.isEmpty())
             currencyManager.setClasstype(classname);
-
-        currencyManager.setLevel(0);
 
         if(atk>0 && hp>0) {
             currencyManager.setAtk(atk);

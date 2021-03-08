@@ -1,7 +1,11 @@
 package sample.SuperiorManagement.SceneManagement;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import sample.Main;
 
 public class SceneManager {
@@ -15,17 +19,24 @@ public class SceneManager {
     }
 
     public void start(){
-        getLoginScene().run();
-    }
+        loginScene.run();
 
-    private LoginScene getLoginScene(){
-        return loginScene;
-    }
-    private MainScene getMainScene(){
-        return mainScene;
-    }
+        Timeline timer = new Timeline();
+        timer.getKeyFrames().add(new KeyFrame(Duration.millis(1),event -> {
+            if(loginScene.isClosed()) {
+                try {
+                    System.out.println("Login Scene is closed");
+                    System.out.println("Main Scene is showing");
+                    mainScene.run();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                timer.stop();
+            }
+        }));
+        timer.setCycleCount(Animation.INDEFINITE);
+        timer.play();
 
-    private void disposeLoginScene(){}
-    private void disposeMainScene(){}
+    }
 
 }

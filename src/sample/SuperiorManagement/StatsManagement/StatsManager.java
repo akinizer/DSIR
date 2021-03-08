@@ -15,6 +15,14 @@ public class StatsManager {
     private String classtype;
     private int atk,hp;
 
+    //constructor
+    public StatsManager(String name,String occupation){
+        this.name=name;
+        this.classtype=occupation;
+        this.atk=100;
+        this.hp=1000;
+    }
+
     //update experience
     public void updateExperience(Label level, int gain){
         int lvl = Integer.parseInt(level.getText());
