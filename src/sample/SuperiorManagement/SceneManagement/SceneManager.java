@@ -14,7 +14,7 @@ public class SceneManager {
     private MainScene mainScene;
 
     public SceneManager(Stage primaryStage,Class mainclass){
-        loginScene = new LoginScene(primaryStage,mainclass);
+        loginScene = new LoginScene();
         mainScene = new MainScene(primaryStage,mainclass);
     }
 

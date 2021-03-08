@@ -15,14 +15,10 @@ import sample.Controller;
 
 public class LoginScene extends GeneralScene{
 
-    private Stage primaryStage, loginStage;
-    private Class mainclass;
+    private Stage loginStage;
     private boolean isClosedFlag;
 
-    LoginScene(Stage primaryStage,Class mainclass){
-        this.primaryStage=primaryStage;
-        this.mainclass=mainclass;
-    }
+    LoginScene(){}
 
     public boolean isClosed(){
         return isClosedFlag;
@@ -80,17 +76,5 @@ public class LoginScene extends GeneralScene{
         timer.setCycleCount(Animation.INDEFINITE);
         timer.play();
 
-    }
-    private void initDefaultStageLoaderParamaters(String name, String occupation) throws Exception{
-        //access tabs via controller
-        FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
-        Parent root = loader.load(); //prepare loader
-        primaryStage.setScene(new Scene(root));
-        Controller controller = loader.getController(); //bind controller to loader
-        controller.updateCharacterInfo(name,occupation,100,1000);
-
-        primaryStage.setTitle("DSIR");
-        primaryStage.setResizable(false);
-        primaryStage.show();
     }
 }

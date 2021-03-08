@@ -9,8 +9,7 @@ import sample.SuperiorManagement.UnitTestManagement.UnitTestManager;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        //UnitTestManager.UnitTest_runApplicationWithLoginPage(primaryStage,getClass());
+    public void start(Stage primaryStage){
         SceneManager sceneManager = new SceneManager(primaryStage,getClass());
         sceneManager.start();
     }

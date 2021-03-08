@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Controller;
-import sample.SuperiorManagement.StatsManagement.StatsManager;
 
 public class MainScene extends GeneralScene{
 
@@ -16,7 +15,6 @@ public class MainScene extends GeneralScene{
         this.primaryStage=primaryStage;
         this.mainclass=mainclass;
     }
-
 
     public void run() throws Exception{
         //access tabs via controller
