@@ -162,4 +162,17 @@ public abstract class StatsManager {
     public static String getClasstype() {
         return classtype;
     }
+
+    public static void setCharacterBaseStats() {
+        if (!name.isEmpty())
+            StatsManager.setName(name);
+
+        if (!classtype.isEmpty())
+            StatsManager.setClasstype(classtype);
+
+        StatsManager.setLevel(1);
+        StatsManager.setAtk(100);
+        StatsManager.setHp(1000);
+
+    }
 }

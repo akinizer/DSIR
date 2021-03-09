@@ -7,10 +7,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.SuperiorManagement.StatsManagement.StatsManager;
+import sample.SuperiorManagement.UtilityManagement.UtilityManager;
 
 public class LoginScene extends GeneralScene{
 
@@ -75,6 +78,10 @@ public class LoginScene extends GeneralScene{
         box.getChildren().addAll(name,occupation,button);
 
         //Stage Settings
+        //loginStage.getIcons().add(new ImageView(new Image(getClass().getResource("/sample/Resources/baguette.png").toExternalForm())).getImage());
+        loginStage.getIcons().add(UtilityManager.getImageFromURL("baguette.png",getClass()));
+
+        loginStage.setTitle("DSIR");
         loginStage.setScene(new Scene(box));
         loginStage.setResizable(false);
         loginStage.show();

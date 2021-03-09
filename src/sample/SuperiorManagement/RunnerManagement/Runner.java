@@ -126,8 +126,6 @@ public class Runner extends Label {
                         break;
                     case "f":
                         break;
-                    default:
-                        System.out.println("Key pressed: " + keyEvent.getText().toLowerCase());
                 }
 
                 //cooldown validation
@@ -182,7 +180,6 @@ public class Runner extends Label {
         iv=new ImageView(new Image(getClass().getResource("/sample/Resources/car-up.png").toExternalForm()));
         iv.setFitWidth(25);
         iv.setPreserveRatio(true);
-        System.out.println("direction: "+(direction-1)*90);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
     }
@@ -190,7 +187,6 @@ public class Runner extends Label {
         iv=new ImageView(new Image(getClass().getResource("/sample/Resources/jeep.png").toExternalForm()));
         iv.setFitWidth(25);
         iv.setPreserveRatio(true);
-        System.out.println("direction: "+(direction-1)*90);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
     }
@@ -198,7 +194,6 @@ public class Runner extends Label {
         iv=new ImageView(new Image(getClass().getResource("/sample/Resources/truck.png").toExternalForm()));
         iv.setFitWidth(25);
         iv.setPreserveRatio(true);
-        System.out.println("direction: "+(direction-1)*90);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
     }

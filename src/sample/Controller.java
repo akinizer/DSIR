@@ -64,15 +64,8 @@ public class Controller {
     //StatsManager instance
 
     //Set Initial Values for the Character
-    public void setCharacterBaseInfo(String name, String classname) {
-        if (!name.isEmpty())
-            StatsManager.setName(name);
-
-        if (!classname.isEmpty())
-            StatsManager.setClasstype(classname);
-
-        StatsManager.setLevel(0);
-
+    public void setCharacterBaseStats() {
+        StatsManager.setCharacterBaseStats();
     }
 
     //Change Values for the Character
@@ -1047,6 +1040,7 @@ public class Controller {
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(actionLabel, titleLabel, actionButton, returnButton);
         stackPane.setAlignment(Pos.TOP_LEFT);
+
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }
