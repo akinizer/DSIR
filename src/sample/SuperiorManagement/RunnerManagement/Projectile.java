@@ -9,14 +9,14 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.SuperiorManagement.UtilityManagement.UtilityManager;
 
-public class Projectile extends Label {
+class Projectile extends Label {
     //attributes
     private double x,y;
     private double speed;
     private double cooldown;
 
     //constructor
-    public Projectile(double x, double y) { //up 1, right 2, down 3, left 4
+    Projectile(double x, double y) { //up 1, right 2, down 3, left 4
         this.x=x;
         this.y=y;
 
@@ -216,10 +216,10 @@ public class Projectile extends Label {
     }
 
     //getters and setters
-    public double getSpeed(){
+    double getSpeed(){
         return this.speed;
     }
-    public double getCooldown(){
+    double getCooldown(){
         return this.cooldown;
     }
 }

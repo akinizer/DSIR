@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Controller;
+import sample.SuperiorManagement.StatsManagement.StatsManager;
 
 public class MainScene extends GeneralScene{
 
@@ -23,8 +24,7 @@ public class MainScene extends GeneralScene{
         primaryStage.setScene(new Scene(root));
 
         Controller controller = loader.getController(); //bind controller to loader
-        controller.setStatsManager(statsManager);
-        controller.setCharacterBaseInfo(statsManager.getName(),statsManager.getClasstype());
+        controller.setCharacterBaseInfo(StatsManager.getName(),StatsManager.getClasstype());
 
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);

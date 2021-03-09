@@ -1,36 +1,31 @@
 package sample.SuperiorManagement.UnitTestManagement;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import sample.Controller;
 
 import java.util.List;
 
-public abstract class UnitTestManager{
+public abstract class UnitTestManager {
 
     //Unit Test1
-    public static void UnitTest_getTownBuildings(Stage primaryStage, Class mainclass) throws Exception{
+    public static void UnitTest_getTownBuildings(Stage primaryStage, Class mainclass) throws Exception {
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
         Controller controller = loader.getController(); //bind controller to loader
-        controller.updateCharacterInfo("Johnny","Warrior",100,1000);
+        controller.updateCharacterInfo("Johnny", "Warrior", 100, 1000);
 
         //retrieve contents
         List<Label> townbuildings = controller.getTownBuildings();
         Label dojobuilding = controller.getTownBuilding("dojo");
-        System.out.println("Town: "+townbuildings);
-        System.out.println("Dojo: "+dojobuilding);
+        System.out.println("Town: " + townbuildings);
+        System.out.println("Dojo: " + dojobuilding);
 
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);
@@ -38,17 +33,17 @@ public abstract class UnitTestManager{
     }
 
     //Unit Test2
-    public static void UnitTest_getDojoBuilding(Stage primaryStage, Class mainclass) throws Exception{
+    public static void UnitTest_getDojoBuilding(Stage primaryStage, Class mainclass) throws Exception {
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
         Controller controller = loader.getController(); //bind controller to loader
-        controller.updateCharacterInfo("Johnny","Warrior",100,1000);
+        controller.updateCharacterInfo("Johnny", "Warrior", 100, 1000);
 
         //retrieve contents
         Label dojobuilding = controller.getTownBuilding("dojo");
-        System.out.println("Dojo: "+dojobuilding);
+        System.out.println("Dojo: " + dojobuilding);
 
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);
@@ -56,16 +51,16 @@ public abstract class UnitTestManager{
     }
 
     //Unit Test3
-    public static void UnitTest_getGameTabContents(Stage primaryStage, Class mainclass) throws Exception{
+    public static void UnitTest_getGameTabContents(Stage primaryStage, Class mainclass) throws Exception {
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
         Controller controller = loader.getController(); //bind controller to loader
-        controller.updateCharacterInfo("Johnny","Warrior",100,1000);
+        controller.updateCharacterInfo("Johnny", "Warrior", 100, 1000);
 
         //retrieve contents
-        for (AnchorPane node:controller.getGameTabContents()) {
+        for (AnchorPane node : controller.getGameTabContents()) {
             System.out.println(node.getId() + ": " + node.getChildren());
         }
 
@@ -75,13 +70,13 @@ public abstract class UnitTestManager{
     }
 
     //Unit Test4
-    public static void UnitTest_runApplicationWithDefaultCharacterPresets(Stage primaryStage, Class mainclass) throws Exception{
+    public static void UnitTest_runApplicationWithDefaultCharacterPresets(Stage primaryStage, Class mainclass) throws Exception {
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
         Controller controller = loader.getController(); //bind controller to loader
-        controller.updateCharacterInfo("Johnny","Warrior",100,1000);
+        controller.updateCharacterInfo("Johnny", "Warrior", 100, 1000);
 
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);
@@ -89,7 +84,7 @@ public abstract class UnitTestManager{
     }
 
     //Unit Test5
-    public static void UnitTest_runApplicationWithAlertPage(Stage primaryStage, Class mainclass) throws Exception{
+    public static void UnitTest_runApplicationWithAlertPage(Stage primaryStage, Class mainclass) throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Start DSIR?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
@@ -100,26 +95,26 @@ public abstract class UnitTestManager{
     }
 
     ///stage Loaders
-    private static void initDefaultStageLoader(Stage primaryStage, Class mainclass) throws Exception{
+    private static void initDefaultStageLoader(Stage primaryStage, Class mainclass) throws Exception {
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
         Controller controller = loader.getController(); //bind controller to loader
-        controller.updateCharacterInfo("Johnny","Warrior",100,1000);
+        controller.updateCharacterInfo("Johnny", "Warrior", 100, 1000);
 
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
-    private static void initDefaultStageLoaderParamaters(Stage primaryStage, Class mainclass, String name, String occupation) throws Exception{
+    private static void initDefaultStageLoaderParamaters(Stage primaryStage, Class mainclass, String name, String occupation) throws Exception {
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
         Controller controller = loader.getController(); //bind controller to loader
-        controller.updateCharacterInfo(name,occupation,100,1000);
+        controller.updateCharacterInfo(name, occupation, 100, 1000);
 
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);

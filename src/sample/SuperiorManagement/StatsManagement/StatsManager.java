@@ -3,28 +3,28 @@ package sample.SuperiorManagement.StatsManagement;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
-public class StatsManager {
+public abstract class StatsManager {
 
     //general variables
-    private int exp;
-    private int lvllimiter=100;
+    private static int exp;
+    private static int lvllimiter=100;
 
     ///stats
-    private int level;
-    private String name;
-    private String classtype;
-    private int atk,hp;
+    private static int level;
+    private static String name;
+    private static String classtype;
+    private static int atk,hp;
 
     //constructor
     public StatsManager(String name,String occupation){
-        this.name=name;
-        this.classtype=occupation;
-        this.atk=100;
-        this.hp=1000;
+        StatsManager.name =name;
+        StatsManager.classtype=occupation;
+        StatsManager.atk=100;
+        StatsManager.hp=1000;
     }
 
     //update experience
-    public void updateExperience(Label level, int gain){
+    public static void updateExperience(Label level, int gain){
         int lvl = Integer.parseInt(level.getText());
         exp=exp+gain;
 
@@ -56,7 +56,7 @@ public class StatsManager {
     }
 
     //update currencies
-    public void updateGoldIncrease(Label goldamount, Label diamonamount, int gain){
+    public static void updateGoldIncrease(Label goldamount, Label diamonamount, int gain){
         int gold = Integer.parseInt(goldamount.getText());
         int diamond = Integer.parseInt(diamonamount.getText());
         gold=gold+gain;
@@ -69,7 +69,7 @@ public class StatsManager {
         goldamount.setText(gold+"");
         diamonamount.setText(diamond+"");
     }
-    public void updateGoldDecrease(Label goldamount, Label diamonamount, int loss){
+    public static void updateGoldDecrease(Label goldamount, Label diamonamount, int loss){
         int gold = Integer.parseInt(goldamount.getText());
         int diamond = Integer.parseInt(diamonamount.getText());
         gold=gold+loss;
@@ -96,15 +96,15 @@ public class StatsManager {
 
 
     }
-
+/*
     public void updateDiamond(Label diamonamount, int gain){
         int diamond = Integer.parseInt(diamonamount.getText());
         diamond=diamond+gain;
 
         diamonamount.setText(diamond+"");
     }
-
-    public void updatBattlecoin(Label battlecoinamount, int gain){
+*/
+    public static void updatBattlecoin(Label battlecoinamount, int gain){
         int bc = Integer.parseInt(battlecoinamount.getText());
         bc=bc+gain;
 
@@ -112,7 +112,7 @@ public class StatsManager {
     }
 
     //update energybar
-    public void updateEnergyStatus(ProgressBar progressBar, double energychange){ //energy is 0 to 100, percentage is 0 to 1
+    public static void updateEnergyStatus(ProgressBar progressBar, double energychange){ //energy is 0 to 100, percentage is 0 to 1
         double ratio=energychange/100;
         double newratio=progressBar.getProgress()+ratio;
         if(newratio>1) newratio=1;
@@ -122,44 +122,44 @@ public class StatsManager {
     }
 
     //setters
-    public void setName(String name) {
-        this.name = name;
+    public static void setName(String name) {
+        StatsManager.name = name;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public static void setLevel(int level) {
+        StatsManager.level = level;
     }
 
-    public void setAtk(int atk) {
-        this.atk = atk;
+    public static void setAtk(int atk) {
+        StatsManager.atk = atk;
     }
 
-    public void setClasstype(String classtype) {
-        this.classtype = classtype;
+    public static void setClasstype(String classtype) {
+        StatsManager.classtype = classtype;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public static void setHp(int hp) {
+        StatsManager.hp = hp;
     }
 
     //getters
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
-    public int getLevel() {
+    public static int getLevel() {
         return level;
     }
 
-    public int getAtk() {
+    public static int getAtk() {
         return atk;
     }
 
-    public int getHp() {
+    public static int getHp() {
         return hp;
     }
 
-    public String getClasstype() {
+    public static String getClasstype() {
         return classtype;
     }
 }

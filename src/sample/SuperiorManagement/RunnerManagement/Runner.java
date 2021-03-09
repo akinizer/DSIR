@@ -24,8 +24,8 @@ public class Runner extends Label {
     private int distancecounter;
     private double firerate, cooldown;
 
-    Timeline cooldownTimer;
-    Projectile projectile;
+    private Timeline cooldownTimer;
+    private Projectile projectile;
 
     //Constructor
     public Runner(TabPane maintab, double width, double height, Button actionButton, Button speedButton, Button vehicleButton,Tab towntab, StackPane stackPane){
