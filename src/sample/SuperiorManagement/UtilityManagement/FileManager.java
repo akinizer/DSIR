@@ -3,6 +3,7 @@ package sample.SuperiorManagement.UtilityManagement;
 import javafx.application.Application;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,23 +40,45 @@ public abstract class FileManager {
         return null;
     }
 
-    public static List<String> readLineFromFile(String attribute) {
+    public static List<String> readLineFromFile(String name) {
+        List<String> resultset=null;
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(urlDatafile)))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith(attribute)) {
-                    return Arrays.asList(line.split(","));
+                if (line.startsWith(name)) {
+                    resultset =  Arrays.asList(line.split(","));
+                    break;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return resultset;
+    }
 
-        return null;
+    private static List<String> readLineFromFileNameAndOccupation(String name, String occupation) {
+        List<String> resultset=null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(urlDatafile)))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] linearr = line.split(",");
+                if (linearr[0].equals(name) && linearr[1].equals(occupation)) {
+                    resultset =  Arrays.asList(linearr);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resultset;
     }
 
     public static boolean checkUserExists(String name) {
         return readLineFromFile(name)!=null;
+    }
+
+    public static boolean checkLoginValid(String name,String occupation) {
+        return readLineFromFileNameAndOccupation(name,occupation)!=null;
     }
 
     //UPDATE/WRITE

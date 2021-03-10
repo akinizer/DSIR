@@ -60,9 +60,14 @@ public class LoginScene extends GeneralScene {
             if (name.getText().equals(defaultstringName) || occupation.getText().equals(defaultstringOccupation))
                 return;
 
-            try {
+            boolean isValid=FileManager.checkLoginValid(name.getText(),occupation.getText());
 
-                if (FileManager.checkUserExists(name.getText())) {
+            try {
+                //check name and occupation matches
+
+                if (isValid) {
+                    System.out.println("Logged in");
+
                     StatsManager.setName(name.getText());
                     StatsManager.setClasstype(occupation.getText());
                     isClosedFlag = true;
@@ -71,8 +76,7 @@ public class LoginScene extends GeneralScene {
                     timer.setCycleCount(Animation.INDEFINITE);
                     timer.play();
                 }
-
-
+                else System.out.println("Username or Occupation do not match");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,19 +93,18 @@ public class LoginScene extends GeneralScene {
                 boolean isNewUser=!FileManager.checkUserExists(name.getText());
 
                 if(isNewUser) {
+                    System.out.println("New user: "+name.getText() + "-"+occupation.getText());
+
                     StatsManager.setName(name.getText());
                     StatsManager.setClasstype(occupation.getText());
                     isClosedFlag = true;
                     FileManager.writeFileTest(name.getText() + "," + occupation.getText());
 
-                    Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> {
-
-                        loginStage.close();
-                    }));
+                    Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> loginStage.close()));
                     timer.setCycleCount(Animation.INDEFINITE);
                     timer.play();
-
                 }
+                else System.out.println("User already exists");
             } catch (Exception e) {
                 e.printStackTrace();
             }
