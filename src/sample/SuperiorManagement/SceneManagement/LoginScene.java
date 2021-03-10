@@ -86,7 +86,9 @@ public class LoginScene extends GeneralScene {
                 return;
 
             try {
+                boolean isNewUser=!FileManager.checkUserExists(name.getText());
 
+                if(isNewUser) {
                     StatsManager.setName(name.getText());
                     StatsManager.setClasstype(occupation.getText());
                     isClosedFlag = true;
@@ -99,7 +101,7 @@ public class LoginScene extends GeneralScene {
                     timer.setCycleCount(Animation.INDEFINITE);
                     timer.play();
 
-
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
