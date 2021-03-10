@@ -7,13 +7,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.SuperiorManagement.StatsManagement.StatsManager;
+import sample.SuperiorManagement.UtilityManagement.FileManager;
 import sample.SuperiorManagement.UtilityManagement.UtilityManager;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginScene extends GeneralScene{
 
@@ -65,8 +69,13 @@ public class LoginScene extends GeneralScene{
                 StatsManager.setName(name.getText());
                 StatsManager.setClasstype(occupation.getText());
                 isClosedFlag=true;
+                FileManager.writeFileTest(name.getText()+","+occupation.getText());
 
-                Timeline timer = new Timeline(new KeyFrame(Duration.millis(2),eventCloser-> loginStage.close()));
+
+                Timeline timer = new Timeline(new KeyFrame(Duration.millis(2),eventCloser-> {
+
+                    loginStage.close();
+                }));
                 timer.setCycleCount(Animation.INDEFINITE);
                 timer.play();
 
