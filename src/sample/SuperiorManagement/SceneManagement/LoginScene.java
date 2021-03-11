@@ -61,11 +61,11 @@ public class LoginScene extends GeneralScene {
             if (name.getText().equals(defaultstringName) || occupation.getText().equals(defaultstringOccupation))
                 return;
 
+            //Login validation condition
             boolean isValid=FileManager.checkLoginValid(name.getText(),occupation.getText());
 
             try {
-                //check name and occupation matches
-
+                //check name and occupation matches and apply login action
                 if (isValid) {
                     System.out.println("Logged in");
 
@@ -91,9 +91,11 @@ public class LoginScene extends GeneralScene {
             if (name.getText().equals(defaultstringName) || occupation.getText().equals(defaultstringOccupation))
                 return;
 
-            try {
-                boolean isNewUser=!FileManager.checkUserExists(name.getText());
+            //Register validation condition
+            boolean isNewUser=!FileManager.checkUserExists(name.getText());
 
+            try {
+                //check name matches and apply register action
                 if(isNewUser) {
                     System.out.println("New user: "+name.getText() + "-"+occupation.getText());
 
