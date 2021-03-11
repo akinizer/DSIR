@@ -1,21 +1,15 @@
 package sample;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
-import sample.SuperiorManagement.RunnerManagement.Runner;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import sample.SuperiorManagement.StatsManagement.StatsManager;
-import sample.SuperiorManagement.UtilityManagement.UtilityManager;
 import sample.View.ViewManager;
 
 import java.util.ArrayList;
@@ -62,7 +56,85 @@ public class Controller {
     @FXML
     private Label barracks;
 
-    //StatsManager instance
+    ////////////////////// CURRENCY //////////////////////
+    @FXML
+    Label goldamount;
+    @FXML
+    Label battlecoinamount;
+    @FXML
+    Label diamondamount;
+    @FXML
+    Label levelamount;
+    @FXML
+    ProgressBar energybar;
+    @FXML
+    Label informationPanel;
+
+    ////////////////////// TOWN BUILDING ACTIONS //////////////////////
+
+    @FXML
+    private void addDojoListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initDojoView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
+    }
+
+    @FXML
+    private void addTheDarkPortalListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initTheDarkPortalView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount), getClass());
+    }
+
+    @FXML
+    private void addInnListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initInnView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar), getClass());
+    }
+
+    @FXML
+    private void addGymListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initGymView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
+    }
+
+    @FXML
+    private void addTownSquareListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initTownSquareView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
+    }
+
+    @FXML
+    private void addCityHallListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initCityHallView(anchorPane, towntab, maintab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
+    }
+
+    @FXML
+    private void addWellspringListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initWellspringView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
+    }
+
+    @FXML
+    private void addBarrackListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initBarrackView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
+    }
+
+    @FXML
+    private void addTheGreatestWallListener() {
+        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
+        ViewManager.initTheGreatestWallView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
+    }
+
+    ////////////////////// CURRENCY ACTIONS //////////////////////
+
+    // CURRENCY PANES //
+    @FXML
+    private void addInformationLabelListener() {
+        ViewManager.initInformationView(stackpanel, mainpanel);
+    }
+
+    ////////////////////// CONTROLLER TEST ACTIONS //////////////////////
 
     //Change Values for the Character
     public void updateCharacterInfo(String name, String classname, int atk, int hp) {
@@ -129,107 +201,5 @@ public class Controller {
     public void setTownBuildingName(String name, String newname) {
         getTownBuilding(name).setText(newname);
     }
-
-    ////////////////////// TOWN BUILDING ACTIONS //////////////////////
-
-    @FXML
-    private void addDojoListener() {
-        System.out.println("Dojo is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initDojoBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
-        //initDojoBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
-    }
-
-    @FXML
-    private void addTheDarkPortalListener() {
-        System.out.println("The Dark Portal is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initTheDarkPortalBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount),getClass());
-    }
-
-    @FXML
-    private void addInnListener() {
-        System.out.println("Inn is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initInnBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar),getClass());
-    }
-
-    @FXML
-    private void addGymListener() {
-        System.out.println("Gym is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initGymBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
-    }
-
-    @FXML
-    private void addTownSquareListener() {
-        System.out.println("Town Square is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initTownSquareBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
-    }
-
-    @FXML
-    private void addCityHallListener() {
-        System.out.println("City Hall is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initCityHallBattleScene(anchorPane,towntab,maintab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
-    }
-
-    @FXML
-    private void addWellspringListener() {
-        System.out.println("Wellspring is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initWellspringBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
-    }
-
-    @FXML
-    private void addBarrackListener() {
-        System.out.println("Barrack is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initBarrackBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
-    }
-
-    @FXML
-    private void addTheGreatestWallListener() {
-        System.out.println("The Greatest Wall is clicked");
-
-        AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initTheGreatestWallBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
-    }
-
-    ////////////////////// CURRENCY //////////////////////
-    @FXML
-    Label goldamount;
-    @FXML
-    Label battlecoinamount;
-    @FXML
-    Label diamondamount;
-    @FXML
-    Label levelamount;
-    @FXML
-    ProgressBar energybar;
-
-    @FXML
-    Label informationPanel;
-
-    ////////////////////// CURRENCY ACTIONS //////////////////////
-    // CURRENCY PANES //
-
-    @FXML
-    private void addInformationLabelListener() {
-        System.out.println("Information Window is activated");
-        ViewManager.initInformationView(stackpanel,mainpanel);
-    }
-
-    /// ACTION PANES ///
-
 
 }

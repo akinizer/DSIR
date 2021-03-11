@@ -24,6 +24,7 @@ import java.util.List;
 
 public abstract class ViewManager {
 
+    //Information View
     public static void initInformationView(StackPane stackpanel, Pane mainpanel){
         double x=mainpanel.getLayoutX();
         double y=mainpanel.getLayoutY();
@@ -117,7 +118,7 @@ public abstract class ViewManager {
     }
 
     //ACTION
-    public static void initInnBattleScene(AnchorPane anchorPane, Tab towntab, List currencies, Class mainclass) {
+    public static void initInnView(AnchorPane anchorPane, Tab towntab, List currencies, Class mainclass) {
         int x=0;
         int y=0;
 
@@ -249,7 +250,7 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initGymBattleScene(AnchorPane anchorPane, Tab towntab, List currencies) {
+    public static void initGymView(AnchorPane anchorPane, Tab towntab, List currencies) {
         int x=0;
         int y=0;
 
@@ -317,7 +318,7 @@ public abstract class ViewManager {
     private static int red = (int) (Math.random() * 256), green = (int) (Math.random() * 256), blue = (int) (Math.random() * 256);
     private static boolean isToggleupRed = true, isToggleupGreen = false, isToggleupBlue = true;
     private static int dailydojoattempts = 2;
-    public static void initDojoBattleScene(AnchorPane anchorPane,Tab towntab, List currencies) {
+    public static void initDojoView(AnchorPane anchorPane,Tab towntab, List currencies) {
         int x=0;
         int y=0;
 
@@ -441,7 +442,7 @@ public abstract class ViewManager {
     }
 
     private static int thedarkportalstage = 1;
-    public static void initTheDarkPortalBattleScene(AnchorPane anchorPane,Tab towntab,List currencies,Class mainclass) {
+    public static void initTheDarkPortalView(AnchorPane anchorPane,Tab towntab,List currencies,Class mainclass) {
         int x=0;
         int y=0;
 
@@ -562,7 +563,7 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initTownSquareBattleScene(AnchorPane anchorPane,Tab towntab,List currencies) {
+    public static void initTownSquareView(AnchorPane anchorPane,Tab towntab,List currencies) {
         int x=0;
         int y=0;
 
@@ -623,7 +624,7 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initWellspringBattleScene(AnchorPane anchorPane,Tab towntab,List currencies) {
+    public static void initWellspringView(AnchorPane anchorPane,Tab towntab,List currencies) {
         int x=0;
         int y=0;
 
@@ -684,7 +685,7 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initBarrackBattleScene(AnchorPane anchorPane,Tab towntab,List currencies) {
+    public static void initBarrackView(AnchorPane anchorPane,Tab towntab,List currencies) {
         int x=0;
         int y=0;
 
@@ -745,7 +746,7 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initTheGreatestWallBattleScene(AnchorPane anchorPane,Tab towntab,List currencies) {
+    public static void initTheGreatestWallView(AnchorPane anchorPane,Tab towntab,List currencies) {
         int x=0;
         int y=0;
 
@@ -807,7 +808,7 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initCityHallBattleScene(AnchorPane anchorPane,Tab towntab,TabPane maintab,List currencies) {
+    public static void initCityHallView(AnchorPane anchorPane,Tab towntab,TabPane maintab,List currencies) {
         int x=0;
         int y=0;
 
