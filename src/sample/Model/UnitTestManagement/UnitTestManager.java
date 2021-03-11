@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.UnitTestManagement;
+package sample.Model.UnitTestManagement;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

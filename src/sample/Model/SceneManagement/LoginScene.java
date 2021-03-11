@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.SceneManagement;
+package sample.Model.SceneManagement;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -11,9 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.SuperiorManagement.StatsManagement.StatsManager;
-import sample.SuperiorManagement.UtilityManagement.FileManager;
-import sample.SuperiorManagement.UtilityManagement.UtilityManager;
+import sample.Model.StatsManagement.StatsManager;
+import sample.Model.UtilityManagement.FileManager;
+import sample.Model.UtilityManagement.UtilityManager;
 
 public class LoginScene extends GeneralScene {
 

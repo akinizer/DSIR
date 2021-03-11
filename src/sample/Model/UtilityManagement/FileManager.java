@@ -1,13 +1,8 @@
-package sample.SuperiorManagement.UtilityManagement;
-
-import javafx.application.Application;
+package sample.Model.UtilityManagement;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -121,8 +116,6 @@ public abstract class FileManager {
         bw.write(newline);
         bw.flush();
         bw.close();
-
-
     }
 
     public static URI getUriPathFromResources(String path) throws URISyntaxException {
@@ -152,7 +145,6 @@ public abstract class FileManager {
             bw.flush();
             fw.flush();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -164,7 +156,6 @@ public abstract class FileManager {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
         }
 
     }
@@ -183,15 +174,6 @@ public abstract class FileManager {
         }
 
         System.out.println("done");
-        /*
-        FileWriter fw = new FileWriter(file,false);
-        System.out.println(fw);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write("test");
-        bw.flush();
-        bw.close();
-
-         */
     }
 
     public static Boolean checkDatafileExists() {

@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.SceneManagement;
+package sample.Model.SceneManagement;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

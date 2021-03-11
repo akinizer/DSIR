@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.UtilityManagement;
+package sample.Model.UtilityManagement;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

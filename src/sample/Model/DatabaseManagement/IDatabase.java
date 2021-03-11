@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.DatabaseManagement;
+package sample.Model.DatabaseManagement;
 
 public interface IDatabase {
 

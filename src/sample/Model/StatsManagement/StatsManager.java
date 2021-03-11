@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.StatsManagement;
+package sample.Model.StatsManagement;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;

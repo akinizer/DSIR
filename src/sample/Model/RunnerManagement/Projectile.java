@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.RunnerManagement;
+package sample.Model.RunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sample.SuperiorManagement.UtilityManagement.UtilityManager;
+import sample.Model.UtilityManagement.UtilityManager;
 
 class Projectile extends Label {
     //attributes

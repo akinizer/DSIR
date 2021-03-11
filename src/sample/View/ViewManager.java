@@ -14,9 +14,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sample.SuperiorManagement.RunnerManagement.Runner;
-import sample.SuperiorManagement.StatsManagement.StatsManager;
-import sample.SuperiorManagement.UtilityManagement.UtilityManager;
+import sample.Model.RunnerManagement.Runner;
+import sample.Model.StatsManagement.StatsManager;
+import sample.Model.UtilityManagement.UtilityManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +91,6 @@ public abstract class ViewManager {
             //set caret cursor position to last
             namefield.positionCaret(Math.min(namefield.getText().length() + 1, 10));
         });
-
 
         //Save instance of the tab
         Node contentSaved = stackpanel.getChildren().get(0);

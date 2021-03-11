@@ -9,7 +9,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import sample.SuperiorManagement.StatsManagement.StatsManager;
+import sample.Model.StatsManagement.StatsManager;
 import sample.View.ViewManager;
 
 import java.util.ArrayList;
@@ -17,6 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Controller {
+
+    //Constructor
+    public Controller(){
+        StatsManager.setCharacterBaseStats();
+    }
 
     ////////////////////// CONTAINERS //////////////////////
     @FXML

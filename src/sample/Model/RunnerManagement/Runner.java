@@ -1,4 +1,4 @@
-package sample.SuperiorManagement.RunnerManagement;
+package sample.Model.RunnerManagement;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

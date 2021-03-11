@@ -1,11 +1,11 @@
-package sample.SuperiorManagement.SceneManagement;
+package sample.Model.SceneManagement;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Controller;
-import sample.SuperiorManagement.StatsManagement.StatsManager;
+import sample.Model.StatsManagement.StatsManager;
 
 public class MainScene extends GeneralScene {
 
@@ -23,8 +23,7 @@ public class MainScene extends GeneralScene {
         Parent root = loader.load(); //prepare loader
         primaryStage.setScene(new Scene(root));
 
-        Controller controller = loader.getController(); //bind controller to loader
-        StatsManager.setCharacterBaseStats();
+        loader.getController(); //bind controller to loader
 
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);
