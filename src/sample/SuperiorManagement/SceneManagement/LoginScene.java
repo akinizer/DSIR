@@ -29,7 +29,7 @@ public class LoginScene extends GeneralScene {
     public void run() {
         //Container
         VBox box = new VBox();
-        box.setPrefSize(250, 84);
+        box.setPrefSize(250, 80);
         box.setAlignment(Pos.TOP_CENTER);
 
         //Name Entry
@@ -56,6 +56,7 @@ public class LoginScene extends GeneralScene {
 
         //Login Button
         Button loginbutton = new Button("Login");
+        loginbutton.setPrefSize(box.getPrefWidth()/2,box.getPrefWidth() - name.getPrefWidth() - occupation.getPrefWidth());
         loginbutton.setOnAction(event -> {
             if (name.getText().equals(defaultstringName) || occupation.getText().equals(defaultstringOccupation))
                 return;
@@ -85,6 +86,7 @@ public class LoginScene extends GeneralScene {
 
         //Login Button
         Button registerButton = new Button("Register");
+        registerButton.setPrefSize(box.getPrefWidth()/2,box.getPrefWidth() - name.getPrefWidth() - occupation.getPrefWidth());
         registerButton.setOnAction(event -> {
             if (name.getText().equals(defaultstringName) || occupation.getText().equals(defaultstringOccupation))
                 return;
@@ -110,15 +112,14 @@ public class LoginScene extends GeneralScene {
             }
         });
 
+        //Add Components to Containers
         HBox entryBox = new HBox(loginbutton, registerButton);
         entryBox.setAlignment(Pos.CENTER);
 
         box.getChildren().addAll(name, occupation, entryBox);
 
         //Stage Settings
-        //loginStage.getIcons().add(new ImageView(new Image(getClass().getResource("/sample/Resources/baguette.png").toExternalForm())).getImage());
         loginStage.getIcons().add(UtilityManager.getImageFromURL("baguette.png", getClass()));
-
         loginStage.setTitle("DSIR");
         loginStage.setScene(new Scene(box));
         loginStage.setResizable(false);
