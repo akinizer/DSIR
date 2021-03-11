@@ -64,11 +64,6 @@ public class Controller {
 
     //StatsManager instance
 
-    //Set Initial Values for the Character
-    public void setCharacterBaseStats() {
-        StatsManager.setCharacterBaseStats();
-    }
-
     //Change Values for the Character
     public void updateCharacterInfo(String name, String classname, int atk, int hp) {
         if (!name.isEmpty())
@@ -183,7 +178,7 @@ public class Controller {
         System.out.println("City Hall is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        initCityHallBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
+        ViewManager.initCityHallBattleScene(anchorPane,towntab,maintab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
     }
 
     @FXML
@@ -235,94 +230,6 @@ public class Controller {
     }
 
     /// ACTION PANES ///
-    private void initCityHallBattleScene(int x, int y, double width, double height) {
-        //Log Message
-        System.out.println("City Hall Window is Activated");
-        StackPane stackPane = new StackPane();
-        stackPane.setAlignment(Pos.TOP_LEFT);
 
-        //Action Label settings
-        Label titleLabel = new Label("CITY HALL");
-        titleLabel.setPrefWidth(100);
-        titleLabel.setPrefHeight(28);
-        titleLabel.setTranslateX(width / 2 - titleLabel.getPrefWidth() / 2);
-        titleLabel.setTranslateY(25);
-        titleLabel.setAlignment(Pos.CENTER);
-        titleLabel.setStyle("-fx-border-color: White");
-
-        Label actionLabel = new Label();
-        actionLabel.setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.YELLOW));
-        actionLabel.setTranslateX(x);
-        actionLabel.setTranslateY(y);
-        actionLabel.setPrefWidth(width);
-        actionLabel.setPrefHeight(height);
-        actionLabel.setContentDisplay(ContentDisplay.CENTER);
-
-        //Save instance of the tab
-        Node contentSaved = towntab.getContent();
-
-        //action button presets
-        Button actionButton = new Button("start!");
-        actionButton.setPrefSize(100, 28);
-
-        actionButton.setTranslateX(width / 2 - actionButton.getPrefWidth() / 2);
-        actionButton.setTranslateY(height - 35);
-
-        Button returnButton = new Button("return");
-
-        //speed button presets
-        Button speedButton = new Button("Off");
-        speedButton.setPrefSize(35, 35);
-
-        speedButton.setTranslateX(width - speedButton.getPrefWidth());
-        speedButton.setTranslateY(actionButton.getTranslateY());
-        speedButton.setDisable(true);
-
-        //vehicle button presets
-        Button vehicleButton = new Button("Car");
-        vehicleButton.setPrefSize(70, 35);
-
-        vehicleButton.setTranslateX(width - speedButton.getPrefWidth() - vehicleButton.getPrefWidth());
-        vehicleButton.setTranslateY(actionButton.getTranslateY());
-        vehicleButton.setDisable(true);
-
-        //RUNNER CLASS
-        Runner runnerLabel = new Runner(maintab, width, height, actionButton, speedButton, vehicleButton, towntab, stackPane);
-        speedButton.setOnMouseClicked(mouseEvent -> {
-            if (speedButton.getText().equals("On")) {
-                speedButton.setText("Off");
-                runnerLabel.setSpeed(1);
-            } else if (speedButton.getText().equals("Off")) {
-                speedButton.setText("On");
-                runnerLabel.setSpeed(5);
-            }
-        });
-
-        vehicleButton.setOnMouseClicked(mouseEvent -> {
-            switch ( vehicleButton.getText() ) {
-                case "Car":
-                    vehicleButton.setText("Jeep");
-                    runnerLabel.setJeepView();
-                    break;
-                case "Jeep":
-                    vehicleButton.setText("Truck");
-                    runnerLabel.setTruckView();
-                    break;
-                case "Truck":
-                    vehicleButton.setText("Car");
-                    runnerLabel.setCarView();
-                    break;
-            }
-        });
-
-        returnButton.setOnMouseReleased(mouseEvent -> {
-            actionLabel.setVisible(false);
-            towntab.setContent(contentSaved);
-        });
-
-        stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
-        //Initiate Battle Scene
-        towntab.setContent(stackPane);
-    }
 
 }
