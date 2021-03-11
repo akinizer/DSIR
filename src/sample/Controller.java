@@ -158,7 +158,7 @@ public class Controller {
         System.out.println("Inn is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        initInnBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
+        ViewManager.initInnBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar),getClass());
     }
 
     @FXML
@@ -166,8 +166,7 @@ public class Controller {
         System.out.println("Gym is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ;
-        initGymBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
+        ViewManager.initGymBattleScene(anchorPane,towntab,Arrays.asList(goldamount,diamondamount,energybar,levelamount));
     }
 
     @FXML
@@ -175,7 +174,6 @@ public class Controller {
         System.out.println("Town Square is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ;
         initTownSquareBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
     }
 
@@ -184,7 +182,6 @@ public class Controller {
         System.out.println("City Hall is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ;
         initCityHallBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
     }
 
@@ -193,7 +190,6 @@ public class Controller {
         System.out.println("Wellspring is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ;
         initWellspringBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
     }
 
@@ -202,7 +198,6 @@ public class Controller {
         System.out.println("Barrack is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ;
         initBarrackBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
     }
 
@@ -211,7 +206,6 @@ public class Controller {
         System.out.println("The Greatest Wall is clicked");
 
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ;
         initTheGreatestWallBattleScene(0, 0, anchorPane.getWidth(), anchorPane.getHeight());
     }
 
@@ -231,17 +225,18 @@ public class Controller {
     Label informationPanel;
 
     ////////////////////// CURRENCY ACTIONS //////////////////////
-    @FXML
-    private void addInformationLabelListener() {
-        System.out.println("Information Window is activated");
-        initInformationWindow();
+    private void addBattlecoinListener(int gain) {
+        StatsManager.updatBattlecoin(battlecoinamount, gain);
     }
 
-    private void initInformationWindow() {
-        ViewManager.getInformationView(stackpanel,mainpanel);
+    private void addExperienceListener(int gain) {
+        StatsManager.updateExperience(levelamount, gain);
     }
 
-    @FXML
+    private void addEnergyListener(int change) {
+        StatsManager.updateEnergyStatus(energybar, change);
+    }
+
     private void addGoldListener(int change) {
         if (change > 0)
             StatsManager.updateGoldIncrease(goldamount, diamondamount, change);
@@ -249,197 +244,15 @@ public class Controller {
             StatsManager.updateGoldDecrease(goldamount, diamondamount, change);
     }
 
-    @FXML
-    private void addBattlecoinListener(int gain) {
-        StatsManager.updatBattlecoin(battlecoinamount, gain);
-    }
+    // CURRENCY PANES //
 
     @FXML
-    private void addExperienceListener(int gain) {
-        StatsManager.updateExperience(levelamount, gain);
-    }
-
-    @FXML
-    private void addEnergyListener(int change) {
-        StatsManager.updateEnergyStatus(energybar, change);
+    private void addInformationLabelListener() {
+        System.out.println("Information Window is activated");
+        ViewManager.initInformationView(stackpanel,mainpanel);
     }
 
     /// ACTION PANES ///
-    private void initInnBattleScene(int x, int y, double width, double height) {
-        //Log Message
-        System.out.println("Inn Window is Activated");
-
-        //Action Label settings
-        Label titleLabel = new Label("INN");
-        titleLabel.setPrefWidth(100);
-        titleLabel.setPrefHeight(28);
-        titleLabel.setTranslateX(width / 2 - titleLabel.getPrefWidth() / 2);
-        titleLabel.setTranslateY(25);
-        titleLabel.setAlignment(Pos.CENTER);
-        titleLabel.setStyle("-fx-border-color: White");
-
-        Label actionLabel = new Label();
-        actionLabel.setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.SKYBLUE));
-        actionLabel.setLayoutX(x);
-        actionLabel.setLayoutY(y);
-        actionLabel.setPrefWidth(width);
-        actionLabel.setPrefHeight(height);
-        actionLabel.setContentDisplay(ContentDisplay.CENTER);
-
-        //Save instance of the tab
-        Node contentSaved = towntab.getContent();
-
-        //action button presets
-        Button returnButton = new Button("return");
-
-        //nap
-        ImageView ivnap = new ImageView(new Image(getClass().getResource("/sample/Resources/couch.png").toExternalForm()));
-        ivnap.setFitHeight(100);
-        ivnap.setPreserveRatio(true);
-
-        Label labelnap = new Label("", ivnap);
-        labelnap.setPrefWidth(100);
-        labelnap.setPrefHeight(100);
-        labelnap.setTranslateX(width / 2 - labelnap.getPrefWidth() / 2);
-        labelnap.setTranslateY(height / 2 - ivnap.getFitHeight() / 2);
-        labelnap.setAlignment(Pos.CENTER);
-        labelnap.setOpacity(0.5);
-        labelnap.setTooltip(new Tooltip("--Nap--\nCost: 80 G\nEnergy Refill: 66%"));
-
-        //sleep
-        ImageView ivsleep = new ImageView(new Image(getClass().getResource("/sample/Resources/bed.png").toExternalForm()));
-        ivsleep.setFitHeight(100);
-        ivsleep.setPreserveRatio(true);
-
-        Label labelsleep = new Label("", ivsleep);
-        labelsleep.setPrefWidth(100);
-        labelsleep.setPrefHeight(100);
-        labelsleep.setTranslateX(width / 2 - labelnap.getPrefWidth() / 2 + labelsleep.getPrefWidth() + 50);
-        labelsleep.setTranslateY(height / 2 - ivsleep.getFitHeight() / 2);
-        labelsleep.setAlignment(Pos.CENTER);
-        labelsleep.setOpacity(0.5);
-        labelsleep.setTooltip(new Tooltip("--Sleep--\nCost: 120 G\nEnergy Refill: 100%"));
-
-        ///break
-        ImageView ivbreak = new ImageView(new Image(getClass().getResource("/sample/Resources/armchair.png").toExternalForm()));
-        ivbreak.setFitHeight(100);
-        ivbreak.setPreserveRatio(true);
-
-        Label labelbreak = new Label("", ivbreak);
-        labelbreak.setPrefWidth(100);
-        labelbreak.setPrefHeight(100);
-        labelbreak.setTranslateX(width / 2 - labelnap.getPrefWidth() / 2 - labelbreak.getPrefWidth() - 50);
-        labelbreak.setTranslateY(height / 2 - ivbreak.getFitHeight() / 2);
-        labelbreak.setAlignment(Pos.CENTER);
-        labelbreak.setOpacity(0.5);
-        labelbreak.setTooltip(new Tooltip("--Break--\nCost: 40 G\nEnergy Refill: 33%"));
-
-        //Load saved instance of tab on leaving Battle Scene
-        labelnap.setOnMouseReleased(mouseEvent -> {
-            int costGold = 40;
-            int currencyasgold = Integer.parseInt(goldamount.getText()) + Integer.parseInt(diamondamount.getText()) * 100;
-            if (currencyasgold >= costGold) {
-                addGoldListener(-costGold);
-                double progress = energybar.getProgress() + 0.66;
-                energybar.setProgress(Math.min(progress, 1));
-            }
-        });
-
-        labelsleep.setOnMouseReleased(mouseEvent -> {
-            int costGold = 120;
-            int currencyasgold = Integer.parseInt(goldamount.getText()) + Integer.parseInt(diamondamount.getText()) * 100;
-            if (currencyasgold >= costGold) {
-                addGoldListener(-costGold);
-                energybar.setProgress(1);
-            }
-        });
-
-        labelbreak.setOnMouseReleased(mouseEvent -> {
-            int costGold = 80;
-            int currencyasgold = Integer.parseInt(goldamount.getText()) + Integer.parseInt(diamondamount.getText()) * 100;
-            if (currencyasgold >= costGold) {
-                addGoldListener(-costGold);
-                double progress = energybar.getProgress() + 0.33;
-                energybar.setProgress(Math.min(progress, 1));
-            }
-        });
-
-        returnButton.setOnMouseReleased(mouseEvent -> {
-            actionLabel.setVisible(false);
-            towntab.setContent(contentSaved);
-        });
-
-        //hover effects
-        labelnap.setOnMouseEntered(mouseEvent -> labelnap.setOpacity(1));
-        labelnap.setOnMouseExited(mouseEvent -> labelnap.setOpacity(0.5));
-        //
-        labelbreak.setOnMouseEntered(mouseEvent -> labelbreak.setOpacity(1));
-        labelbreak.setOnMouseExited(mouseEvent -> labelbreak.setOpacity(0.5));
-        //
-        labelsleep.setOnMouseEntered(mouseEvent -> labelsleep.setOpacity(1));
-        labelsleep.setOnMouseExited(mouseEvent -> labelsleep.setOpacity(0.5));
-
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel, titleLabel, labelbreak, labelnap, labelsleep, returnButton);
-        stackPane.setAlignment(Pos.TOP_LEFT);
-        //Initiate Battle Scene
-        towntab.setContent(stackPane);
-    }
-
-    private void initGymBattleScene(int x, int y, double width, double height) {
-        //Log Message
-        System.out.println("Gym Window is Activated");
-
-        //Action Label settings
-        Label titleLabel = new Label("GYM");
-        titleLabel.setPrefWidth(100);
-        titleLabel.setPrefHeight(28);
-        titleLabel.setTranslateX(width / 2 - titleLabel.getPrefWidth() / 2);
-        titleLabel.setTranslateY(25);
-        titleLabel.setAlignment(Pos.CENTER);
-        titleLabel.setStyle("-fx-border-color: White");
-
-        Label actionLabel = new Label();
-        actionLabel.setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.LIGHTPINK));
-        actionLabel.setLayoutX(x);
-        actionLabel.setLayoutY(y);
-        actionLabel.setPrefWidth(width);
-        actionLabel.setPrefHeight(height);
-        actionLabel.setContentDisplay(ContentDisplay.CENTER);
-
-        //Save instance of the tab
-        Node contentSaved = towntab.getContent();
-
-        //action button presets
-        Button actionButton = new Button("battle time!");
-        actionButton.setPrefSize(100, 28);
-
-        actionButton.setTranslateX(width / 2 - actionButton.getPrefWidth() / 2);
-        actionButton.setTranslateY(height - 35);
-
-        Button returnButton = new Button("return");
-
-        //Load saved instance of tab on leaving Battle Scene
-        actionButton.setOnMouseReleased(mouseEvent -> {
-            if (energybar.getProgress() * 100 >= 25) {
-                addExperienceListener((((int) (Math.random() * 5)) + 50) * Integer.parseInt(levelamount.getText()));
-                addEnergyListener(-20);
-                addGoldListener((int) Math.round(200 * Integer.parseInt(levelamount.getText()) * 1.2));
-            }
-        });
-
-        returnButton.setOnMouseReleased(mouseEvent -> {
-            actionLabel.setVisible(false);
-            towntab.setContent(contentSaved);
-        });
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(actionLabel, titleLabel, actionButton, returnButton);
-        stackPane.setAlignment(Pos.TOP_LEFT);
-        //Initiate Battle Scene
-        towntab.setContent(stackPane);
-    }
 
     private int red = (int) (Math.random() * 256), green = (int) (Math.random() * 256), blue = (int) (Math.random() * 256);
 
