@@ -74,6 +74,8 @@ public class Controller {
     ProgressBar energybar;
     @FXML
     Label informationPanel;
+    @FXML
+    Label settings;
 
     ////////////////////// TOWN BUILDING ACTIONS //////////////////////
 
@@ -138,6 +140,8 @@ public class Controller {
     private void addInformationLabelListener() {
         ViewManager.initInformationView(stackpanel, mainpanel);
     }
+    @FXML
+    private void addSettingsLabelListener(){ViewManager.initSettingsView(stackpanel);}
 
     ////////////////////// CONTROLLER TEST ACTIONS //////////////////////
 

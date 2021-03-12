@@ -4,8 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.Controller;
-import sample.Model.StatsManagement.StatsManager;
 
 public class MainScene extends GeneralScene {
 
@@ -18,13 +16,15 @@ public class MainScene extends GeneralScene {
     }
 
     public void run() throws Exception {
-        //access tabs via controller
+        //Load Scenes from FXML File and Bind to Stage
         FXMLLoader loader = new FXMLLoader(mainclass.getResource("/sample/sample.fxml")); //initialize loader using fxml file
-        Parent root = loader.load(); //prepare loader
+        Parent root = loader.load();
         primaryStage.setScene(new Scene(root));
 
-        loader.getController(); //bind controller to loader
+        //Bind Controller to Loader
+        loader.getController();
 
+        //Handle Stage Settings and Initiate the Interactive Application
         primaryStage.setTitle("DSIR");
         primaryStage.setResizable(false);
         primaryStage.show();

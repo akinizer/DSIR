@@ -25,6 +25,38 @@ import java.util.List;
 public abstract class ViewManager {
 
     //Information View
+    public static void initSettingsView(StackPane stackpanel){
+
+        System.out.println("Settings Window is shown");
+
+        //Save instance of the tab
+        Node contentSaved = stackpanel.getChildren().get(0);
+
+        Label volumeLabel=new Label("Volume:");
+        volumeLabel.setTranslateX(stackpanel.getWidth()/3);
+        volumeLabel.setTranslateY(stackpanel.getHeight()/3);
+
+        Label musicLabel=new Label("Music:");
+        musicLabel.setTranslateX(stackpanel.getWidth()/3);
+        musicLabel.setTranslateY(stackpanel.getHeight()/3 + 25);
+
+        Button actionButton = new Button("Return");
+        actionButton.setLayoutX(0);
+        actionButton.setLayoutY(0);
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnAction(event -> {
+            stackpanel.getChildren().removeAll(actionButton,volumeLabel,musicLabel);
+            stackpanel.getChildren().add(contentSaved);
+            stackpanel.setAlignment(Pos.CENTER);
+        });
+
+        //Initiate Battle Scene
+        stackpanel.getChildren().remove(contentSaved);
+        stackpanel.getChildren().addAll(actionButton,volumeLabel,musicLabel);
+        stackpanel.setAlignment(Pos.TOP_LEFT);
+    }
+
     public static void initInformationView(StackPane stackpanel, Pane mainpanel){
         double x=mainpanel.getLayoutX();
         double y=mainpanel.getLayoutY();
