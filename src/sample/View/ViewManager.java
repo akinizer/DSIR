@@ -14,8 +14,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import sample.Main;
 import sample.Model.RunnerManagement.Runner;
 import sample.Model.StatsManagement.StatsManager;
+import sample.Model.UtilityManagement.MediaManager;
 import sample.Model.UtilityManagement.UtilityManager;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import java.util.List;
 public abstract class ViewManager {
 
     //Information View
+    private static boolean volumeSwitch=false;
     public static void initSettingsView(StackPane stackpanel){
 
         System.out.println("Settings Window is shown");
@@ -32,13 +35,34 @@ public abstract class ViewManager {
         //Save instance of the tab
         Node contentSaved = stackpanel.getChildren().get(0);
 
+        String volumeonURL="/sample/Resources/soundfile/volume-on.png";
+        String volumeoffURL="/sample/Resources/soundfile/volume-off.png";
+
+        ImageView ivsong = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        ivsong.setFitHeight(25);
+        ivsong.setPreserveRatio(true);
+
+        Label songLabel=new Label("Music:",ivsong);
+        songLabel.setTranslateX(stackpanel.getWidth()/3);
+        songLabel.setTranslateY(stackpanel.getHeight()/3);
+        songLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        songLabel.setOnMouseReleased(mouseEvent -> {
+            if(volumeSwitch) {
+                volumeSwitch=false;
+                MediaManager.stop();
+                ivsong.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+            }
+            else {
+                volumeSwitch=true;
+                MediaManager.shuffle();
+                ivsong.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
+            }
+        });
+
         Label volumeLabel=new Label("Volume:");
         volumeLabel.setTranslateX(stackpanel.getWidth()/3);
-        volumeLabel.setTranslateY(stackpanel.getHeight()/3);
-
-        Label musicLabel=new Label("Music:");
-        musicLabel.setTranslateX(stackpanel.getWidth()/3);
-        musicLabel.setTranslateY(stackpanel.getHeight()/3 + 25);
+        volumeLabel.setTranslateY(stackpanel.getHeight()/3 + 25);
 
         Button actionButton = new Button("Return");
         actionButton.setLayoutX(0);
@@ -46,14 +70,14 @@ public abstract class ViewManager {
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnAction(event -> {
-            stackpanel.getChildren().removeAll(actionButton,volumeLabel,musicLabel);
+            stackpanel.getChildren().removeAll(actionButton,songLabel,volumeLabel);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
 
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionButton,volumeLabel,musicLabel);
+        stackpanel.getChildren().addAll(actionButton,volumeLabel,songLabel);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 
