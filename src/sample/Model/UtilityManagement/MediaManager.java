@@ -23,6 +23,10 @@ public abstract class MediaManager {
     private static boolean isPlaying = false;
     private static boolean isAutoSwitchActive = false;
 
+    //TODO:
+    // FUSE Play and Shuffle
+    // FUSE Repeat, AutoPlay
+    // DIVIDE Play INTO Stop, Pause and Play
     private static void play() {
         Media song;
         try {
