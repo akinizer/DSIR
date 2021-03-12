@@ -31,6 +31,8 @@ public abstract class ViewManager {
     private static boolean repeatSwitch=false;
     private static boolean autoSwitch=false;
     private static boolean playingSwitch=false;
+
+    private static Node settingsSaved=null;
     public static void initSettingsView(StackPane stackpanel){
 
         System.out.println("Settings Window is shown");
@@ -41,7 +43,11 @@ public abstract class ViewManager {
         String volumeonURL="/sample/Resources/soundfile/volume-on.png";
         String volumeoffURL="/sample/Resources/soundfile/volume-off.png";
 
-        ImageView ivvolume = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        String volimg;
+        if(volumeSwitch) volimg=volumeonURL;
+        else volimg=volumeoffURL;
+
+        ImageView ivvolume = new ImageView(new Image(Main.class.getResource(volimg).toExternalForm()));
         ivvolume.setFitHeight(25);
         ivvolume.setPreserveRatio(true);
 
@@ -65,8 +71,11 @@ public abstract class ViewManager {
             }
         });
 
+        String songimg;
+        if(playingSwitch) songimg=volumeonURL;
+        else songimg=volumeoffURL;
 
-        ImageView ivsong = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        ImageView ivsong = new ImageView(new Image(Main.class.getResource(songimg).toExternalForm()));
         ivsong.setFitHeight(25);
         ivsong.setPreserveRatio(true);
 
@@ -83,13 +92,17 @@ public abstract class ViewManager {
             }
             else {
                 playingSwitch=true;
-                MediaManager.shuffle();
+                MediaManager.setMode(true);
                 ivsong.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
                 ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
             }
         });
 
-        ImageView ivrepeat = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        String repeatimg;
+        if(repeatSwitch) repeatimg=volumeonURL;
+        else repeatimg=volumeoffURL;
+
+        ImageView ivrepeat = new ImageView(new Image(Main.class.getResource(repeatimg).toExternalForm()));
         ivrepeat.setFitHeight(25);
         ivrepeat.setPreserveRatio(true);
 
@@ -113,7 +126,11 @@ public abstract class ViewManager {
             }
         });
 
-        ImageView ivauto = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        String autoimg;
+        if(autoSwitch) autoimg=volumeonURL;
+        else autoimg=volumeoffURL;
+
+        ImageView ivauto = new ImageView(new Image(Main.class.getResource(autoimg).toExternalForm()));
         ivauto.setFitHeight(25);
         ivauto.setPreserveRatio(true);
 

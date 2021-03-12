@@ -28,7 +28,7 @@ public abstract class MediaManager {
     private static Iterator<String> itr = playlist.iterator();
     private static boolean isPlaying = false;
 
-    public static void play() {
+    private static void play() {
         Media song;
         int curindex = previousIndex;
         if (previousIndex == -1 || !isRepeat())
@@ -55,7 +55,7 @@ public abstract class MediaManager {
         isPlaying = false;
     }
 
-    public static void shuffle() {
+    private static void shuffle() {
         Media song;
         String lucky = "";
 
@@ -134,6 +134,11 @@ public abstract class MediaManager {
 
     public static boolean isMediaPlayerActive() {
         return mediaPlayer!=null;
+    }
+
+    public static void setMode(boolean isShuffle){
+        if(isShuffle) shuffle();
+        else play();
     }
 
 }
