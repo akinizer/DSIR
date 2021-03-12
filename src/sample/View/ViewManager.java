@@ -28,6 +28,8 @@ public abstract class ViewManager {
 
     //Information View
     private static boolean volumeSwitch=false;
+    private static boolean repeatSwitch=false;
+    private static boolean autoSwitch=false;
     public static void initSettingsView(StackPane stackpanel){
 
         System.out.println("Settings Window is shown");
@@ -60,9 +62,71 @@ public abstract class ViewManager {
             }
         });
 
-        Label volumeLabel=new Label("Volume:");
+        ImageView ivrepeat = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        ivrepeat.setFitHeight(25);
+        ivrepeat.setPreserveRatio(true);
+
+        Label repeatLabel=new Label("repeat:",ivrepeat);
+        repeatLabel.setTranslateX(stackpanel.getWidth()/3);
+        repeatLabel.setTranslateY(stackpanel.getHeight()/3 + 25);
+        repeatLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        repeatLabel.setOnMouseReleased(mouseEvent -> {
+            if(repeatSwitch) {
+                repeatSwitch=false;
+                MediaManager.toggleRepeat();
+                ivrepeat.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+            }
+            else {
+                repeatSwitch=true;
+                MediaManager.toggleRepeat();
+                ivrepeat.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
+            }
+        });
+
+        ImageView ivauto = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        ivauto.setFitHeight(25);
+        ivauto.setPreserveRatio(true);
+
+        Label autoplayLabel=new Label("auto:",ivauto);
+        autoplayLabel.setTranslateX(stackpanel.getWidth()/3);
+        autoplayLabel.setTranslateY(stackpanel.getHeight()/3 + 50);
+        autoplayLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        autoplayLabel.setOnMouseReleased(mouseEvent -> {
+            if(autoSwitch) {
+                autoSwitch=false;
+                MediaManager.toggleAutoplay();
+                ivauto.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+            }
+            else {
+                autoSwitch=true;
+                MediaManager.toggleAutoplay();
+                ivauto.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
+            }
+        });
+
+        ImageView ivvolume = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        ivvolume.setFitHeight(25);
+        ivvolume.setPreserveRatio(true);
+
+        Label volumeLabel=new Label("Volume:",ivvolume);
         volumeLabel.setTranslateX(stackpanel.getWidth()/3);
-        volumeLabel.setTranslateY(stackpanel.getHeight()/3 + 25);
+        volumeLabel.setTranslateY(stackpanel.getHeight()/3 + 75);
+        volumeLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        volumeLabel.setOnMouseReleased(mouseEvent -> {
+            if(volumeSwitch) {
+                volumeSwitch=false;
+                MediaManager.toggleVolume();
+                ivvolume.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+            }
+            else {
+                volumeSwitch=true;
+                MediaManager.toggleVolume();
+                ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
+            }
+        });
 
         Button actionButton = new Button("Return");
         actionButton.setLayoutX(0);
@@ -77,7 +141,7 @@ public abstract class ViewManager {
 
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionButton,volumeLabel,songLabel);
+        stackpanel.getChildren().addAll(actionButton,songLabel,repeatLabel,autoplayLabel,volumeLabel);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 
