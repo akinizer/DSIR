@@ -2,16 +2,10 @@ package sample.Model.UtilityManagement;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 import sample.Main;
 
-import java.io.File;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public abstract class MediaManager {
 
@@ -25,30 +19,35 @@ public abstract class MediaManager {
             "/sample/Resources/soundfile/song5.mp3");
 
     private static int previousIndex = -1;
-    private static Iterator<String> itr = playlist.iterator();
+    private static ListIterator<String> itr = playlist.listIterator();
     private static boolean isPlaying = false;
+    private static boolean isAutoSwitchActive = false;
 
     private static void play() {
         Media song;
-        int curindex = previousIndex;
-        if (previousIndex == -1 || !isRepeat())
-            curindex = ++previousIndex % 5;
-
         try {
-            song = new Media(Main.class.getResource(playlist.get(curindex)).toURI().toString());
-            mediaPlayer = new MediaPlayer(song);
+                String str="";
+                if(mediaPlayer==null || isAutoplay()){
+                    previousIndex++;
+                    str=itr.next();
+                }
+                else if(isRepeat()) {
+                    str=playlist.get(previousIndex);
+                }
+                else stop();
 
-            mediaPlayer.setOnEndOfMedia(() -> {
-                if (!isRepeat() && isAutoplay())
-                    play();
-                else if (!isRepeat() && !isAutoplay())
-                    isPlaying = false;
-            });
+                song = new Media(Main.class.getResource(str).toURI().toString());
+                mediaPlayer = new MediaPlayer(song);
+                mediaPlayer.setAutoPlay(true);
+
+                mediaPlayer.setOnEndOfMedia(MediaManager::play);
+
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void stop() {
         mediaPlayer.stop();
@@ -82,26 +81,6 @@ public abstract class MediaManager {
 
     }
 
-    public static void toggleAutoplay() {
-        if (mediaPlayer.isAutoPlay()) {
-            mediaPlayer.setAutoPlay(false);
-            System.out.println("AutoPlay is disabled");
-        } else {
-            mediaPlayer.setAutoPlay(true);
-            System.out.println("AutoPlay is enabled");
-        }
-    }
-
-    public static void toggleRepeat() {
-        if (mediaPlayer.getCycleCount() == MediaPlayer.INDEFINITE) {
-            mediaPlayer.setCycleCount(1);
-            System.out.println("Repeat is disabled");
-        } else {
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            System.out.println("Repeat is enabled");
-        }
-    }
-
     public static void toggleVolume() {
         if (mediaPlayer.getVolume() == 1) {
             mediaPlayer.setVolume(0);
@@ -129,16 +108,56 @@ public abstract class MediaManager {
     }
 
     private static boolean isAutoplay() {
-        return mediaPlayer.isAutoPlay();
+        return isAutoSwitchActive;
     }
 
     public static boolean isMediaPlayerActive() {
-        return mediaPlayer!=null;
+        return mediaPlayer != null;
     }
 
-    public static void setMode(boolean isShuffle){
-        if(isShuffle) shuffle();
+    public static void setMode(boolean isShuffle) {
+        if (isShuffle) shuffle();
         else play();
     }
+
+    public static void enableAutoPlay() {
+        System.out.println("AutoPlay is enabled");
+        isAutoSwitchActive = true;
+    }
+
+    public static void disableAutoPlay() {
+        System.out.println("AutoPlay is disabled");
+        isAutoSwitchActive = false;
+    }
+
+    public static void enableRepeat() {
+        System.out.println("Repeat is enabled");
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+    }
+
+    public static void disableRepeat() {
+        System.out.println("Repeat is disabled");
+        mediaPlayer.setCycleCount(1);
+    }
+
+    public static void enableVolume() {
+        System.out.println("Volume is enabled");
+        mediaPlayer.setVolume(1);
+    }
+
+    public static void disableVolume() {
+        System.out.println("Volume is disabled");
+        mediaPlayer.setVolume(0);
+    }
+
+    public static void setVolume(double value) {
+        if(value>=0 && value<=100) {
+            double adjustedValue=value/100;
+
+            System.out.println("Volume is set to " + adjustedValue);
+            mediaPlayer.setVolume(adjustedValue);
+        }
+    }
+
 
 }

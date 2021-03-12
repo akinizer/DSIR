@@ -92,7 +92,7 @@ public abstract class ViewManager {
             }
             else {
                 playingSwitch=true;
-                MediaManager.setMode(true);
+                MediaManager.setMode(false);
                 ivsong.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
                 ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
             }
@@ -116,12 +116,12 @@ public abstract class ViewManager {
 
             if(repeatSwitch) {
                 repeatSwitch=false;
-                MediaManager.toggleRepeat();
+                MediaManager.disableRepeat();
                 ivrepeat.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
             }
             else {
                 repeatSwitch=true;
-                MediaManager.toggleRepeat();
+                MediaManager.enableRepeat();
                 ivrepeat.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
             }
         });
@@ -144,12 +144,12 @@ public abstract class ViewManager {
 
             if(autoSwitch) {
                 autoSwitch=false;
-                MediaManager.toggleAutoplay();
+                MediaManager.disableAutoPlay();
                 ivauto.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
             }
             else {
                 autoSwitch=true;
-                MediaManager.toggleAutoplay();
+                MediaManager.enableAutoPlay();
                 ivauto.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
             }
         });
