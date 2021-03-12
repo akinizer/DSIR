@@ -27,9 +27,10 @@ import java.util.List;
 public abstract class ViewManager {
 
     //Information View
-    private static boolean volumeSwitch=false;
+    private static boolean volumeSwitch=true;
     private static boolean repeatSwitch=false;
     private static boolean autoSwitch=false;
+    private static boolean playingSwitch=false;
     public static void initSettingsView(StackPane stackpanel){
 
         System.out.println("Settings Window is shown");
@@ -39,6 +40,31 @@ public abstract class ViewManager {
 
         String volumeonURL="/sample/Resources/soundfile/volume-on.png";
         String volumeoffURL="/sample/Resources/soundfile/volume-off.png";
+
+        ImageView ivvolume = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+        ivvolume.setFitHeight(25);
+        ivvolume.setPreserveRatio(true);
+
+        Label volumeLabel=new Label("Volume:",ivvolume);
+        volumeLabel.setTranslateX(stackpanel.getWidth()/3);
+        volumeLabel.setTranslateY(stackpanel.getHeight()/3 + 75);
+        volumeLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        volumeLabel.setOnMouseReleased(mouseEvent -> {
+            if(!MediaManager.isMediaPlayerActive()) return;
+
+            if(volumeSwitch) {
+                volumeSwitch=false;
+                MediaManager.toggleVolume();
+                ivvolume.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
+            }
+            else {
+                volumeSwitch=true;
+                MediaManager.toggleVolume();
+                ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
+            }
+        });
+
 
         ImageView ivsong = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
         ivsong.setFitHeight(25);
@@ -50,15 +76,16 @@ public abstract class ViewManager {
         songLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         songLabel.setOnMouseReleased(mouseEvent -> {
-            if(volumeSwitch) {
-                volumeSwitch=false;
+            if(playingSwitch) {
+                playingSwitch=false;
                 MediaManager.stop();
                 ivsong.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
             }
             else {
-                volumeSwitch=true;
+                playingSwitch=true;
                 MediaManager.shuffle();
                 ivsong.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
+                ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
             }
         });
 
@@ -72,6 +99,8 @@ public abstract class ViewManager {
         repeatLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         repeatLabel.setOnMouseReleased(mouseEvent -> {
+            if(!MediaManager.isMediaPlayerActive()) return;
+
             if(repeatSwitch) {
                 repeatSwitch=false;
                 MediaManager.toggleRepeat();
@@ -94,6 +123,8 @@ public abstract class ViewManager {
         autoplayLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         autoplayLabel.setOnMouseReleased(mouseEvent -> {
+            if(!MediaManager.isMediaPlayerActive()) return;
+
             if(autoSwitch) {
                 autoSwitch=false;
                 MediaManager.toggleAutoplay();
@@ -106,35 +137,13 @@ public abstract class ViewManager {
             }
         });
 
-        ImageView ivvolume = new ImageView(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
-        ivvolume.setFitHeight(25);
-        ivvolume.setPreserveRatio(true);
-
-        Label volumeLabel=new Label("Volume:",ivvolume);
-        volumeLabel.setTranslateX(stackpanel.getWidth()/3);
-        volumeLabel.setTranslateY(stackpanel.getHeight()/3 + 75);
-        volumeLabel.setContentDisplay(ContentDisplay.RIGHT);
-
-        volumeLabel.setOnMouseReleased(mouseEvent -> {
-            if(volumeSwitch) {
-                volumeSwitch=false;
-                MediaManager.toggleVolume();
-                ivvolume.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
-            }
-            else {
-                volumeSwitch=true;
-                MediaManager.toggleVolume();
-                ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
-            }
-        });
-
         Button actionButton = new Button("Return");
         actionButton.setLayoutX(0);
         actionButton.setLayoutY(0);
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnAction(event -> {
-            stackpanel.getChildren().removeAll(actionButton,songLabel,volumeLabel);
+            stackpanel.getChildren().removeAll(actionButton,songLabel,repeatLabel,autoplayLabel,volumeLabel);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
