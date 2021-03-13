@@ -214,17 +214,20 @@ public class Controller {
 
     /////////////////////// / UNUSED FXML COMPONENTS ////////////////////////
     @FXML public AnchorPane townpane;
+
     @FXML public AnchorPane collessiumpane;
     @FXML public Label towerofgodbuilding;
     @FXML public Label elvenforestbuilding;
     @FXML public Label lakeofnympsbuilding;
     @FXML public Label ruinsbuilding;
     @FXML public Label dwarvenminesbuilding;
+
     @FXML public AnchorPane dungeonpane;
     @FXML public Label competitivebuilding;
     @FXML public Label grandbuilding;
     @FXML public Label electivebuilding;
     @FXML public Label scorebillbuilding;
+
     @FXML public AnchorPane storepane;
     @FXML public TabPane storetabpanel;
     @FXML public GridPane storegridpane5;
@@ -232,6 +235,7 @@ public class Controller {
     @FXML public GridPane storegridpane2;
     @FXML public GridPane storegridpane3;
     @FXML public GridPane storegridpane4;
+
     @FXML public Label battlecoinlabel;
     @FXML public Label goldlabel;
     @FXML public Label energylabel;

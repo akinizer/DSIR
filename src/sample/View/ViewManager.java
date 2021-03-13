@@ -2,6 +2,8 @@ package sample.View;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -9,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -32,8 +35,7 @@ public abstract class ViewManager {
     private static boolean autoSwitch=false;
     private static boolean playingSwitch=false;
 
-    private static Node settingsSaved=null;
-    public static void initSettingsView(StackPane stackpanel){
+    public static void initSettingsView2(StackPane stackpanel){
 
         System.out.println("Settings Window is shown");
 
@@ -92,7 +94,7 @@ public abstract class ViewManager {
             }
             else {
                 playingSwitch=true;
-                MediaManager.setMode(false);
+                //MediaManager.setMode(false);
                 ivsong.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
                 ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
             }
@@ -168,6 +170,99 @@ public abstract class ViewManager {
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
         stackpanel.getChildren().addAll(actionButton,songLabel,repeatLabel,autoplayLabel,volumeLabel);
+        stackpanel.setAlignment(Pos.TOP_LEFT);
+    }
+
+    public static void initSettingsView(StackPane stackpanel){
+        //AUTO TEST: PASS
+        //REPLAY TEST: PASS
+        //SHUFFLE TEST: PASS
+
+        //ARS=-1 TEST: PASS -> Currently Initial selection is Shuffle
+
+        System.out.println("Settings Window is shown");
+
+        //Save instance of the tab
+        Node contentSaved = stackpanel.getChildren().get(0);
+
+        String volumeonURL="/sample/Resources/soundfile/volume-on.png";
+        String volumeoffURL="/sample/Resources/soundfile/volume-off.png";
+
+        Label playLabel = new Label("Play");
+        playLabel.setTranslateX(stackpanel.getWidth()/3);
+        playLabel.setTranslateY(stackpanel.getHeight()/3);
+        playLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+        RadioButton autobtn=new RadioButton();
+        autobtn.setToggleGroup(toggleGroup);
+        autobtn.setTranslateX(stackpanel.getWidth()/3);
+        autobtn.setTranslateY(stackpanel.getHeight()/3 + 25);
+        autobtn.setContentDisplay(ContentDisplay.RIGHT);
+
+        RadioButton replaybtn=new RadioButton();
+        replaybtn.setToggleGroup(toggleGroup);
+        replaybtn.setTranslateX(stackpanel.getWidth()/3 + 25);
+        replaybtn.setTranslateY(stackpanel.getHeight()/3 + 25);
+        replaybtn.setContentDisplay(ContentDisplay.RIGHT);
+
+        RadioButton shufflebtn=new RadioButton();
+        shufflebtn.setToggleGroup(toggleGroup);
+        shufflebtn.setTranslateX(stackpanel.getWidth()/3 + 50);
+        shufflebtn.setTranslateY(stackpanel.getHeight()/3 + 25);
+        shufflebtn.setContentDisplay(ContentDisplay.RIGHT);
+        shufflebtn.setSelected(true);
+        MediaManager.setARS(3);
+
+        toggleGroup.selectedToggleProperty().addListener((ob, o, n) -> {
+            RadioButton rb = (RadioButton) toggleGroup.getSelectedToggle();
+
+            if (rb != null) {
+                if(rb==autobtn){
+                    System.out.println("auto");
+                    MediaManager.setARS(1);
+                }
+                else if(rb==replaybtn){
+                    System.out.println("replay");
+                    MediaManager.setARS(2);
+                }
+                else if(rb==shufflebtn){
+                    System.out.println("shuffle");
+                    MediaManager.setARS(3);
+                }
+            }
+        });
+
+        playLabel.setOnMouseReleased(mouseEvent -> {
+            if(MediaManager.getARS()==-1) return;
+
+            if(playLabel.getText().equals("Play")) {
+                playLabel.setText("Stop");
+                MediaManager.run();
+            }
+            else {
+                playLabel.setText("Play");
+                MediaManager.stop();
+            }
+
+
+        });
+
+
+        Button actionButton = new Button("Return");
+        actionButton.setLayoutX(0);
+        actionButton.setLayoutY(0);
+
+        //Load saved instance of tab on leaving Battle Scene
+        actionButton.setOnAction(event -> {
+            stackpanel.getChildren().removeAll(actionButton,playLabel,autobtn,shufflebtn,replaybtn);
+            stackpanel.getChildren().add(contentSaved);
+            stackpanel.setAlignment(Pos.CENTER);
+        });
+
+        //Initiate Battle Scene
+        stackpanel.getChildren().remove(contentSaved);
+        stackpanel.getChildren().addAll(actionButton,playLabel,autobtn,shufflebtn,replaybtn);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 
