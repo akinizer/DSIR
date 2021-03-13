@@ -105,12 +105,19 @@ public abstract class MediaManager {
     }
 
     public static void skip() {
-        stop();
-        if (itr.hasNext()) {
-            play(itr.next());
-        } else {
-            reset();
-            play(itr.next());
+        if(mediaPlayer!=null)
+            stop();
+        
+        if(ARS==1 || ARS==2) {
+            if (itr.hasNext()) {
+                play(itr.next());
+            } else {
+                reset();
+                play(itr.next());
+            }
+        }
+        else if(ARS==3){
+            shuffle();
         }
 
     }

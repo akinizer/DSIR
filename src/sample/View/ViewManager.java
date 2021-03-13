@@ -72,24 +72,28 @@ public abstract class ViewManager {
         stopLabel.setTranslateY(stackpanel.getHeight() / 3);
         stopLabel.setContentDisplay(ContentDisplay.RIGHT);
 
+        Label toggleOptions=new Label("Options:");
+        toggleOptions.setTranslateX(stackpanel.getWidth() / 3);
+        toggleOptions.setTranslateY(stackpanel.getHeight() / 3 + 50);
+
         ToggleGroup toggleGroup = new ToggleGroup();
-        RadioButton autobtn = new RadioButton();
+        RadioButton autobtn = new RadioButton("Autoplay");
 
         autobtn.setToggleGroup(toggleGroup);
-        autobtn.setTranslateX(stackpanel.getWidth() / 3);
-        autobtn.setTranslateY(stackpanel.getHeight() / 3 + 25);
+        autobtn.setTranslateX(toggleOptions.getTranslateX() + 50);
+        autobtn.setTranslateY(toggleOptions.getTranslateY() + 25);
         autobtn.setContentDisplay(ContentDisplay.RIGHT);
 
-        RadioButton replaybtn = new RadioButton();
+        RadioButton replaybtn = new RadioButton("Replay");
         replaybtn.setToggleGroup(toggleGroup);
-        replaybtn.setTranslateX(stackpanel.getWidth() / 3 + 25);
-        replaybtn.setTranslateY(stackpanel.getHeight() / 3 + 25);
+        replaybtn.setTranslateX(toggleOptions.getTranslateX() + 50);
+        replaybtn.setTranslateY(autobtn.getTranslateY() + 50);
         replaybtn.setContentDisplay(ContentDisplay.RIGHT);
 
-        RadioButton shufflebtn = new RadioButton();
+        RadioButton shufflebtn = new RadioButton("Shuffle");
         shufflebtn.setToggleGroup(toggleGroup);
-        shufflebtn.setTranslateX(stackpanel.getWidth() / 3 + 50);
-        shufflebtn.setTranslateY(stackpanel.getHeight() / 3 + 25);
+        shufflebtn.setTranslateX(toggleOptions.getTranslateX() + 50);
+        shufflebtn.setTranslateY(replaybtn.getTranslateY() + 50);
         shufflebtn.setContentDisplay(ContentDisplay.RIGHT);
         shufflebtn.setSelected(true);
         MediaManager.setARS(3);
@@ -149,14 +153,14 @@ public abstract class ViewManager {
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnAction(event -> {
-            stackpanel.getChildren().removeAll(actionButton, playLabel, skipLabel, stopLabel, autobtn, shufflebtn, replaybtn);
+            stackpanel.getChildren().removeAll(actionButton, playLabel, skipLabel, stopLabel, toggleOptions, autobtn, shufflebtn, replaybtn);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
 
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionButton, playLabel, skipLabel, stopLabel, autobtn, shufflebtn, replaybtn);
+        stackpanel.getChildren().addAll(actionButton, playLabel, skipLabel, stopLabel, toggleOptions, autobtn, shufflebtn, replaybtn);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 
