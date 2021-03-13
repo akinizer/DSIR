@@ -13,14 +13,14 @@ import java.util.Random;
 public abstract class MediaManager {
 
     private static MediaPlayer mediaPlayer;
-    private static List<String> playlistActual = Arrays.asList(
+    private static List<String> playlist = Arrays.asList(
             "/sample/Resources/soundfile/song.mp3",
             "/sample/Resources/soundfile/song2.mp3",
             "/sample/Resources/soundfile/song3.mp3",
             "/sample/Resources/soundfile/song4.mp3",
             "/sample/Resources/soundfile/song5.mp3");
 
-    private static List<String> playlist = Arrays.asList(
+    private static List<String> playlistTest = Arrays.asList(
             "/sample/Resources/soundfile/song.mp3",
             "/sample/Resources/soundfile/song2.mp3",
             "/sample/Resources/soundfile/song3.mp3");

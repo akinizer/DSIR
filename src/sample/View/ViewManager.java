@@ -33,6 +33,7 @@ public abstract class ViewManager {
 
         //Save instance of the tab
         Node contentSaved = stackpanel.getChildren().get(0);
+        stackpanel.setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.LIGHTGOLDENRODYELLOW));
 
         String skipURL = "/soundfile/skip.png";
         String stopURL = "/soundfile/stop.png";
