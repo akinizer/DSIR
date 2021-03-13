@@ -38,7 +38,7 @@ public abstract class MediaManager {
 
     //PLAY MODE
     private static void play(String str) {
-        if (mediaPlayer!=null && mediaPlayer.getStatus()== MediaPlayer.Status.PAUSED) {
+        if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
             mediaPlayer.play();
             return;
         }
@@ -100,7 +100,7 @@ public abstract class MediaManager {
 
     //PAUSE SONG
     public static void pause() {
-        if(mediaPlayer.getStatus()== MediaPlayer.Status.PLAYING)
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING)
             mediaPlayer.pause();
     }
 
@@ -144,6 +144,7 @@ public abstract class MediaManager {
     public static boolean isMediaPlayerInActive() {
         return mediaPlayer == null;
     }
+
 
     private static void setMode(boolean isShuffle) {
         if (isShuffle) shuffle();
@@ -236,6 +237,10 @@ public abstract class MediaManager {
 
     public static int getARS() {
         return ARS;
+    }
+
+    public static boolean isPlayIconValid(){
+        return mediaPlayer.getStatus()==MediaPlayer.Status.PLAYING;
     }
 
 

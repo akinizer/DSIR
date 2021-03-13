@@ -2,9 +2,6 @@ package sample.View;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -12,10 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
@@ -31,47 +28,68 @@ import java.util.List;
 public abstract class ViewManager {
 
     //Information View
-    public static void initSettingsView(StackPane stackpanel){
+    public static void initSettingsView(StackPane stackpanel) {
         System.out.println("Settings Window is shown");
 
         //Save instance of the tab
         Node contentSaved = stackpanel.getChildren().get(0);
 
-        String volumeonURL="/sample/Resources/soundfile/volume-on.png";
-        String volumeoffURL="/sample/Resources/soundfile/volume-off.png";
+        String skipURL = "/soundfile/skip.png";
+        String stopURL = "/soundfile/stop.png";
 
-        Label playLabel = new Label("Play");
-        playLabel.setTranslateX(stackpanel.getWidth()/3);
-        playLabel.setTranslateY(stackpanel.getHeight()/3);
+        ImageView playview = new ImageView(getVolumeOffImg());
+        playview.setFitWidth(25);
+        playview.setPreserveRatio(true);
+
+        if(!MediaManager.isMediaPlayerInActive()&&MediaManager.isPlayIconValid()) {
+            playview.setImage(getVolumeOnImg());
+        }
+
+        ImageView skipview = new ImageView(new Image(Main.class.getResource("/sample/Resources"+skipURL).toExternalForm()));
+        skipview.setFitWidth(25);
+        skipview.setPreserveRatio(true);
+
+        ImageView stopview = new ImageView(new Image(Main.class.getResource("/sample/Resources"+stopURL).toExternalForm()));
+        stopview.setFitWidth(25);
+        stopview.setPreserveRatio(true);
+
+        Label playLabel = new Label("Play",playview);
+        playLabel.setTranslateX(stackpanel.getWidth() / 3);
+        playLabel.setTranslateY(stackpanel.getHeight() / 3);
         playLabel.setContentDisplay(ContentDisplay.RIGHT);
 
-        Label skipLabel = new Label("Skip");
-        skipLabel.setTranslateX(stackpanel.getWidth()/3 + 50);
-        skipLabel.setTranslateY(stackpanel.getHeight()/3);
+        if(!MediaManager.isMediaPlayerInActive()&&MediaManager.isPlayIconValid()){
+            playLabel.setText("Pause");
+        }
+
+        Label skipLabel = new Label("",skipview);
+        skipLabel.setTranslateX(stackpanel.getWidth() / 3 + 100);
+        skipLabel.setTranslateY(stackpanel.getHeight() / 3);
         skipLabel.setContentDisplay(ContentDisplay.RIGHT);
 
-        Label stopLabel = new Label("Stop");
-        stopLabel.setTranslateX(stackpanel.getWidth()/3 + 100);
-        stopLabel.setTranslateY(stackpanel.getHeight()/3);
+        Label stopLabel = new Label("",stopview);
+        stopLabel.setTranslateX(stackpanel.getWidth() / 3 + 200);
+        stopLabel.setTranslateY(stackpanel.getHeight() / 3);
         stopLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         ToggleGroup toggleGroup = new ToggleGroup();
-        RadioButton autobtn=new RadioButton();
+        RadioButton autobtn = new RadioButton();
+
         autobtn.setToggleGroup(toggleGroup);
-        autobtn.setTranslateX(stackpanel.getWidth()/3);
-        autobtn.setTranslateY(stackpanel.getHeight()/3 + 25);
+        autobtn.setTranslateX(stackpanel.getWidth() / 3);
+        autobtn.setTranslateY(stackpanel.getHeight() / 3 + 25);
         autobtn.setContentDisplay(ContentDisplay.RIGHT);
 
-        RadioButton replaybtn=new RadioButton();
+        RadioButton replaybtn = new RadioButton();
         replaybtn.setToggleGroup(toggleGroup);
-        replaybtn.setTranslateX(stackpanel.getWidth()/3 + 25);
-        replaybtn.setTranslateY(stackpanel.getHeight()/3 + 25);
+        replaybtn.setTranslateX(stackpanel.getWidth() / 3 + 25);
+        replaybtn.setTranslateY(stackpanel.getHeight() / 3 + 25);
         replaybtn.setContentDisplay(ContentDisplay.RIGHT);
 
-        RadioButton shufflebtn=new RadioButton();
+        RadioButton shufflebtn = new RadioButton();
         shufflebtn.setToggleGroup(toggleGroup);
-        shufflebtn.setTranslateX(stackpanel.getWidth()/3 + 50);
-        shufflebtn.setTranslateY(stackpanel.getHeight()/3 + 25);
+        shufflebtn.setTranslateX(stackpanel.getWidth() / 3 + 50);
+        shufflebtn.setTranslateY(stackpanel.getHeight() / 3 + 25);
         shufflebtn.setContentDisplay(ContentDisplay.RIGHT);
         shufflebtn.setSelected(true);
         MediaManager.setARS(3);
@@ -80,15 +98,13 @@ public abstract class ViewManager {
             RadioButton rb = (RadioButton) toggleGroup.getSelectedToggle();
 
             if (rb != null) {
-                if(rb==autobtn){
+                if (rb == autobtn) {
                     System.out.println("auto");
                     MediaManager.setARS(1);
-                }
-                else if(rb==replaybtn){
+                } else if (rb == replaybtn) {
                     System.out.println("replay");
                     MediaManager.setARS(2);
-                }
-                else if(rb==shufflebtn){
+                } else if (rb == shufflebtn) {
                     System.out.println("shuffle");
                     MediaManager.setARS(3);
                 }
@@ -96,27 +112,32 @@ public abstract class ViewManager {
         });
 
         playLabel.setOnMouseReleased(mouseEvent -> {
-            if(MediaManager.getARS()==-1) return;
+            if (MediaManager.getARS() == -1) return;
 
-            if(playLabel.getText().equals("Play")) {
+            if (playLabel.getText().equals("Play")) {
                 playLabel.setText("Pause");
+
+                playview.setImage(getVolumeOnImg());
+
                 MediaManager.run();
-            }
-            else {
+            } else {
                 playLabel.setText("Play");
+
+                playview.setImage(getVolumeOffImg());
+
                 MediaManager.pause();
             }
         });
 
         skipLabel.setOnMouseReleased(mouseEvent -> {
-            if(MediaManager.getARS()==-1) return;
+            if (MediaManager.getARS() == -1) return;
 
             playLabel.setText("Pause");
             MediaManager.skip();
         });
 
         stopLabel.setOnMouseReleased(mouseEvent -> {
-            if(MediaManager.getARS()==-1) return;
+            if (MediaManager.getARS() == -1) return;
 
             playLabel.setText("Play");
             MediaManager.stop();
@@ -128,22 +149,22 @@ public abstract class ViewManager {
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnAction(event -> {
-            stackpanel.getChildren().removeAll(actionButton,playLabel,skipLabel,stopLabel,autobtn,shufflebtn,replaybtn);
+            stackpanel.getChildren().removeAll(actionButton, playLabel, skipLabel, stopLabel, autobtn, shufflebtn, replaybtn);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
 
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionButton,playLabel,skipLabel,stopLabel,autobtn,shufflebtn,replaybtn);
+        stackpanel.getChildren().addAll(actionButton, playLabel, skipLabel, stopLabel, autobtn, shufflebtn, replaybtn);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 
-    public static void initInformationView(StackPane stackpanel, Pane mainpanel){
-        double x=mainpanel.getLayoutX();
-        double y=mainpanel.getLayoutY();
-        double width=mainpanel.getWidth();
-        double height=mainpanel.getHeight();
+    public static void initInformationView(StackPane stackpanel, Pane mainpanel) {
+        double x = mainpanel.getLayoutX();
+        double y = mainpanel.getLayoutY();
+        double width = mainpanel.getWidth();
+        double height = mainpanel.getHeight();
 
         System.out.println("Character Window is shown");
         stackpanel.requestFocus();
@@ -232,15 +253,15 @@ public abstract class ViewManager {
 
     //ACTION
     public static void initInnView(AnchorPane anchorPane, Tab towntab, List currencies, Class mainclass) {
-        int x=0;
-        int y=0;
+        int x = 0;
+        int y = 0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
 
         //Log Message
         System.out.println("Inn Window is Activated");
@@ -315,7 +336,7 @@ public abstract class ViewManager {
             int costGold = 40;
             int currencyasgold = Integer.parseInt(goldamount.getText()) + Integer.parseInt(diamondamount.getText()) * 100;
             if (currencyasgold >= costGold) {
-                addGoldListener(currencies,-costGold);
+                addGoldListener(currencies, -costGold);
                 double progress = energybar.getProgress() + 0.66;
                 energybar.setProgress(Math.min(progress, 1));
             }
@@ -325,7 +346,7 @@ public abstract class ViewManager {
             int costGold = 120;
             int currencyasgold = Integer.parseInt(goldamount.getText()) + Integer.parseInt(diamondamount.getText()) * 100;
             if (currencyasgold >= costGold) {
-                addGoldListener(currencies,-costGold);
+                addGoldListener(currencies, -costGold);
                 energybar.setProgress(1);
             }
         });
@@ -334,7 +355,7 @@ public abstract class ViewManager {
             int costGold = 80;
             int currencyasgold = Integer.parseInt(goldamount.getText()) + Integer.parseInt(diamondamount.getText()) * 100;
             if (currencyasgold >= costGold) {
-                addGoldListener(currencies,-costGold);
+                addGoldListener(currencies, -costGold);
                 double progress = energybar.getProgress() + 0.33;
                 energybar.setProgress(Math.min(progress, 1));
             }
@@ -364,16 +385,16 @@ public abstract class ViewManager {
     }
 
     public static void initGymView(AnchorPane anchorPane, Tab towntab, List currencies) {
-        int x=0;
-        int y=0;
+        int x = 0;
+        int y = 0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("Gym Window is Activated");
@@ -410,9 +431,9 @@ public abstract class ViewManager {
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnMouseReleased(mouseEvent -> {
             if (energybar.getProgress() * 100 >= 25) {
-                addExperienceListener(levelamount,(((int) (Math.random() * 5)) + 50) * Integer.parseInt(levelamount.getText()));
-                addEnergyListener(energybar,-20);
-                addGoldListener(currencies,(int) Math.round(200 * Integer.parseInt(levelamount.getText()) * 1.2));
+                addExperienceListener(levelamount, (((int) (Math.random() * 5)) + 50) * Integer.parseInt(levelamount.getText()));
+                addEnergyListener(energybar, -20);
+                addGoldListener(currencies, (int) Math.round(200 * Integer.parseInt(levelamount.getText()) * 1.2));
             }
         });
 
@@ -431,17 +452,18 @@ public abstract class ViewManager {
     private static int red = (int) (Math.random() * 256), green = (int) (Math.random() * 256), blue = (int) (Math.random() * 256);
     private static boolean isToggleupRed = true, isToggleupGreen = false, isToggleupBlue = true;
     private static int dailydojoattempts = 2;
-    public static void initDojoView(AnchorPane anchorPane,Tab towntab, List currencies) {
-        int x=0;
-        int y=0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+    public static void initDojoView(AnchorPane anchorPane, Tab towntab, List currencies) {
+        int x = 0;
+        int y = 0;
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
+
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("Dojo Window is Activated");
@@ -530,9 +552,9 @@ public abstract class ViewManager {
         actionButton.setOnMouseReleased(mouseEvent -> {
             if (dailydojoattempts > 0 && energybar.getProgress() * 100 >= 50) {
                 //update loots
-                addExperienceListener(levelamount,(((int) (Math.random() * 500 * Integer.parseInt(levelamount.getText()))) + 50) * Integer.parseInt(levelamount.getText()));
-                addGoldListener(currencies,(int) Math.round(200 * Integer.parseInt(levelamount.getText()) * 0.2));
-                addEnergyListener(energybar,-50);
+                addExperienceListener(levelamount, (((int) (Math.random() * 500 * Integer.parseInt(levelamount.getText()))) + 50) * Integer.parseInt(levelamount.getText()));
+                addGoldListener(currencies, (int) Math.round(200 * Integer.parseInt(levelamount.getText()) * 0.2));
+                addEnergyListener(energybar, -50);
 
                 //update attempts
                 dailydojoattempts--;
@@ -555,17 +577,18 @@ public abstract class ViewManager {
     }
 
     private static int thedarkportalstage = 1;
-    public static void initTheDarkPortalView(AnchorPane anchorPane,Tab towntab,List currencies,Class mainclass) {
-        int x=0;
-        int y=0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+    public static void initTheDarkPortalView(AnchorPane anchorPane, Tab towntab, List currencies, Class mainclass) {
+        int x = 0;
+        int y = 0;
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
+
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("The Dark Portal Window is Activated");
@@ -628,9 +651,9 @@ public abstract class ViewManager {
                 if (actionButton.getText().startsWith("Stage Battle")) {
                     if (energybar.getProgress() * 100 >= 15) {
                         //stage battle
-                        addGoldListener(currencies,((int) (Math.random() * 15) + 35) * thedarkportalstage);
-                        addExperienceListener(levelamount,((int) (Math.random() * 15) + 15) * thedarkportalstage);
-                        addEnergyListener(energybar,-15);
+                        addGoldListener(currencies, ((int) (Math.random() * 15) + 35) * thedarkportalstage);
+                        addExperienceListener(levelamount, ((int) (Math.random() * 15) + 15) * thedarkportalstage);
+                        addEnergyListener(energybar, -15);
                         effectlabel.setVisible(true);
 
                         //update button for next stage
@@ -676,17 +699,17 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initTownSquareView(AnchorPane anchorPane,Tab towntab,List currencies) {
-        int x=0;
-        int y=0;
+    public static void initTownSquareView(AnchorPane anchorPane, Tab towntab, List currencies) {
+        int x = 0;
+        int y = 0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("Town Square Window is Activated");
@@ -737,17 +760,17 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initWellspringView(AnchorPane anchorPane,Tab towntab,List currencies) {
-        int x=0;
-        int y=0;
+    public static void initWellspringView(AnchorPane anchorPane, Tab towntab, List currencies) {
+        int x = 0;
+        int y = 0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("Wellspring Window is Activated");
@@ -798,17 +821,17 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initBarrackView(AnchorPane anchorPane,Tab towntab,List currencies) {
-        int x=0;
-        int y=0;
+    public static void initBarrackView(AnchorPane anchorPane, Tab towntab, List currencies) {
+        int x = 0;
+        int y = 0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("Barrack Window is Activated");
@@ -859,17 +882,17 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initTheGreatestWallView(AnchorPane anchorPane,Tab towntab,List currencies) {
-        int x=0;
-        int y=0;
+    public static void initTheGreatestWallView(AnchorPane anchorPane, Tab towntab, List currencies) {
+        int x = 0;
+        int y = 0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("The Greatest Wall Window is Activated");
@@ -921,17 +944,17 @@ public abstract class ViewManager {
         towntab.setContent(stackPane);
     }
 
-    public static void initCityHallView(AnchorPane anchorPane,Tab towntab,TabPane maintab,List currencies) {
-        int x=0;
-        int y=0;
+    public static void initCityHallView(AnchorPane anchorPane, Tab towntab, TabPane maintab, List currencies) {
+        int x = 0;
+        int y = 0;
 
-        double width=anchorPane.getWidth();
-        double height=anchorPane.getHeight();
+        double width = anchorPane.getWidth();
+        double height = anchorPane.getHeight();
 
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
-        Label levelamount=(Label)currencies.get(3);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
+        Label levelamount = (Label) currencies.get(3);
 
         //Log Message
         System.out.println("City Hall Window is Activated");
@@ -1025,9 +1048,9 @@ public abstract class ViewManager {
     // CURRENCY LISTENERS
 
     private static void addGoldListener(List currencies, int change) {
-        Label goldamount=(Label)currencies.get(0);
-        Label diamondamount=(Label)currencies.get(1);
-        ProgressBar energybar=(ProgressBar)currencies.get(2);
+        Label goldamount = (Label) currencies.get(0);
+        Label diamondamount = (Label) currencies.get(1);
+        ProgressBar energybar = (ProgressBar) currencies.get(2);
 
         if (change > 0)
             StatsManager.updateGoldIncrease(goldamount, diamondamount, change);
@@ -1035,11 +1058,25 @@ public abstract class ViewManager {
             StatsManager.updateGoldDecrease(goldamount, diamondamount, change);
     }
 
-    private static void addExperienceListener(Label levelamount,int gain) {
+    private static void addExperienceListener(Label levelamount, int gain) {
         StatsManager.updateExperience(levelamount, gain);
     }
 
-    private static void addEnergyListener(ProgressBar energybar,int change) {
+    private static void addEnergyListener(ProgressBar energybar, int change) {
         StatsManager.updateEnergyStatus(energybar, change);
+    }
+
+
+    ////
+    private static Image getVolumeOnImg(){
+        String volumeonURL = "/soundfile/volume-on.png";
+
+        return new Image(Main.class.getResource("/sample/Resources"+volumeonURL).toExternalForm());
+    }
+
+    private static Image getVolumeOffImg(){
+        String volumeoffURL = "/soundfile/volume-off.png";
+
+        return new Image(Main.class.getResource("/sample/Resources"+volumeoffURL).toExternalForm());
     }
 }

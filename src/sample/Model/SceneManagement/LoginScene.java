@@ -121,7 +121,7 @@ public class LoginScene extends GeneralScene {
         box.getChildren().addAll(name, occupation, entryBox);
 
         //Stage Settings
-        loginStage.getIcons().add(UtilityManager.getImageFromURL("baguette.png", getClass()));
+        loginStage.getIcons().add(UtilityManager.getImageFromURL("baguette.png"));
         loginStage.setTitle("DSIR");
         loginStage.setScene(new Scene(box));
         loginStage.setResizable(false);

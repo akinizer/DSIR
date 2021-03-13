@@ -18,11 +18,11 @@ public abstract class UtilityManager {
     }
 
     //IMAGE FILE TO OBJECT
-    public static ImageView getImageViewFromURL(String filename,Class mainclass){
-        return new ImageView(new Image(mainclass.getResource("/sample/Resources/"+filename).toExternalForm()));
+    public static ImageView getImageViewFromURL(String filename){
+        return new ImageView(new Image(Main.class.getResource("/sample/Resources/"+filename).toExternalForm()));
     }
-    public static Image getImageFromURL(String filename,Class mainclass){
-        return new ImageView(new Image(mainclass.getResource("/sample/Resources/"+filename).toExternalForm())).getImage();
+    public static Image getImageFromURL(String filename){
+        return new ImageView(new Image(Main.class.getResource("/sample/Resources/"+filename).toExternalForm())).getImage();
     }
 
     public static Image getImageViewToImage(ImageView iv){
@@ -34,7 +34,7 @@ public abstract class UtilityManager {
     }
 
     public static Image getSoundfileImage(String filename){
-        return getImageFromURL(urlSoundfileRoot+filename, Main.class);
+        return getImageFromURL(urlSoundfileRoot+filename);
     }
 
 }
