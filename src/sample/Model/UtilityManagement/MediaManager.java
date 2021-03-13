@@ -27,8 +27,8 @@ public abstract class MediaManager {
 
     private static int previousIndex = -1;
     private static ListIterator<String> itr = playlist.listIterator();
-    private static int ARS=-1;
-    private static int mode=-1;
+    private static int ARS = -1;
+    private static int mode = -1;
     private static boolean isVolumeActive;
 
     //TODO:
@@ -38,6 +38,11 @@ public abstract class MediaManager {
 
     //PLAY MODE
     private static void play(String str) {
+        if (mediaPlayer!=null && mediaPlayer.getStatus()== MediaPlayer.Status.PAUSED) {
+            mediaPlayer.play();
+            return;
+        }
+
         List<String> lucky = Arrays.asList(str.split("/"));
         System.out.println("Playing Song: " + lucky.get(lucky.size() - 1));
 
@@ -48,14 +53,12 @@ public abstract class MediaManager {
             mediaPlayer.setAutoPlay(true);
 
             mediaPlayer.setOnEndOfMedia(() -> {
-                if(ARS==1) {
+                if (ARS == 1) {
                     if (!itr.hasNext()) reset();
                     play(itr.next());
-                }
-                else if(ARS==2) {
+                } else if (ARS == 2) {
                     play(str);
-                }
-                else if(ARS==3) {
+                } else if (ARS == 3) {
                     shuffle();
                 }
             });
@@ -95,6 +98,23 @@ public abstract class MediaManager {
         mediaPlayer.stop();
     }
 
+    //PAUSE SONG
+    public static void pause() {
+        if(mediaPlayer.getStatus()== MediaPlayer.Status.PLAYING)
+            mediaPlayer.pause();
+    }
+
+    public static void skip() {
+        stop();
+        if (itr.hasNext()) {
+            play(itr.next());
+        } else {
+            reset();
+            play(itr.next());
+        }
+
+    }
+
     //RANDOM INDEX GENERATOR
     private static int getRandomIndex() {
         Random rand = new Random();
@@ -110,13 +130,15 @@ public abstract class MediaManager {
 
     //ACTIVE CHECK
     private static boolean isAutoplay() {
-        return ARS==1;
+        return ARS == 1;
     }
+
     private static boolean isRepeat() {
-        return ARS==2;
+        return ARS == 2;
     }
+
     private static boolean isShuffle() {
-        return ARS==3;
+        return ARS == 3;
     }
 
     public static boolean isMediaPlayerInActive() {
@@ -127,38 +149,43 @@ public abstract class MediaManager {
         if (isShuffle) shuffle();
         else {
             //reset the mediaplayer(not media) to first song instead of advancing onto next one after stop
-            itr=playlist.listIterator();
+            itr = playlist.listIterator();
             play(itr.next());
         }
     }
 
-    public static void run(){
-        if(ARS==1 || ARS==2)
+    public static void run() {
+        if (ARS == 1 || ARS == 2)
             setMode(false);
-        else if(ARS==3)
+        else if (ARS == 3)
             setMode(true);
     }
 
     //ARS
     public static void enableAutoPlay() {
         System.out.println("AutoPlay is enabled");
-        ARS=1;
+        ARS = 1;
     }
+
     public static void enableRepeat() {
         System.out.println("Repeat is enabled");
         //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        ARS=2;
+        ARS = 2;
     }
+
     public static void enableShuffle() {
         System.out.println("Shuffle is enabled");
-        ARS=3;
+        ARS = 3;
     }
+
     public static void disableAutoPlay() {
         System.out.println("AutoPlay is disabled");
     }
+
     public static void disableRepeat() {
         System.out.println("Repeat is disabled");
     }
+
     public static void disableShuffle() {
         System.out.println("Shuffle is disabled");
     }
@@ -182,10 +209,9 @@ public abstract class MediaManager {
 
             System.out.println("Volume is set to " + adjustedValue);
             mediaPlayer.setVolume(adjustedValue);
-            isVolumeActive=true;
+            isVolumeActive = true;
         }
     }
-
 
 
     private static void reset() {
@@ -208,7 +234,7 @@ public abstract class MediaManager {
         }
     }
 
-    public static int getARS(){
+    public static int getARS() {
         return ARS;
     }
 

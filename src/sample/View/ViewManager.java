@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -30,156 +31,7 @@ import java.util.List;
 public abstract class ViewManager {
 
     //Information View
-    private static boolean volumeSwitch=true;
-    private static boolean repeatSwitch=false;
-    private static boolean autoSwitch=false;
-    private static boolean playingSwitch=false;
-
-    public static void initSettingsView2(StackPane stackpanel){
-
-        System.out.println("Settings Window is shown");
-
-        //Save instance of the tab
-        Node contentSaved = stackpanel.getChildren().get(0);
-
-        String volumeonURL="/sample/Resources/soundfile/volume-on.png";
-        String volumeoffURL="/sample/Resources/soundfile/volume-off.png";
-
-        String volimg;
-        if(volumeSwitch) volimg=volumeonURL;
-        else volimg=volumeoffURL;
-
-        ImageView ivvolume = new ImageView(new Image(Main.class.getResource(volimg).toExternalForm()));
-        ivvolume.setFitHeight(25);
-        ivvolume.setPreserveRatio(true);
-
-        Label volumeLabel=new Label("Volume:",ivvolume);
-        volumeLabel.setTranslateX(stackpanel.getWidth()/3);
-        volumeLabel.setTranslateY(stackpanel.getHeight()/3 + 75);
-        volumeLabel.setContentDisplay(ContentDisplay.RIGHT);
-
-        volumeLabel.setOnMouseReleased(mouseEvent -> {
-            if(MediaManager.isMediaPlayerInActive()) return;
-
-            if(volumeSwitch) {
-                volumeSwitch=false;
-                MediaManager.disableVolume();
-                ivvolume.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
-            }
-            else {
-                volumeSwitch=true;
-                MediaManager.enableVolume();
-                ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
-            }
-        });
-
-        String songimg;
-        if(playingSwitch) songimg=volumeonURL;
-        else songimg=volumeoffURL;
-
-        ImageView ivsong = new ImageView(new Image(Main.class.getResource(songimg).toExternalForm()));
-        ivsong.setFitHeight(25);
-        ivsong.setPreserveRatio(true);
-
-        Label songLabel=new Label("Music:",ivsong);
-        songLabel.setTranslateX(stackpanel.getWidth()/3);
-        songLabel.setTranslateY(stackpanel.getHeight()/3);
-        songLabel.setContentDisplay(ContentDisplay.RIGHT);
-
-        songLabel.setOnMouseReleased(mouseEvent -> {
-            if(playingSwitch) {
-                playingSwitch=false;
-                MediaManager.stop();
-                ivsong.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
-            }
-            else {
-                playingSwitch=true;
-                //MediaManager.setMode(false);
-                ivsong.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
-                ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
-            }
-        });
-
-        String repeatimg;
-        if(repeatSwitch) repeatimg=volumeonURL;
-        else repeatimg=volumeoffURL;
-
-        ImageView ivrepeat = new ImageView(new Image(Main.class.getResource(repeatimg).toExternalForm()));
-        ivrepeat.setFitHeight(25);
-        ivrepeat.setPreserveRatio(true);
-
-        Label repeatLabel=new Label("repeat:",ivrepeat);
-        repeatLabel.setTranslateX(stackpanel.getWidth()/3);
-        repeatLabel.setTranslateY(stackpanel.getHeight()/3 + 25);
-        repeatLabel.setContentDisplay(ContentDisplay.RIGHT);
-
-        repeatLabel.setOnMouseReleased(mouseEvent -> {
-            if(MediaManager.isMediaPlayerInActive()) return;
-
-            if(repeatSwitch) {
-                repeatSwitch=false;
-                MediaManager.disableRepeat();
-                ivrepeat.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
-            }
-            else {
-                repeatSwitch=true;
-                MediaManager.enableRepeat();
-                ivrepeat.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
-            }
-        });
-
-        String autoimg;
-        if(autoSwitch) autoimg=volumeonURL;
-        else autoimg=volumeoffURL;
-
-        ImageView ivauto = new ImageView(new Image(Main.class.getResource(autoimg).toExternalForm()));
-        ivauto.setFitHeight(25);
-        ivauto.setPreserveRatio(true);
-
-        Label autoplayLabel=new Label("auto:",ivauto);
-        autoplayLabel.setTranslateX(stackpanel.getWidth()/3);
-        autoplayLabel.setTranslateY(stackpanel.getHeight()/3 + 50);
-        autoplayLabel.setContentDisplay(ContentDisplay.RIGHT);
-
-        autoplayLabel.setOnMouseReleased(mouseEvent -> {
-            if(MediaManager.isMediaPlayerInActive()) return;
-
-            if(autoSwitch) {
-                autoSwitch=false;
-                MediaManager.disableAutoPlay();
-                ivauto.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
-            }
-            else {
-                autoSwitch=true;
-                MediaManager.enableAutoPlay();
-                ivauto.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
-            }
-        });
-
-        Button actionButton = new Button("Return");
-        actionButton.setLayoutX(0);
-        actionButton.setLayoutY(0);
-
-        //Load saved instance of tab on leaving Battle Scene
-        actionButton.setOnAction(event -> {
-            stackpanel.getChildren().removeAll(actionButton,songLabel,repeatLabel,autoplayLabel,volumeLabel);
-            stackpanel.getChildren().add(contentSaved);
-            stackpanel.setAlignment(Pos.CENTER);
-        });
-
-        //Initiate Battle Scene
-        stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionButton,songLabel,repeatLabel,autoplayLabel,volumeLabel);
-        stackpanel.setAlignment(Pos.TOP_LEFT);
-    }
-
     public static void initSettingsView(StackPane stackpanel){
-        //AUTO TEST: PASS
-        //REPLAY TEST: PASS
-        //SHUFFLE TEST: PASS
-
-        //ARS=-1 TEST: PASS -> Currently Initial selection is Shuffle
-
         System.out.println("Settings Window is shown");
 
         //Save instance of the tab
@@ -192,6 +44,16 @@ public abstract class ViewManager {
         playLabel.setTranslateX(stackpanel.getWidth()/3);
         playLabel.setTranslateY(stackpanel.getHeight()/3);
         playLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        Label skipLabel = new Label("Skip");
+        skipLabel.setTranslateX(stackpanel.getWidth()/3 + 50);
+        skipLabel.setTranslateY(stackpanel.getHeight()/3);
+        skipLabel.setContentDisplay(ContentDisplay.RIGHT);
+
+        Label stopLabel = new Label("Stop");
+        stopLabel.setTranslateX(stackpanel.getWidth()/3 + 100);
+        stopLabel.setTranslateY(stackpanel.getHeight()/3);
+        stopLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         ToggleGroup toggleGroup = new ToggleGroup();
         RadioButton autobtn=new RadioButton();
@@ -237,17 +99,28 @@ public abstract class ViewManager {
             if(MediaManager.getARS()==-1) return;
 
             if(playLabel.getText().equals("Play")) {
-                playLabel.setText("Stop");
+                playLabel.setText("Pause");
                 MediaManager.run();
             }
             else {
                 playLabel.setText("Play");
-                MediaManager.stop();
+                MediaManager.pause();
             }
-
-
         });
 
+        skipLabel.setOnMouseReleased(mouseEvent -> {
+            if(MediaManager.getARS()==-1) return;
+
+            playLabel.setText("Pause");
+            MediaManager.skip();
+        });
+
+        stopLabel.setOnMouseReleased(mouseEvent -> {
+            if(MediaManager.getARS()==-1) return;
+
+            playLabel.setText("Play");
+            MediaManager.stop();
+        });
 
         Button actionButton = new Button("Return");
         actionButton.setLayoutX(0);
@@ -255,14 +128,14 @@ public abstract class ViewManager {
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnAction(event -> {
-            stackpanel.getChildren().removeAll(actionButton,playLabel,autobtn,shufflebtn,replaybtn);
+            stackpanel.getChildren().removeAll(actionButton,playLabel,skipLabel,stopLabel,autobtn,shufflebtn,replaybtn);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
 
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionButton,playLabel,autobtn,shufflebtn,replaybtn);
+        stackpanel.getChildren().addAll(actionButton,playLabel,skipLabel,stopLabel,autobtn,shufflebtn,replaybtn);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 
