@@ -57,16 +57,16 @@ public abstract class ViewManager {
         volumeLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         volumeLabel.setOnMouseReleased(mouseEvent -> {
-            if(!MediaManager.isMediaPlayerActive()) return;
+            if(MediaManager.isMediaPlayerInActive()) return;
 
             if(volumeSwitch) {
                 volumeSwitch=false;
-                MediaManager.toggleVolume();
+                MediaManager.disableVolume();
                 ivvolume.setImage(new Image(Main.class.getResource(volumeoffURL).toExternalForm()));
             }
             else {
                 volumeSwitch=true;
-                MediaManager.toggleVolume();
+                MediaManager.enableVolume();
                 ivvolume.setImage(new Image(Main.class.getResource(volumeonURL).toExternalForm()));
             }
         });
@@ -112,7 +112,7 @@ public abstract class ViewManager {
         repeatLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         repeatLabel.setOnMouseReleased(mouseEvent -> {
-            if(!MediaManager.isMediaPlayerActive()) return;
+            if(MediaManager.isMediaPlayerInActive()) return;
 
             if(repeatSwitch) {
                 repeatSwitch=false;
@@ -140,7 +140,7 @@ public abstract class ViewManager {
         autoplayLabel.setContentDisplay(ContentDisplay.RIGHT);
 
         autoplayLabel.setOnMouseReleased(mouseEvent -> {
-            if(!MediaManager.isMediaPlayerActive()) return;
+            if(MediaManager.isMediaPlayerInActive()) return;
 
             if(autoSwitch) {
                 autoSwitch=false;

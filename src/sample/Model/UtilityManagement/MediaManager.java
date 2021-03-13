@@ -20,42 +20,33 @@ public abstract class MediaManager {
 
     private static int previousIndex = -1;
     private static ListIterator<String> itr = playlist.listIterator();
-    private static boolean isPlaying = false;
     private static boolean isAutoSwitchActive = false;
 
     //TODO:
     // FUSE Play and Shuffle
     // FUSE Repeat, AutoPlay
     // DIVIDE Play INTO Stop, Pause and Play
-    private static void play() {
+    private static void play(String str) {
+        List<String> lucky= Arrays.asList(str.split("/"));
+        System.out.println("Playing Song: " + lucky.get(lucky.size() - 1));
+
         Media song;
         try {
-                String str="";
-                if(mediaPlayer==null || isAutoplay()){
-                    previousIndex++;
-                    str=itr.next();
-                }
-                else if(isRepeat()) {
-                    str=playlist.get(previousIndex);
-                }
-                else stop();
-
                 song = new Media(Main.class.getResource(str).toURI().toString());
                 mediaPlayer = new MediaPlayer(song);
                 mediaPlayer.setAutoPlay(true);
 
-                mediaPlayer.setOnEndOfMedia(MediaManager::play);
-
-
+                mediaPlayer.setOnEndOfMedia(() -> {
+                    if(!itr.hasNext()) reset();
+                    play(itr.next());
+                });
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
     }
 
-
     public static void stop() {
         mediaPlayer.stop();
-        isPlaying = false;
     }
 
     private static void shuffle() {
@@ -81,18 +72,6 @@ public abstract class MediaManager {
         }
         List<String> luckylist = Arrays.asList(lucky.split("/"));
         System.out.println("Playing Song: " + luckylist.get(luckylist.size() - 1));
-        isPlaying = true;
-
-    }
-
-    public static void toggleVolume() {
-        if (mediaPlayer.getVolume() == 1) {
-            mediaPlayer.setVolume(0);
-            System.out.println("Volume is disabled");
-        } else if (mediaPlayer.getVolume() == 0) {
-            mediaPlayer.setVolume(1);
-            System.out.println("Volume is enabled");
-        }
     }
 
     private static int getRandomIndex() {
@@ -115,13 +94,13 @@ public abstract class MediaManager {
         return isAutoSwitchActive;
     }
 
-    public static boolean isMediaPlayerActive() {
-        return mediaPlayer != null;
+    public static boolean isMediaPlayerInActive() {
+        return mediaPlayer == null;
     }
 
     public static void setMode(boolean isShuffle) {
         if (isShuffle) shuffle();
-        else play();
+        else play(itr.next());
     }
 
     public static void enableAutoPlay() {
@@ -161,6 +140,10 @@ public abstract class MediaManager {
             System.out.println("Volume is set to " + adjustedValue);
             mediaPlayer.setVolume(adjustedValue);
         }
+    }
+
+    private static void reset(){
+        itr = playlist.listIterator();
     }
 
 
