@@ -95,8 +95,25 @@ public abstract class ViewManager {
         shufflebtn.setTranslateX(toggleOptions.getTranslateX() + 50);
         shufflebtn.setTranslateY(replaybtn.getTranslateY() + 50);
         shufflebtn.setContentDisplay(ContentDisplay.RIGHT);
-        shufflebtn.setSelected(true);
-        MediaManager.setARS(3);
+
+        if(MediaManager.isMediaPlayerInActive()){
+            shufflebtn.setSelected(true);
+            MediaManager.setARS(3);
+        }
+        else {
+            switch ( MediaManager.getARS() ) {
+                case 1:
+                    autobtn.setSelected(true);
+                    break;
+                case 2:
+                    replaybtn.setSelected(true);
+                    break;
+                case 3:
+                    shufflebtn.setSelected(true);
+                    break;
+            }
+        }
+
 
         toggleGroup.selectedToggleProperty().addListener((ob, o, n) -> {
             RadioButton rb = (RadioButton) toggleGroup.getSelectedToggle();
