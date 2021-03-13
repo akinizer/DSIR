@@ -25,6 +25,8 @@ public abstract class MediaManager {
             "/sample/Resources/soundfile/song2.mp3",
             "/sample/Resources/soundfile/song3.mp3");
 
+    private static String currentSongName="";
+
     private static int previousIndex = -1;
     private static ListIterator<String> itr = playlist.listIterator();
     private static int ARS = -1;
@@ -44,7 +46,8 @@ public abstract class MediaManager {
         }
 
         List<String> lucky = Arrays.asList(str.split("/"));
-        System.out.println("Playing Song: " + lucky.get(lucky.size() - 1));
+        currentSongName=lucky.get(lucky.size() - 1);
+        System.out.println("Playing Song: " + currentSongName);
 
         Media song;
         try {
@@ -90,7 +93,8 @@ public abstract class MediaManager {
             e.printStackTrace();
         }
         List<String> luckylist = Arrays.asList(lucky.split("/"));
-        System.out.println("Playing Song: " + luckylist.get(luckylist.size() - 1));
+        currentSongName=luckylist.get(luckylist.size() - 1);
+        System.out.println("Playing Song: " + currentSongName);
     }
 
     //STOP SONG
@@ -248,6 +252,10 @@ public abstract class MediaManager {
 
     public static boolean isPlayIconValid(){
         return mediaPlayer.getStatus()==MediaPlayer.Status.PLAYING;
+    }
+
+    public static String getCurrentSongName(){
+        return currentSongName;
     }
 
 

@@ -24,10 +24,12 @@ import sample.Model.UtilityManagement.UtilityManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.MissingFormatWidthException;
 
 public abstract class ViewManager {
 
     //Information View
+    private static String titlename="";
     public static void initSettingsView(StackPane stackpanel) {
         System.out.println("Settings Window is shown");
 
@@ -37,6 +39,25 @@ public abstract class ViewManager {
 
         String skipURL = "/soundfile/skip.png";
         String stopURL = "/soundfile/stop.png";
+
+        Label songtitle=new Label(titlename);
+        songtitle.setTranslateX(stackpanel.getWidth() / 3);
+        songtitle.setTranslateY(stackpanel.getHeight() / 4);
+        songtitle.setContentDisplay(ContentDisplay.CENTER);
+
+        Timeline timer = new Timeline();
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1),event -> {
+            if(!MediaManager.isMediaPlayerInActive()){
+                if(!MediaManager.getCurrentSongName().equals(titlename)){
+                    titlename=MediaManager.getCurrentSongName();
+                    songtitle.setText(titlename);
+                }
+
+            }
+        });
+        timer.getKeyFrames().add(keyFrame);
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
 
         ImageView playview = new ImageView(getVolumeOffImg());
         playview.setFitWidth(25);
@@ -174,14 +195,14 @@ public abstract class ViewManager {
 
         //Load saved instance of tab on leaving Battle Scene
         actionButton.setOnAction(event -> {
-            stackpanel.getChildren().removeAll(actionButton, playLabel, skipLabel, stopLabel, toggleOptions, autobtn, shufflebtn, replaybtn);
+            stackpanel.getChildren().removeAll(actionButton, songtitle, playLabel, skipLabel, stopLabel, toggleOptions, autobtn, shufflebtn, replaybtn);
             stackpanel.getChildren().add(contentSaved);
             stackpanel.setAlignment(Pos.CENTER);
         });
 
         //Initiate Battle Scene
         stackpanel.getChildren().remove(contentSaved);
-        stackpanel.getChildren().addAll(actionButton, playLabel, skipLabel, stopLabel, toggleOptions, autobtn, shufflebtn, replaybtn);
+        stackpanel.getChildren().addAll(actionButton, songtitle, playLabel, skipLabel, stopLabel, toggleOptions, autobtn, shufflebtn, replaybtn);
         stackpanel.setAlignment(Pos.TOP_LEFT);
     }
 
