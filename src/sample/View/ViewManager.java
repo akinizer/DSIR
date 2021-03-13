@@ -53,13 +53,14 @@ public abstract class ViewManager {
         stopview.setFitWidth(25);
         stopview.setPreserveRatio(true);
 
-        Label playLabel = new Label("Play",playview);
+        Label playLabel = new Label("",playview);
         playLabel.setTranslateX(stackpanel.getWidth() / 3);
         playLabel.setTranslateY(stackpanel.getHeight() / 3);
         playLabel.setContentDisplay(ContentDisplay.RIGHT);
+        playLabel.setId("Play");
 
         if(!MediaManager.isMediaPlayerInActive()&&MediaManager.isPlayIconValid()){
-            playLabel.setText("Pause");
+            playLabel.setId("Pause");
         }
 
         Label skipLabel = new Label("",skipview);
@@ -135,14 +136,14 @@ public abstract class ViewManager {
         playLabel.setOnMouseReleased(mouseEvent -> {
             if (MediaManager.getARS() == -1) return;
 
-            if (playLabel.getText().equals("Play")) {
-                playLabel.setText("Pause");
+            if (playLabel.getId().equals("Play")) {
+                playLabel.setId("Pause");
 
                 playview.setImage(getVolumeOnImg());
 
                 MediaManager.run();
             } else {
-                playLabel.setText("Play");
+                playLabel.setId("Play");
 
                 playview.setImage(getVolumeOffImg());
 
@@ -153,14 +154,16 @@ public abstract class ViewManager {
         skipLabel.setOnMouseReleased(mouseEvent -> {
             if (MediaManager.getARS() == -1) return;
 
-            playLabel.setText("Pause");
+            playLabel.setId("Pause");
+            playview.setImage(getVolumeOnImg());
             MediaManager.skip();
         });
 
         stopLabel.setOnMouseReleased(mouseEvent -> {
             if (MediaManager.getARS() == -1) return;
 
-            playLabel.setText("Play");
+            playLabel.setId("Play");
+            playview.setImage(getVolumeOffImg());
             MediaManager.stop();
         });
 

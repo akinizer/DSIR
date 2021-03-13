@@ -107,7 +107,7 @@ public abstract class MediaManager {
     public static void skip() {
         if(mediaPlayer!=null)
             stop();
-        
+
         if(ARS==1 || ARS==2) {
             if (itr.hasNext()) {
                 play(itr.next());
