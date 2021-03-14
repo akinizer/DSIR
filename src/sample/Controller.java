@@ -241,4 +241,11 @@ public class Controller {
     @FXML public Label energylabel;
     @FXML public Label diamondlabel;
     @FXML public Label levellabel;
+
+    @FXML public Tab skytab;
+    @FXML public Tab fleettab;
+    @FXML public Tab stationtab;
+    @FXML public Tab warptab;
+    @FXML public Tab zone51tab;
+    @FXML public Tab mona02tab;
 }
