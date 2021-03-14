@@ -2,14 +2,13 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import sample.Model.StatsManagement.StatsManager;
 import sample.View.ViewManager;
 
@@ -25,6 +24,8 @@ public class Controller {
     }
 
     ////////////////////// CONTAINERS //////////////////////
+
+
     @FXML
     private StackPane stackpanel;
     @FXML
@@ -212,7 +213,44 @@ public class Controller {
         getTownBuilding(name).setText(newname);
     }
 
-    /////////////////////// / UNUSED FXML COMPONENTS ////////////////////////
+    //////////////////////// SKY VIEW ////////////////////////
+    private boolean isFleetFullscreen=false;
+
+    /// FLEET ///
+    @FXML
+    public Label fullscreenToggler;
+    @FXML
+    public Pane fleet_fullscreen;
+
+    @FXML
+    public void addFullScreenTogglerListener(){
+        /*
+        Stage fleetstage_fullscreen = null;
+        Pane newPane = fleet_fullscreen;
+        newPane.setId("pain");
+
+        if(!isFleetFullscreen) {
+            isFleetFullscreen=true;
+
+            Main.getPrimaryStage().hide();
+
+            fleetstage_fullscreen = new Stage();
+            fleetstage_fullscreen.setTitle("Fleet");
+            fleetstage_fullscreen.setScene(new Scene(new Pane(newPane)));
+            fleetstage_fullscreen.setResizable(false);
+            fleetstage_fullscreen.show();
+        }
+        else {
+            isFleetFullscreen=false;
+            Main.getPrimaryStage().show();
+
+
+        }
+        */
+    }
+
+
+    //////////////////////// UNUSED FXML COMPONENTS ////////////////////////
     @FXML public AnchorPane townpane;
 
     @FXML public AnchorPane collessiumpane;
