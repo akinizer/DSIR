@@ -2,8 +2,11 @@ package sample.View;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.Main;
 import sample.Model.RunnerManagement.Runner;
@@ -20,6 +24,7 @@ import sample.Model.StatsManagement.StatsManager;
 import sample.Model.UtilityManagement.MediaManager;
 import sample.Model.UtilityManagement.UtilityManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1121,5 +1126,38 @@ public abstract class ViewManager {
         String volumeoffURL = "/soundfile/volume-off.png";
 
         return new Image(Main.class.getResource("/sample/Resources" + volumeoffURL).toExternalForm());
+    }
+
+    /// FLEET WINDOWN ///
+    private static boolean check=false;
+    public static void addFleetWindowTogglerListener(Pane fleet_fullscreen) throws IOException {
+        if(!check) {
+            //make a clone view of Fleet View to run a Fleet Window, close the Primary Window
+            check=true;
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/fleetpanel.fxml")); //initialize loader using fxml file
+            Pane root = loader.load();
+
+            ObservableList<Node> children=root.getChildren();
+            for (Node child:children) {
+                Label label=(Label)child;
+                if(label.getText().equals("< >")){
+                    label.setText("> <");
+                    break;
+                }
+            }
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Fleet Window");
+
+            stage.show();
+            Main.getPrimaryStage().hide();
+        }
+        else {
+            //close the Fleet Window and show the Primary Window
+            check=false;
+            Main.getPrimaryStage().show();
+            fleet_fullscreen.getScene().getWindow().hide();
+        }
     }
 }
