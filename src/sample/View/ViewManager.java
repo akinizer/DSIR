@@ -12,7 +12,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
@@ -24,12 +23,12 @@ import sample.Model.UtilityManagement.UtilityManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.MissingFormatWidthException;
 
 public abstract class ViewManager {
 
     //Information View
-    private static String titlename="";
+    private static String titlename = "";
+
     public static void initSettingsView(StackPane stackpanel) {
         System.out.println("Settings Window is shown");
 
@@ -40,16 +39,16 @@ public abstract class ViewManager {
         String skipURL = "/soundfile/skip.png";
         String stopURL = "/soundfile/stop.png";
 
-        Label songtitle=new Label(titlename);
+        Label songtitle = new Label(titlename);
         songtitle.setTranslateX(stackpanel.getWidth() / 3);
         songtitle.setTranslateY(stackpanel.getHeight() / 4);
         songtitle.setContentDisplay(ContentDisplay.CENTER);
 
         Timeline timer = new Timeline();
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1),event -> {
-            if(!MediaManager.isMediaPlayerInActive()){
-                if(!MediaManager.getCurrentSongName().equals(titlename)){
-                    titlename=MediaManager.getCurrentSongName();
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
+            if (!MediaManager.isMediaPlayerInActive()) {
+                if (!MediaManager.getCurrentSongName().equals(titlename)) {
+                    titlename = MediaManager.getCurrentSongName();
                     songtitle.setText(titlename);
                 }
 
@@ -63,39 +62,39 @@ public abstract class ViewManager {
         playview.setFitWidth(25);
         playview.setPreserveRatio(true);
 
-        if(!MediaManager.isMediaPlayerInActive()&&MediaManager.isPlayIconValid()) {
+        if (!MediaManager.isMediaPlayerInActive() && MediaManager.isPlayIconValid()) {
             playview.setImage(getVolumeOnImg());
         }
 
-        ImageView skipview = new ImageView(new Image(Main.class.getResource("/sample/Resources"+skipURL).toExternalForm()));
+        ImageView skipview = new ImageView(new Image(Main.class.getResource("/sample/Resources" + skipURL).toExternalForm()));
         skipview.setFitWidth(25);
         skipview.setPreserveRatio(true);
 
-        ImageView stopview = new ImageView(new Image(Main.class.getResource("/sample/Resources"+stopURL).toExternalForm()));
+        ImageView stopview = new ImageView(new Image(Main.class.getResource("/sample/Resources" + stopURL).toExternalForm()));
         stopview.setFitWidth(25);
         stopview.setPreserveRatio(true);
 
-        Label playLabel = new Label("",playview);
+        Label playLabel = new Label("", playview);
         playLabel.setTranslateX(stackpanel.getWidth() / 3);
         playLabel.setTranslateY(stackpanel.getHeight() / 3);
         playLabel.setContentDisplay(ContentDisplay.RIGHT);
         playLabel.setId("Play");
 
-        if(!MediaManager.isMediaPlayerInActive()&&MediaManager.isPlayIconValid()){
+        if (!MediaManager.isMediaPlayerInActive() && MediaManager.isPlayIconValid()) {
             playLabel.setId("Pause");
         }
 
-        Label skipLabel = new Label("",skipview);
+        Label skipLabel = new Label("", skipview);
         skipLabel.setTranslateX(stackpanel.getWidth() / 3 + 100);
         skipLabel.setTranslateY(stackpanel.getHeight() / 3);
         skipLabel.setContentDisplay(ContentDisplay.RIGHT);
 
-        Label stopLabel = new Label("",stopview);
+        Label stopLabel = new Label("", stopview);
         stopLabel.setTranslateX(stackpanel.getWidth() / 3 + 200);
         stopLabel.setTranslateY(stackpanel.getHeight() / 3);
         stopLabel.setContentDisplay(ContentDisplay.RIGHT);
 
-        Label toggleOptions=new Label("Options:");
+        Label toggleOptions = new Label("Options:");
         toggleOptions.setTranslateX(stackpanel.getWidth() / 3);
         toggleOptions.setTranslateY(stackpanel.getHeight() / 3 + 50);
 
@@ -119,11 +118,10 @@ public abstract class ViewManager {
         shufflebtn.setTranslateY(replaybtn.getTranslateY() + 50);
         shufflebtn.setContentDisplay(ContentDisplay.RIGHT);
 
-        if(MediaManager.isMediaPlayerInActive()){
+        if (MediaManager.isMediaPlayerInActive()) {
             shufflebtn.setSelected(true);
             MediaManager.setARS(3);
-        }
-        else {
+        } else {
             switch ( MediaManager.getARS() ) {
                 case 1:
                     autobtn.setSelected(true);
@@ -136,7 +134,6 @@ public abstract class ViewManager {
                     break;
             }
         }
-
 
         toggleGroup.selectedToggleProperty().addListener((ob, o, n) -> {
             RadioButton rb = (RadioButton) toggleGroup.getSelectedToggle();
@@ -1114,15 +1111,15 @@ public abstract class ViewManager {
 
 
     ////
-    private static Image getVolumeOnImg(){
+    private static Image getVolumeOnImg() {
         String volumeonURL = "/soundfile/volume-on.png";
 
-        return new Image(Main.class.getResource("/sample/Resources"+volumeonURL).toExternalForm());
+        return new Image(Main.class.getResource("/sample/Resources" + volumeonURL).toExternalForm());
     }
 
-    private static Image getVolumeOffImg(){
+    private static Image getVolumeOffImg() {
         String volumeoffURL = "/soundfile/volume-off.png";
 
-        return new Image(Main.class.getResource("/sample/Resources"+volumeoffURL).toExternalForm());
+        return new Image(Main.class.getResource("/sample/Resources" + volumeoffURL).toExternalForm());
     }
 }
