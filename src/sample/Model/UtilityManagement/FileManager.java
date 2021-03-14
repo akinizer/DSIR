@@ -1,5 +1,7 @@
 package sample.Model.UtilityManagement;
 
+import sample.Main;
+
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,12 +16,6 @@ public abstract class FileManager {
     //Directories
     private static String urlStylesheets = "/resources";
     private static String urlDatafile = "src/sample/Resources/datafile/data.txt";
-
-    private static Class mainclass;
-
-    public static void setClass(Class mainclass) {
-        FileManager.mainclass = mainclass;
-    }
 
     //READ
     public static List<String> readFile() {
@@ -109,9 +105,9 @@ public abstract class FileManager {
         }
     }
 
-    public static void appendLineToFile(String newline, Class mainclass) throws URISyntaxException, IOException {
+    public static void appendLineToFile(String newline) throws URISyntaxException, IOException {
         System.out.println(Files.notExists(Path.of("/sample/Resources/datafile/data.txt")));
-        FileWriter fw = new FileWriter(new File(mainclass.getResource("/sample/Resources/datafile/data.txt").toURI()), false);
+        FileWriter fw = new FileWriter(new File(Main.class.getResource("/sample/Resources/datafile/data.txt").toURI()), false);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(newline);
         bw.flush();
@@ -119,10 +115,10 @@ public abstract class FileManager {
     }
 
     public static URI getUriPathFromResources(String path) throws URISyntaxException {
-        return new URI(mainclass.getResource(path).toExternalForm());
+        return new URI(Main.class.getResource(path).toExternalForm());
     }
 
-    public static File getDatafileFromResources(Class mainclass) throws URISyntaxException {
+    public static File getDatafileFromResources() throws URISyntaxException {
         return new File(getUriPathFromResources("/src/sample/Resources/datafile/data.txt"));
     }
 
@@ -160,7 +156,7 @@ public abstract class FileManager {
 
     }
 
-    public static void writeFileTest2(Class mainclass) {
+    public static void writeFileTest2() {
         BufferedWriter bw = null;
         try (FileWriter fw = new FileWriter("src/sample/Resources/datafile/data2.txt")) {
             bw = new BufferedWriter(fw);
@@ -178,7 +174,7 @@ public abstract class FileManager {
 
     public static Boolean checkDatafileExists() {
         try {
-            Path path = Path.of(mainclass.getResource("/sample/Resources/datafile/data.txt").toURI());
+            Path path = Path.of(Main.class.getResource("/sample/Resources/datafile/data.txt").toURI());
 
             System.out.println(!Files.notExists(path));
 

@@ -56,13 +56,13 @@ public class LoginScene extends GeneralScene {
 
         //Login Button
         Button loginbutton = new Button("Login");
-        loginbutton.setPrefSize(box.getPrefWidth()/2,box.getPrefWidth() - name.getPrefWidth() - occupation.getPrefWidth());
+        loginbutton.setPrefSize(box.getPrefWidth() / 2, box.getPrefWidth() - name.getPrefWidth() - occupation.getPrefWidth());
         loginbutton.setOnAction(event -> {
             if (name.getText().equals(defaultstringName) || occupation.getText().equals(defaultstringOccupation))
                 return;
 
             //Login validation condition
-            boolean isValid=FileManager.checkLoginValid(name.getText(),occupation.getText());
+            boolean isValid = FileManager.checkLoginValid(name.getText(), occupation.getText());
 
             try {
                 //check name and occupation matches and apply login action
@@ -76,8 +76,7 @@ public class LoginScene extends GeneralScene {
                     Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> loginStage.close()));
                     timer.setCycleCount(Animation.INDEFINITE);
                     timer.play();
-                }
-                else System.out.println("Username or Occupation do not match");
+                } else System.out.println("Username or Occupation do not match");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -86,18 +85,18 @@ public class LoginScene extends GeneralScene {
 
         //Login Button
         Button registerButton = new Button("Register");
-        registerButton.setPrefSize(box.getPrefWidth()/2,box.getPrefWidth() - name.getPrefWidth() - occupation.getPrefWidth());
+        registerButton.setPrefSize(box.getPrefWidth() / 2, box.getPrefWidth() - name.getPrefWidth() - occupation.getPrefWidth());
         registerButton.setOnAction(event -> {
             if (name.getText().equals(defaultstringName) || occupation.getText().equals(defaultstringOccupation))
                 return;
 
             //Register validation condition
-            boolean isNewUser=!FileManager.checkUserExists(name.getText());
+            boolean isNewUser = !FileManager.checkUserExists(name.getText());
 
             try {
                 //check name matches and apply register action
-                if(isNewUser) {
-                    System.out.println("New user: "+name.getText() + "-"+occupation.getText());
+                if (isNewUser) {
+                    System.out.println("New user: " + name.getText() + "-" + occupation.getText());
 
                     StatsManager.setName(name.getText());
                     StatsManager.setClasstype(occupation.getText());
@@ -107,8 +106,7 @@ public class LoginScene extends GeneralScene {
                     Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> loginStage.close()));
                     timer.setCycleCount(Animation.INDEFINITE);
                     timer.play();
-                }
-                else System.out.println("User already exists");
+                } else System.out.println("User already exists");
             } catch (Exception e) {
                 e.printStackTrace();
             }

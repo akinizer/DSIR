@@ -94,13 +94,13 @@ public class Controller {
     @FXML
     private void addTheDarkPortalListener() {
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initTheDarkPortalView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount), getClass());
+        ViewManager.initTheDarkPortalView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar, levelamount));
     }
 
     @FXML
     private void addInnListener() {
         AnchorPane anchorPane = (AnchorPane) towntab.getContent();
-        ViewManager.initInnView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar), getClass());
+        ViewManager.initInnView(anchorPane, towntab, Arrays.asList(goldamount, diamondamount, energybar));
     }
 
     @FXML

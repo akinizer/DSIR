@@ -300,7 +300,7 @@ public abstract class ViewManager {
     }
 
     //ACTION
-    public static void initInnView(AnchorPane anchorPane, Tab towntab, List currencies, Class mainclass) {
+    public static void initInnView(AnchorPane anchorPane, Tab towntab, List currencies) {
         int x = 0;
         int y = 0;
 
@@ -338,7 +338,7 @@ public abstract class ViewManager {
         Button returnButton = new Button("return");
 
         //nap
-        ImageView ivnap = new ImageView(new Image(mainclass.getResource("/sample/Resources/couch.png").toExternalForm()));
+        ImageView ivnap = new ImageView(new Image(Main.class.getResource("/sample/Resources/couch.png").toExternalForm()));
         ivnap.setFitHeight(100);
         ivnap.setPreserveRatio(true);
 
@@ -352,7 +352,7 @@ public abstract class ViewManager {
         labelnap.setTooltip(new Tooltip("--Nap--\nCost: 80 G\nEnergy Refill: 66%"));
 
         //sleep
-        ImageView ivsleep = new ImageView(new Image(mainclass.getResource("/sample/Resources/bed.png").toExternalForm()));
+        ImageView ivsleep = new ImageView(new Image(Main.class.getResource("/sample/Resources/bed.png").toExternalForm()));
         ivsleep.setFitHeight(100);
         ivsleep.setPreserveRatio(true);
 
@@ -366,7 +366,7 @@ public abstract class ViewManager {
         labelsleep.setTooltip(new Tooltip("--Sleep--\nCost: 120 G\nEnergy Refill: 100%"));
 
         ///break
-        ImageView ivbreak = new ImageView(new Image(mainclass.getResource("/sample/Resources/armchair.png").toExternalForm()));
+        ImageView ivbreak = new ImageView(new Image(Main.class.getResource("/sample/Resources/armchair.png").toExternalForm()));
         ivbreak.setFitHeight(100);
         ivbreak.setPreserveRatio(true);
 
@@ -626,7 +626,7 @@ public abstract class ViewManager {
 
     private static int thedarkportalstage = 1;
 
-    public static void initTheDarkPortalView(AnchorPane anchorPane, Tab towntab, List currencies, Class mainclass) {
+    public static void initTheDarkPortalView(AnchorPane anchorPane, Tab towntab, List currencies) {
         int x = 0;
         int y = 0;
 
@@ -660,7 +660,7 @@ public abstract class ViewManager {
         actionLabel.setAlignment(Pos.CENTER);
 
         //Effect Label
-        ImageView iveffect = new ImageView(new Image(mainclass.getResource("/sample/Resources/slash.gif").toExternalForm()));
+        ImageView iveffect = new ImageView(new Image(Main.class.getResource("/sample/Resources/slash.gif").toExternalForm()));
 
         Label effectlabel = new Label("", iveffect);
         effectlabel.setPrefWidth(100);
