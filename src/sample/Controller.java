@@ -1,7 +1,9 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 import sample.Model.StatsManagement.StatsManager;
 import sample.View.ViewManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -222,33 +225,29 @@ public class Controller {
     @FXML
     public Pane fleet_fullscreen;
 
+    private static boolean check=false;
+
     @FXML
-    public void addFullScreenTogglerListener(){
-        /*
-        Stage fleetstage_fullscreen = null;
-        Pane newPane = fleet_fullscreen;
-        newPane.setId("pain");
+    public void addFullScreenTogglerListener() throws IOException {
+        if(!check) {
+            //make a clone view of Fleet View to run a Fleet Window, close the Primary Window
+            check=true;
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/fleetpanel.fxml")); //initialize loader using fxml file
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
 
-        if(!isFleetFullscreen) {
-            isFleetFullscreen=true;
-
+            stage.show();
             Main.getPrimaryStage().hide();
-
-            fleetstage_fullscreen = new Stage();
-            fleetstage_fullscreen.setTitle("Fleet");
-            fleetstage_fullscreen.setScene(new Scene(new Pane(newPane)));
-            fleetstage_fullscreen.setResizable(false);
-            fleetstage_fullscreen.show();
         }
         else {
-            isFleetFullscreen=false;
+            //close the Fleet Window and show the Primary Window
+            check=false;
             Main.getPrimaryStage().show();
-
-
+            fleet_fullscreen.getScene().getWindow().hide();
         }
-        */
     }
-
 
     //////////////////////// UNUSED FXML COMPONENTS ////////////////////////
     @FXML public AnchorPane townpane;

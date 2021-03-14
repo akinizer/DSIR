@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="fleet_fullscreen" prefHeight="368.0" prefWidth="1147.0" style="-fx-background-color: darkblue;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="fleet_fullscreen" prefHeight="368.0" prefWidth="1147.0" style="-fx-background-color: darkblue;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <Label layoutX="159.0" layoutY="186.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="Station2" />
     <Label layoutX="315.0" layoutY="186.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="Station3" />
     <Label layoutX="238.0" layoutY="260.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="Station4" />
@@ -21,5 +21,5 @@
     <Label layoutX="7.0" layoutY="7.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="WarpNW" />
     <Label layoutX="7.0" layoutY="327.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="WarpSW" />
     <Label layoutX="836.0" layoutY="172.0" prefHeight="67.0" prefWidth="112.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="HQ51" />
-    <Label fx:id="fullscreenToggler" contentDisplay="CENTER" layoutX="253.0" layoutY="16.0" style="-fx-alignment: CENTER; -fx-background-color: GRAY; -fx-border-color: DARKGRAY;" text="&lt; &gt;" />
+    <Label fx:id="fullscreenToggler" contentDisplay="CENTER" layoutX="253.0" layoutY="16.0" onMouseReleased="#addFullScreenTogglerListener" style="-fx-alignment: CENTER; -fx-background-color: GRAY; -fx-border-color: DARKGRAY;" text="&lt; &gt;" />
 </Pane>
