@@ -3,30 +3,29 @@ package sample.Model.UtilityManagement;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import sample.Main;
-import sample.View.ViewManager;
 
+import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Random;
+import java.nio.file.Paths;
+import java.util.*;
 
 public abstract class MediaManager {
 
     private static MediaPlayer mediaPlayer;
-    private static List<String> playlist = Arrays.asList("song.mp3","song2.mp3","song3.mp3","song4.mp3","song5.mp3");
+    private static List<String> playlist = getSongs();
 
+    private static List<String> playlistTest2 = Arrays.asList("song.mp3", "song2.mp3", "song3.mp3", "song4.mp3", "song5.mp3");
     private static List<String> playlistTest = Arrays.asList(
             "/sample/Resources/soundfile/playlist/song.mp3",
             "/sample/Resources/soundfile/playlist/song2.mp3",
             "/sample/Resources/soundfile/playlist/song3.mp3");
 
-    private static String currentSongName="";
+    private static String currentSongName = "";
+    private static String songURL = "/sample/Resources/soundfile/playlist/";
 
     private static int previousIndex = -1;
     private static ListIterator<String> itr = playlist.listIterator();
     private static int ARS = -1;
-    private static int mode = -1;
     private static boolean isVolumeActive;
 
     //TODO:
@@ -43,9 +42,7 @@ public abstract class MediaManager {
 
         Media song;
         try {
-            String songURL="/sample/Resources/soundfile/playlist/"+str;
-
-            song = new Media(Main.class.getResource(songURL).toURI().toString());
+            song = new Media(Main.class.getResource(songURL+str).toURI().toString());
             mediaPlayer = new MediaPlayer(song);
             mediaPlayer.setAutoPlay(true);
 
@@ -62,8 +59,8 @@ public abstract class MediaManager {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        currentSongName=str;
-        System.out.println("Playing Song: " + str);
+        currentSongName = str;
+        System.out.println("Playing Song: " + songURL+str);
     }
 
     //SHUFFLE MODE
@@ -73,9 +70,7 @@ public abstract class MediaManager {
 
         try {
             lucky = playlist.get(getRandomIndex());
-            String songURL="/sample/Resources/soundfile/playlist/"+lucky;
-
-            song = new Media(Main.class.getResource(songURL).toURI().toString());
+            song = new Media(Main.class.getResource(songURL+lucky).toURI().toString());
             mediaPlayer = new MediaPlayer(song);
             mediaPlayer.setAutoPlay(true);
 
@@ -91,7 +86,7 @@ public abstract class MediaManager {
             e.printStackTrace();
         }
         System.out.println("Playing Song: " + lucky);
-        currentSongName=lucky;
+        currentSongName = lucky;
     }
 
     //STOP SONG
@@ -106,21 +101,19 @@ public abstract class MediaManager {
     }
 
     public static void skip() {
-        if(mediaPlayer!=null)
+        if (mediaPlayer != null)
             stop();
 
-        if(ARS==1 || ARS==2) {
+        if (ARS == 1 || ARS == 2) {
             if (itr.hasNext()) {
                 play(itr.next());
             } else {
                 reset();
                 play(itr.next());
             }
-        }
-        else if(ARS==3){
+        } else if (ARS == 3) {
             shuffle();
         }
-
     }
 
     //RANDOM INDEX GENERATOR
@@ -136,7 +129,7 @@ public abstract class MediaManager {
         return curindex;
     }
 
-    //ACTIVE CHECK
+    //ACTIVENESS CHECK
     private static boolean isAutoplay() {
         return ARS == 1;
     }
@@ -153,6 +146,11 @@ public abstract class MediaManager {
         return mediaPlayer == null;
     }
 
+    public static boolean isPlayIconValid() {
+        return mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
+    }
+
+    //MODES
 
     private static void setMode(boolean isShuffle) {
         if (isShuffle) shuffle();
@@ -170,33 +168,39 @@ public abstract class MediaManager {
             setMode(true);
     }
 
+    private static void reset() {
+        itr = playlist.listIterator();
+    }
+
     //ARS
-    public static void enableAutoPlay() {
+    private static void enableAutoPlay() {
         System.out.println("AutoPlay is enabled");
         ARS = 1;
     }
 
-    public static void enableRepeat() {
+    private static void enableRepeat() {
         System.out.println("Repeat is enabled");
         //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         ARS = 2;
     }
 
-    public static void enableShuffle() {
+    private static void enableShuffle() {
         System.out.println("Shuffle is enabled");
         ARS = 3;
     }
 
-    public static void disableAutoPlay() {
-        System.out.println("AutoPlay is disabled");
+    public static void setARS(int auto_repeat_shuffle_mode123) {
+        if (auto_repeat_shuffle_mode123 == 1) {
+            enableAutoPlay();
+        } else if (auto_repeat_shuffle_mode123 == 2) {
+            enableRepeat();
+        } else if (auto_repeat_shuffle_mode123 == 3) {
+            enableShuffle();
+        }
     }
 
-    public static void disableRepeat() {
-        System.out.println("Repeat is disabled");
-    }
-
-    public static void disableShuffle() {
-        System.out.println("Shuffle is disabled");
+    public static int getARS() {
+        return ARS;
     }
 
     //VOLUME
@@ -222,38 +226,33 @@ public abstract class MediaManager {
         }
     }
 
-
-    private static void reset() {
-        itr = playlist.listIterator();
-    }
-
-    public static void setARS(int auto_repeat_shuffle_mode123) {
-        if (auto_repeat_shuffle_mode123 == 1) {
-            enableAutoPlay();
-            disableRepeat();
-            disableShuffle();
-        } else if (auto_repeat_shuffle_mode123 == 2) {
-            disableAutoPlay();
-            enableRepeat();
-            disableShuffle();
-        } else if (auto_repeat_shuffle_mode123 == 3) {
-            disableAutoPlay();
-            disableRepeat();
-            enableShuffle();
-        }
-    }
-
-    public static int getARS() {
-        return ARS;
-    }
-
-    public static boolean isPlayIconValid(){
-        return mediaPlayer.getStatus()==MediaPlayer.Status.PLAYING;
-    }
-
-    public static String getCurrentSongName(){
+    // TITLE
+    public static String getCurrentSongName() {
         return currentSongName;
     }
 
+    //Gets all song files from playlist directory and lists their names
+    private static void listSongs(){
+        File file=new File(Paths.get("").toAbsolutePath().toString()+"/src/sample/Resources/soundfile/playlist");
+        File[] files = file.listFiles();
+        assert files != null;
+        for (File song:files) {
+            System.out.println(song.getName());
+        }
 
+    }
+
+    //Gets all song files from playlist directory instead of specifying song names in a list
+    private static List<String> getSongs(){
+        File file=new File(Paths.get("").toAbsolutePath().toString()+"/src/sample/Resources/soundfile/playlist");
+        File[] files = file.listFiles();
+        assert files != null;
+
+        List<String> songlist = new ArrayList<>();
+        for (File song:files) {
+            assert false;
+            songlist.add(song.getName());
+        }
+        return songlist;
+    }
 }

@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -184,5 +185,22 @@ public abstract class FileManager {
             e.getMessage();
         }
         return false;
+    }
+
+    public static String getProjectSourcePath(){
+        return Paths.get("").toAbsolutePath().toString()+"/src";
+    }
+
+    public static boolean isDirectory(String url){
+       return new File(getProjectSourcePath()+url).isDirectory();
+    }
+
+    public static File[] getAllFilesFromDirectory(String path){
+        try {
+            return new File(Main.class.getResource(path).toURI().toString()).listFiles();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
