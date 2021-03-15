@@ -1,4 +1,4 @@
-package sample.Model.SceneManagement;
+package sample.Model.StageManagement;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -15,16 +15,9 @@ import sample.Model.StatsManagement.StatsManager;
 import sample.Model.UtilityManagement.FileManager;
 import sample.Model.UtilityManagement.UtilityManager;
 
-public class LoginScene extends GeneralScene {
+public class LoginStage extends Stage {
 
-    //Attributes
-    private Stage loginStage;
     private boolean isClosedFlag;
-
-    LoginScene() {
-        //Stage Implementation
-        loginStage = new Stage();
-    }
 
     public void run() {
         //Container
@@ -73,7 +66,7 @@ public class LoginScene extends GeneralScene {
                     StatsManager.setClasstype(occupation.getText());
                     isClosedFlag = true;
 
-                    Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> loginStage.close()));
+                    Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> close()));
                     timer.setCycleCount(Animation.INDEFINITE);
                     timer.play();
                 } else System.out.println("Username or Occupation do not match");
@@ -103,7 +96,7 @@ public class LoginScene extends GeneralScene {
                     isClosedFlag = true;
                     FileManager.writeFileTest(name.getText() + "," + occupation.getText());
 
-                    Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> loginStage.close()));
+                    Timeline timer = new Timeline(new KeyFrame(Duration.millis(2), eventCloser -> close()));
                     timer.setCycleCount(Animation.INDEFINITE);
                     timer.play();
                 } else System.out.println("User already exists");
@@ -119,15 +112,15 @@ public class LoginScene extends GeneralScene {
         box.getChildren().addAll(name, occupation, entryBox);
 
         //Stage Settings
-        loginStage.getIcons().add(UtilityManager.getImageFromURL("baguette.png"));
-        loginStage.setTitle("DSIR");
-        loginStage.setScene(new Scene(box));
-        loginStage.setResizable(false);
-        loginStage.show();
+        getIcons().add(UtilityManager.getImageFromURL("baguette.png"));
+        setTitle("DSIR");
+        setScene(new Scene(box));
+        setResizable(false);
+        show();
         isClosedFlag = false;
 
         //Timeout
-        Timeline timer = new Timeline(new KeyFrame(Duration.minutes(5), event -> loginStage.close()));
+        Timeline timer = new Timeline(new KeyFrame(Duration.minutes(5), event -> close()));
         timer.setCycleCount(Animation.INDEFINITE);
         timer.play();
     }

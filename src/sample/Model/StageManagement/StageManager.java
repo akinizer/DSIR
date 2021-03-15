@@ -1,34 +1,34 @@
-package sample.Model.SceneManagement;
+package sample.Model.StageManagement;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-public class SceneManager {
+public class StageManager {
 
     //Attributes
-    private LoginScene loginScene;
-    private MainScene mainScene;
+    private LoginStage loginStage;
+    private MainStage mainStage;
 
-    //Constructor: Manages Child Scenes
-    public SceneManager() {
-        loginScene = new LoginScene();
-        mainScene = new MainScene();
+    //Constructor: Manages Child Stages
+    public StageManager() {
+        loginStage = new LoginStage();
+        mainStage = new MainStage();
     }
 
     //Execution
     public void start() {
-        loginScene.run();
+        loginStage.run();
 
-        //Start Main Scene when Login Scene is closed
+        //Start Main Scene when Login Stage is closed
         Timeline timer = new Timeline();
         timer.getKeyFrames().add(new KeyFrame(Duration.millis(1), event -> {
-            if (loginScene.isClosed()) {
+            if (loginStage.isClosed()) {
                 try {
                     System.out.println("Login Scene is closed");
                     System.out.println("Main Scene is showing");
-                    mainScene.run();
+                    mainStage.run();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

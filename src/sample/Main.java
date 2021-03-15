@@ -2,17 +2,17 @@ package sample;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import sample.Model.SceneManagement.SceneManager;
+import sample.Model.StageManagement.StageManager;
 
 public class Main extends Application {
     private static Stage primaryStage;
 
-    @Override //Application Start through SceneManager
+    @Override //Application Start through StageManager
     public void start(Stage primaryStage) {
         Main.primaryStage = primaryStage;
 
-        SceneManager sceneManager = new SceneManager();
-        sceneManager.start();
+        StageManager stageManager = new StageManager();
+        stageManager.start();
     }
 
     //Main Constructor

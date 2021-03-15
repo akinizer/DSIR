@@ -8,7 +8,7 @@
     <Label layoutX="315.0" layoutY="186.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="Station3" />
     <Label layoutX="238.0" layoutY="260.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="Station4" />
     <Label layoutX="238.0" layoutY="107.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="Station1" />
-    <Label alignment="TOP_CENTER" graphicTextGap="16.0" layoutX="728.0" layoutY="99.0" opacity="0.22" prefHeight="231.0" prefWidth="325.0" style="-fx-background-color: yellow;" text="Sector51" textFill="#f7ff07" />
+    <Label alignment="TOP_CENTER" graphicTextGap="16.0" layoutX="728.0" layoutY="99.0" opacity="0.22" prefHeight="231.0" prefWidth="325.0" style="-fx-background-color: yellow;" text="Sector51" textFill="#f7ff08"/>
     <Label layoutX="733.0" layoutY="169.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="51SNA" />
     <Label layoutX="747.0" layoutY="243.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="51LUK" />
     <Label layoutX="798.0" layoutY="107.0" prefHeight="35.0" prefWidth="51.0" style="-fx-alignment: Center; -fx-background-color: tan;" text="51HEZ" />

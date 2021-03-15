@@ -18,10 +18,10 @@
 
 <StackPane fx:id="stackpanel" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <Pane fx:id="mainpanel" prefHeight="430.0" prefWidth="600.0">
-        <TabPane fx:id="maintab" cache="true" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="600.0" side="BOTTOM" stylesheets="@../resources/stylesheets/tabpanebg.css" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="maintab" cache="true" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="600.0" side="BOTTOM" stylesheets="@../../resources/stylesheets/tabpanebg.css" tabClosingPolicy="UNAVAILABLE">
             <Tab fx:id="skytab" closable="false" style="-fx-background-color: orange;" text="Sky">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: khaki;">
-                    <TabPane prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
+                    <TabPane prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
                         <Tab fx:id="fleettab" closable="false" style="-fx-background-color: lightblue;">
                             <graphic>
                                 <Label alignment="CENTER" contentDisplay="CENTER" text="Fleet" textAlignment="CENTER">
@@ -33,7 +33,7 @@
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="112.0">
                                 <ScrollPane hbarPolicy="NEVER" prefHeight="370.0" prefWidth="520.0" style="-fx-pannable: True;" vbarPolicy="NEVER">
                                     <!--GET FLEET VIEW FROM fleetpanel.fxml-->
-                                    <fx:include source="fxmls/fleetpanel.fxml"/>
+                                    <fx:include source="fleetpanel.fxml"/>
                                 </ScrollPane>
                             </AnchorPane>
                         </Tab>
@@ -194,7 +194,7 @@
             </Tab>
             <Tab fx:id="storetab" closable="false" style="-fx-background-color: orange;" text="Store">
                 <AnchorPane fx:id="storepane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <TabPane fx:id="storetabpanel" layoutX="-6.0" prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
+                    <TabPane fx:id="storetabpanel" layoutX="-6.0" prefHeight="401.0" prefWidth="606.0" side="LEFT" stylesheets="@../../resources/stylesheets/storepanebg.css" tabClosingPolicy="UNAVAILABLE">
                         <Tab closable="false" style="-fx-background-color: lightblue;">
                             <graphic>
                                 <Label alignment="CENTER" contentDisplay="CENTER" text="Affliction" textAlignment="CENTER">

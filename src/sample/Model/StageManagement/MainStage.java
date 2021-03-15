@@ -1,4 +1,4 @@
-package sample.Model.SceneManagement;
+package sample.Model.StageManagement;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,13 +6,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Main;
 
-public class MainScene extends GeneralScene {
+public class MainStage extends Stage {
 
     public void run() throws Exception {
         Stage primaryStage = Main.getPrimaryStage();
 
         //Load Scenes from FXML File and Bind to Stage
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/sample.fxml")); //initialize loader using fxml file
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load();
         primaryStage.setScene(new Scene(root));
 
