@@ -7,18 +7,15 @@ import sample.Main;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
 
 public abstract class MediaManager {
 
     private static MediaPlayer mediaPlayer;
     private static List<String> playlist = getSongs();
-
-    private static List<String> playlistTest2 = Arrays.asList("song.mp3", "song2.mp3", "song3.mp3", "song4.mp3", "song5.mp3");
-    private static List<String> playlistTest = Arrays.asList(
-            "/sample/Resources/soundfile/playlist/song.mp3",
-            "/sample/Resources/soundfile/playlist/song2.mp3",
-            "/sample/Resources/soundfile/playlist/song3.mp3");
 
     private static String currentSongName = "";
     private static String songURL = "/sample/Resources/soundfile/playlist/";
@@ -42,7 +39,7 @@ public abstract class MediaManager {
 
         Media song;
         try {
-            song = new Media(Main.class.getResource(songURL+str).toURI().toString());
+            song = new Media(Main.class.getResource(songURL + str).toURI().toString());
             mediaPlayer = new MediaPlayer(song);
             mediaPlayer.setAutoPlay(true);
 
@@ -59,8 +56,8 @@ public abstract class MediaManager {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        currentSongName = str;
-        System.out.println("Playing Song: " + songURL+str);
+        currentSongName = str.split(".mp")[0];
+        System.out.println("Playing Song: " + str);
     }
 
     //SHUFFLE MODE
@@ -70,7 +67,7 @@ public abstract class MediaManager {
 
         try {
             lucky = playlist.get(getRandomIndex());
-            song = new Media(Main.class.getResource(songURL+lucky).toURI().toString());
+            song = new Media(Main.class.getResource(songURL + lucky).toURI().toString());
             mediaPlayer = new MediaPlayer(song);
             mediaPlayer.setAutoPlay(true);
 
@@ -85,8 +82,9 @@ public abstract class MediaManager {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        currentSongName = lucky.split(".mp")[0];
         System.out.println("Playing Song: " + lucky);
-        currentSongName = lucky;
     }
 
     //STOP SONG
@@ -151,7 +149,6 @@ public abstract class MediaManager {
     }
 
     //MODES
-
     private static void setMode(boolean isShuffle) {
         if (isShuffle) shuffle();
         else {
@@ -180,7 +177,6 @@ public abstract class MediaManager {
 
     private static void enableRepeat() {
         System.out.println("Repeat is enabled");
-        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         ARS = 2;
     }
 
@@ -232,24 +228,23 @@ public abstract class MediaManager {
     }
 
     //Gets all song files from playlist directory and lists their names
-    private static void listSongs(){
-        File file=new File(Paths.get("").toAbsolutePath().toString()+"/src/sample/Resources/soundfile/playlist");
+    private static void listSongs() {
+        File file = new File(Paths.get("").toAbsolutePath().toString() + "/src/sample/Resources/soundfile/playlist");
         File[] files = file.listFiles();
         assert files != null;
-        for (File song:files) {
+        for (File song : files) {
             System.out.println(song.getName());
         }
-
     }
 
     //Gets all song files from playlist directory instead of specifying song names in a list
-    private static List<String> getSongs(){
-        File file=new File(Paths.get("").toAbsolutePath().toString()+"/src/sample/Resources/soundfile/playlist");
+    private static List<String> getSongs() {
+        File file = new File(Paths.get("").toAbsolutePath().toString() + "/src/sample/Resources/soundfile/playlist");
         File[] files = file.listFiles();
         assert files != null;
 
         List<String> songlist = new ArrayList<>();
-        for (File song:files) {
+        for (File song : files) {
             assert false;
             songlist.add(song.getName());
         }

@@ -40,19 +40,15 @@ public abstract class ViewManager {
         String stopURL = "/soundfile/icons/player/stop.png";
 
         Label songtitle = new Label(titlename());
-        songtitle.setTranslateX(stackpanel.getWidth() / 3);
+        songtitle.setTranslateX(0);
         songtitle.setTranslateY(stackpanel.getHeight() / 4);
+        songtitle.setPrefWidth(stackpanel.getWidth());
         songtitle.setContentDisplay(ContentDisplay.CENTER);
+        songtitle.setAlignment(Pos.CENTER);
 
         Timeline timer = new Timeline();
         KeyFrame keyFrame = new KeyFrame(Duration.millis(1), event -> {
             if (!MediaManager.isMediaPlayerInActive()) {
-                /*
-                if (!MediaManager.getCurrentSongName().equals(titlename)) {
-                    titlename = MediaManager.getCurrentSongName();
-                    songtitle.setText(titlename);
-                }
-                 */
                 songtitle.setText(titlename());
 
             }
@@ -1126,7 +1122,7 @@ public abstract class ViewManager {
     }
 
     // SONG TITLE //
-    public static String titlename(){
+    private static String titlename(){
         if(MediaManager.isMediaPlayerInActive())
             return "";
         return MediaManager.getCurrentSongName();
