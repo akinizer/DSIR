@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
+import sample.Model.GunnerManagement.Gunner;
 import sample.Model.RunnerManagement.Runner;
 import sample.Model.StageManagement.FleetStage;
 import sample.Model.StatsManagement.StatsManager;
@@ -22,6 +23,7 @@ import sample.Model.UtilityManagement.MediaManager;
 import sample.Model.UtilityManagement.UtilityManager;
 
 import java.io.IOException;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1077,12 +1079,23 @@ public abstract class ViewManager {
             }
         });
 
+        //GUNNER CLASS
+        Gunner gunnerlabel= new Gunner(maintab,width,height,actionButton,towntab,stackPane);
+        Timeline gunfire = new Timeline();
+        KeyFrame gunkeyframe = new KeyFrame(Duration.seconds(1),event -> {
+            if(runnerLabel.isVisible())
+                gunnerlabel.fire(runnerLabel);
+        });
+        gunfire.getKeyFrames().add(gunkeyframe);
+        gunfire.setCycleCount(Timeline.INDEFINITE);
+        gunfire.play();
+
         returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             towntab.setContent(contentSaved);
         });
 
-        stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
+        stackPane.getChildren().addAll(actionLabel, titleLabel, gunnerlabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }

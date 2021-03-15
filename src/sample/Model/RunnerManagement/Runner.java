@@ -14,8 +14,9 @@ public class Runner extends Label {
     //Components
     private TabPane maintab;
     private Tab towntab;
-    private StackPane stackPane;
-    private double width, height;
+    protected StackPane stackPane;
+    protected double width;
+    protected double height;
     private Button actionButton, speedButton, vehicleButton;
     private ImageView iv;
 
@@ -48,6 +49,9 @@ public class Runner extends Label {
 
         //settings initialization
         setPresets();
+
+        if(actionButton==null || speedButton==null || vehicleButton==null) return;
+
         setMouseListener();
         setKeyListener();
     }
