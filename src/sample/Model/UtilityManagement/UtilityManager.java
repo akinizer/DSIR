@@ -19,10 +19,10 @@ public abstract class UtilityManager {
 
     //IMAGE FILE TO OBJECT
     public static ImageView getImageViewFromURL(String filename){
-        return new ImageView(new Image(Main.class.getResource("/sample/Resources/"+filename).toExternalForm()));
+        return new ImageView(new Image(Main.class.getResource("/sample/Resources/imagefile/"+filename).toExternalForm()));
     }
     public static Image getImageFromURL(String filename){
-        return new ImageView(new Image(Main.class.getResource("/sample/Resources/"+filename).toExternalForm())).getImage();
+        return new ImageView(new Image(Main.class.getResource("/sample/Resources/imagefile/"+filename).toExternalForm())).getImage();
     }
 
     public static Image getImageViewToImage(ImageView iv){

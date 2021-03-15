@@ -29,8 +29,6 @@ import java.util.List;
 public abstract class ViewManager {
 
     //Information View
-    private static String titlename = "";
-
     public static void initSettingsView(StackPane stackpanel) {
         System.out.println("Settings Window is shown");
 
@@ -38,21 +36,24 @@ public abstract class ViewManager {
         Node contentSaved = stackpanel.getChildren().get(0);
         stackpanel.setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.LIGHTGOLDENRODYELLOW));
 
-        String skipURL = "/soundfile/skip.png";
-        String stopURL = "/soundfile/stop.png";
+        String skipURL = "/soundfile/icons/player/skip.png";
+        String stopURL = "/soundfile/icons/player/stop.png";
 
-        Label songtitle = new Label(titlename);
+        Label songtitle = new Label(titlename());
         songtitle.setTranslateX(stackpanel.getWidth() / 3);
         songtitle.setTranslateY(stackpanel.getHeight() / 4);
         songtitle.setContentDisplay(ContentDisplay.CENTER);
 
         Timeline timer = new Timeline();
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(1), event -> {
             if (!MediaManager.isMediaPlayerInActive()) {
+                /*
                 if (!MediaManager.getCurrentSongName().equals(titlename)) {
                     titlename = MediaManager.getCurrentSongName();
                     songtitle.setText(titlename);
                 }
+                 */
+                songtitle.setText(titlename());
 
             }
         });
@@ -335,7 +336,7 @@ public abstract class ViewManager {
         Button returnButton = new Button("return");
 
         //nap
-        ImageView ivnap = new ImageView(new Image(Main.class.getResource("/sample/Resources/couch.png").toExternalForm()));
+        ImageView ivnap = new ImageView(new Image(Main.class.getResource("/sample/Resources/imagefile/couch.png").toExternalForm()));
         ivnap.setFitHeight(100);
         ivnap.setPreserveRatio(true);
 
@@ -349,7 +350,7 @@ public abstract class ViewManager {
         labelnap.setTooltip(new Tooltip("--Nap--\nCost: 80 G\nEnergy Refill: 66%"));
 
         //sleep
-        ImageView ivsleep = new ImageView(new Image(Main.class.getResource("/sample/Resources/bed.png").toExternalForm()));
+        ImageView ivsleep = new ImageView(new Image(Main.class.getResource("/sample/Resources/imagefile/bed.png").toExternalForm()));
         ivsleep.setFitHeight(100);
         ivsleep.setPreserveRatio(true);
 
@@ -363,7 +364,7 @@ public abstract class ViewManager {
         labelsleep.setTooltip(new Tooltip("--Sleep--\nCost: 120 G\nEnergy Refill: 100%"));
 
         ///break
-        ImageView ivbreak = new ImageView(new Image(Main.class.getResource("/sample/Resources/armchair.png").toExternalForm()));
+        ImageView ivbreak = new ImageView(new Image(Main.class.getResource("/sample/Resources/imagefile/armchair.png").toExternalForm()));
         ivbreak.setFitHeight(100);
         ivbreak.setPreserveRatio(true);
 
@@ -657,7 +658,7 @@ public abstract class ViewManager {
         actionLabel.setAlignment(Pos.CENTER);
 
         //Effect Label
-        ImageView iveffect = new ImageView(new Image(Main.class.getResource("/sample/Resources/slash.gif").toExternalForm()));
+        ImageView iveffect = new ImageView(new Image(Main.class.getResource("/sample/Resources/imagefile/slash.gif").toExternalForm()));
 
         Label effectlabel = new Label("", iveffect);
         effectlabel.setPrefWidth(100);
@@ -1091,7 +1092,6 @@ public abstract class ViewManager {
     }
 
     // CURRENCY LISTENERS
-
     private static void addGoldListener(List currencies, int change) {
         Label goldamount = (Label) currencies.get(0);
         Label diamondamount = (Label) currencies.get(1);
@@ -1112,20 +1112,27 @@ public abstract class ViewManager {
     }
 
 
-    ////
+    //// VOLUME ICONS ///
     private static Image getVolumeOnImg() {
-        String volumeonURL = "/soundfile/volume-on.png";
+        String volumeonURL = "soundfile/icons/player/volume-on.png";
 
-        return new Image(Main.class.getResource("/sample/Resources" + volumeonURL).toExternalForm());
+        return new Image(Main.class.getResource("/sample/Resources/" + volumeonURL).toExternalForm());
     }
 
     private static Image getVolumeOffImg() {
-        String volumeoffURL = "/soundfile/volume-off.png";
+        String volumeoffURL = "soundfile/icons/player/volume-off.png";
 
-        return new Image(Main.class.getResource("/sample/Resources" + volumeoffURL).toExternalForm());
+        return new Image(Main.class.getResource("/sample/Resources/" + volumeoffURL).toExternalForm());
     }
 
-    /// FLEET WINDOWN ///
+    // SONG TITLE //
+    public static String titlename(){
+        if(MediaManager.isMediaPlayerInActive())
+            return "";
+        return MediaManager.getCurrentSongName();
+    }
+
+    /// FLEET WINDOW ///
     private static boolean check=false;
     public static void addFleetWindowTogglerListener(Pane fleet_fullscreen) throws IOException {
         if(!check) {

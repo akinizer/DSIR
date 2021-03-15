@@ -3,6 +3,7 @@ package sample.Model.UtilityManagement;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import sample.Main;
+import sample.View.ViewManager;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -13,17 +14,12 @@ import java.util.Random;
 public abstract class MediaManager {
 
     private static MediaPlayer mediaPlayer;
-    private static List<String> playlist = Arrays.asList(
-            "/sample/Resources/soundfile/song.mp3",
-            "/sample/Resources/soundfile/song2.mp3",
-            "/sample/Resources/soundfile/song3.mp3",
-            "/sample/Resources/soundfile/song4.mp3",
-            "/sample/Resources/soundfile/song5.mp3");
+    private static List<String> playlist = Arrays.asList("song.mp3","song2.mp3","song3.mp3","song4.mp3","song5.mp3");
 
     private static List<String> playlistTest = Arrays.asList(
-            "/sample/Resources/soundfile/song.mp3",
-            "/sample/Resources/soundfile/song2.mp3",
-            "/sample/Resources/soundfile/song3.mp3");
+            "/sample/Resources/soundfile/playlist/song.mp3",
+            "/sample/Resources/soundfile/playlist/song2.mp3",
+            "/sample/Resources/soundfile/playlist/song3.mp3");
 
     private static String currentSongName="";
 
@@ -45,13 +41,11 @@ public abstract class MediaManager {
             return;
         }
 
-        List<String> lucky = Arrays.asList(str.split("/"));
-        currentSongName=lucky.get(lucky.size() - 1);
-        System.out.println("Playing Song: " + currentSongName);
-
         Media song;
         try {
-            song = new Media(Main.class.getResource(str).toURI().toString());
+            String songURL="/sample/Resources/soundfile/playlist/"+str;
+
+            song = new Media(Main.class.getResource(songURL).toURI().toString());
             mediaPlayer = new MediaPlayer(song);
             mediaPlayer.setAutoPlay(true);
 
@@ -68,6 +62,8 @@ public abstract class MediaManager {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        currentSongName=str;
+        System.out.println("Playing Song: " + str);
     }
 
     //SHUFFLE MODE
@@ -77,7 +73,9 @@ public abstract class MediaManager {
 
         try {
             lucky = playlist.get(getRandomIndex());
-            song = new Media(Main.class.getResource(lucky).toURI().toString());
+            String songURL="/sample/Resources/soundfile/playlist/"+lucky;
+
+            song = new Media(Main.class.getResource(songURL).toURI().toString());
             mediaPlayer = new MediaPlayer(song);
             mediaPlayer.setAutoPlay(true);
 
@@ -92,9 +90,8 @@ public abstract class MediaManager {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        List<String> luckylist = Arrays.asList(lucky.split("/"));
-        currentSongName=luckylist.get(luckylist.size() - 1);
-        System.out.println("Playing Song: " + currentSongName);
+        System.out.println("Playing Song: " + lucky);
+        currentSongName=lucky;
     }
 
     //STOP SONG

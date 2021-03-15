@@ -177,21 +177,21 @@ public class Runner extends Label {
     }
     //Runner View Interface
     public void setCarView(){
-        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/car-up.png").toExternalForm()));
+        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/imagefile/car-up.png").toExternalForm()));
         iv.setFitWidth(25);
         iv.setPreserveRatio(true);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
     }
     public void setJeepView(){
-        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/jeep.png").toExternalForm()));
+        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/imagefile/jeep.png").toExternalForm()));
         iv.setFitWidth(25);
         iv.setPreserveRatio(true);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
     }
     public void setTruckView(){
-        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/truck.png").toExternalForm()));
+        iv=new ImageView(new Image(getClass().getResource("/sample/Resources/imagefile/truck.png").toExternalForm()));
         iv.setFitWidth(25);
         iv.setPreserveRatio(true);
         iv.setRotate((direction-1)*90);
