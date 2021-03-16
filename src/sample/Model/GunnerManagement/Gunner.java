@@ -6,6 +6,7 @@ import javafx.css.Size;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
@@ -14,18 +15,23 @@ import sample.Model.RunnerManagement.Runner;
 
 import java.util.*;
 
-public class Gunner extends Runner implements IGunner{
+
+public class Gunner extends Label implements IGunner{
+    public enum GunnerFireType{
+        STRAIGHT, HOMING
+    }
+
     private double width;
     private double height;
     private Projectile projectile;
+    private StackPane stackPane;
 
     private enum Direction{
         UP,DOWN,LEFT,RIGHT
     }
 
-    public Gunner(TabPane maintab, double width, double height, Button actionButton, Tab towntab, StackPane stackPane) {
-        super(maintab, width, height, null, null, null, towntab, stackPane);
-
+    public Gunner(StackPane stackPane, TabPane maintab, double width, double height) {
+        this.stackPane=stackPane;
         this.width=maintab.getWidth();
         this.height=maintab.getHeight();
 
@@ -39,7 +45,6 @@ public class Gunner extends Runner implements IGunner{
         setTranslateY(new Random().nextInt((int)height));
 
         setMotionListener();
-        setProjectileListener();
     }
 
     private static int count=0;
@@ -57,11 +62,6 @@ public class Gunner extends Runner implements IGunner{
         timer.getKeyFrames().add(keyFrame);
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
-    }
-
-    @Override
-    public void setProjectileListener() {
-        projectile = new Projectile(stackPane);
     }
 
     private boolean isInBoundary(){
@@ -90,7 +90,13 @@ public class Gunner extends Runner implements IGunner{
         return directionlist.get(random.nextInt(directionlist.size()));
     }
 
-    public void fire(Runner runner){
-        projectile.fire(runner,this);
+    public void fire(Runner runner,int speed,GunnerFireType gunnerFireType){
+        projectile = new Projectile();
+        stackPane.getChildren().add(projectile);
+
+        if(gunnerFireType==GunnerFireType.HOMING)
+            projectile.fireHoming(runner,this,speed);
+        else if(gunnerFireType==GunnerFireType.STRAIGHT)
+            projectile.fire(runner,this,speed);
     }
 }

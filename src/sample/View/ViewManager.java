@@ -1080,11 +1080,16 @@ public abstract class ViewManager {
         });
 
         //GUNNER CLASS
-        Gunner gunnerlabel= new Gunner(maintab,width,height,actionButton,towntab,stackPane);
+        int speed=10;
+        int firerate=50;
+
+        Gunner gunnerlabel= new Gunner(stackPane,maintab,width,height);
+        Gunner.GunnerFireType gtype= Gunner.GunnerFireType.HOMING;
+
         Timeline gunfire = new Timeline();
-        KeyFrame gunkeyframe = new KeyFrame(Duration.seconds(1),event -> {
+        KeyFrame gunkeyframe = new KeyFrame(Duration.millis(firerate),event -> {
             if(runnerLabel.isVisible())
-                gunnerlabel.fire(runnerLabel);
+                gunnerlabel.fire(runnerLabel,speed,gtype);
         });
         gunfire.getKeyFrames().add(gunkeyframe);
         gunfire.setCycleCount(Timeline.INDEFINITE);
