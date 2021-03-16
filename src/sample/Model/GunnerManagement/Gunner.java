@@ -52,14 +52,20 @@ public class Gunner extends Label implements IGunner{
         setMotionListener();
     }
 
-    private static int count=0;
-    private static Direction currentDirection;
+    private int count=0;
+    private Direction currentDirection;
 
     @Override
     public void setMotionListener() {
         Timeline timer = new Timeline();
         KeyFrame keyFrame = new KeyFrame(Duration.millis(25),event -> {
-            if(count++ %200 == 0 || !isInBoundary()){
+            if(getTranslateX()==0) currentDirection=Direction.RIGHT;
+            if(getTranslateY()==0) currentDirection=Direction.DOWN;
+            if(getTranslateX()==width) currentDirection=Direction.LEFT;
+            if(getTranslateY()==height) currentDirection=Direction.UP;
+
+
+            if(count++ %200 == 0){
                 currentDirection=getRandomDirection();
             }
             getDireAction(currentDirection);
@@ -67,10 +73,6 @@ public class Gunner extends Label implements IGunner{
         timer.getKeyFrames().add(keyFrame);
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
-    }
-
-    private boolean isInBoundary(){
-        return 0<getTranslateX() && getTranslateX()<width && 0<getTranslateY() && getTranslateY()<height;
     }
 
     private void getDireAction(Direction dire){

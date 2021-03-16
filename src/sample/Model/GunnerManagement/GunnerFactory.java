@@ -29,7 +29,7 @@ public class GunnerFactory {
         Gunner gunnerlabel= new Gunner(stackPane,maintab,width,height);
         stackPane.getChildren().add(gunnerlabel);
 
-        Gunner.GunnerFireType gtype= Gunner.GunnerFireType.STRAIGHT;
+        Gunner.GunnerFireType gtype=Gunner.GunnerFireType.STRAIGHT;
 
         Timeline gunfire = new Timeline();
         KeyFrame gunkeyframe = new KeyFrame(Duration.millis(firerate), event -> {
