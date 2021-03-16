@@ -15,7 +15,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
-import sample.Model.GunnerManagement.Gunner;
 import sample.Model.GunnerManagement.GunnerFactory;
 import sample.Model.RunnerManagement.Runner;
 import sample.Model.StageManagement.FleetStage;
@@ -24,7 +23,6 @@ import sample.Model.UtilityManagement.MediaManager;
 import sample.Model.UtilityManagement.UtilityManager;
 
 import java.io.IOException;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1081,16 +1079,16 @@ public abstract class ViewManager {
         });
 
         //GUNNER CLASS
-        GunnerFactory gunnerFactory = new GunnerFactory(stackPane,width,height,maintab,runnerLabel);
+        GunnerFactory gunnerFactory = new GunnerFactory(stackPane, width, height, maintab, runnerLabel);
 
         returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             towntab.setContent(contentSaved);
         });
+
         stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
 
-        gunnerFactory.bulkproduce(20);
-
+        gunnerFactory.bulkproduce(3, 5);
 
         //Initiate Battle Scene
         towntab.setContent(stackPane);
@@ -1131,24 +1129,24 @@ public abstract class ViewManager {
     }
 
     // SONG TITLE //
-    private static String titlename(){
-        if(MediaManager.isMediaPlayerInActive())
+    private static String titlename() {
+        if (MediaManager.isMediaPlayerInActive())
             return "";
         return MediaManager.getCurrentSongName();
     }
 
     /// FLEET WINDOW ///
-    private static boolean check=false;
+    private static boolean check = false;
+
     public static void addFleetWindowTogglerListener(Pane fleet_fullscreen) throws IOException {
-        if(!check) {
+        if (!check) {
             //make a clone view of Fleet View to run a Fleet Window, close the Primary Window
-            check=true;
+            check = true;
             new FleetStage();
             Main.getPrimaryStage().hide();
-        }
-        else {
+        } else {
             //close the Fleet Window and show the Primary Window
-            check=false;
+            check = false;
             Main.getPrimaryStage().show();
             fleet_fullscreen.getScene().getWindow().hide();
         }
