@@ -14,7 +14,6 @@ class Projectile extends Label{
     void fireHoming(Runner runner,Gunner gunner,int speed){
         setTranslateX(gunner.getTranslateX());
         setTranslateY(gunner.getTranslateY());
-        setText("O");
 
         Timeline timeline = new Timeline();
         double sourcex=gunner.getTranslateX();
@@ -53,7 +52,6 @@ class Projectile extends Label{
     void fire(Runner runner,Gunner gunner,int speed){
         setTranslateX(gunner.getTranslateX());
         setTranslateY(gunner.getTranslateY());
-        setText("O");
 
         Timeline timeline = new Timeline();
         double sourcex=gunner.getTranslateX();

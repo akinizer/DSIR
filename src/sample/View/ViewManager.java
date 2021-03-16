@@ -1084,7 +1084,7 @@ public abstract class ViewManager {
         int firerate=50;
 
         Gunner gunnerlabel= new Gunner(stackPane,maintab,width,height);
-        Gunner.GunnerFireType gtype= Gunner.GunnerFireType.HOMING;
+        Gunner.GunnerFireType gtype= Gunner.GunnerFireType.STRAIGHT;
 
         Timeline gunfire = new Timeline();
         KeyFrame gunkeyframe = new KeyFrame(Duration.millis(firerate),event -> {

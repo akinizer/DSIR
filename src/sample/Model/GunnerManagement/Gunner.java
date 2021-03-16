@@ -20,6 +20,11 @@ public class Gunner extends Label implements IGunner{
     public enum GunnerFireType{
         STRAIGHT, HOMING
     }
+    enum ProjectileType{
+        ZERO, ONE
+    }
+
+    private ProjectileType PT=ProjectileType.ZERO;
 
     private double width;
     private double height;
@@ -94,9 +99,22 @@ public class Gunner extends Label implements IGunner{
         projectile = new Projectile();
         stackPane.getChildren().add(projectile);
 
-        if(gunnerFireType==GunnerFireType.HOMING)
-            projectile.fireHoming(runner,this,speed);
-        else if(gunnerFireType==GunnerFireType.STRAIGHT)
-            projectile.fire(runner,this,speed);
+        if(gunnerFireType==GunnerFireType.HOMING) {
+            if(PT==ProjectileType.ZERO) {
+                PT=ProjectileType.ONE;
+                projectile.setText("1");
+            }
+            else {
+                PT=ProjectileType.ZERO;
+                projectile.setText("0");
+            }
+
+            projectile.fireHoming(runner, this, speed);
+        }
+        else if(gunnerFireType==GunnerFireType.STRAIGHT) {
+            projectile.setText("+");
+
+            projectile.fire(runner, this, speed);
+        }
     }
 }
