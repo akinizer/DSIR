@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
 import sample.Model.GunnerManagement.Gunner;
+import sample.Model.GunnerManagement.GunnerFactory;
 import sample.Model.RunnerManagement.Runner;
 import sample.Model.StageManagement.FleetStage;
 import sample.Model.StatsManagement.StatsManager;
@@ -1080,27 +1081,17 @@ public abstract class ViewManager {
         });
 
         //GUNNER CLASS
-        int speed=10;
-        int firerate=50;
-
-        Gunner gunnerlabel= new Gunner(stackPane,maintab,width,height);
-        Gunner.GunnerFireType gtype= Gunner.GunnerFireType.STRAIGHT;
-
-        Timeline gunfire = new Timeline();
-        KeyFrame gunkeyframe = new KeyFrame(Duration.millis(firerate),event -> {
-            if(runnerLabel.isVisible())
-                gunnerlabel.fire(runnerLabel,speed,gtype);
-        });
-        gunfire.getKeyFrames().add(gunkeyframe);
-        gunfire.setCycleCount(Timeline.INDEFINITE);
-        gunfire.play();
+        GunnerFactory gunnerFactory = new GunnerFactory(stackPane,width,height,maintab,runnerLabel);
 
         returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
             towntab.setContent(contentSaved);
         });
+        stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
 
-        stackPane.getChildren().addAll(actionLabel, titleLabel, gunnerlabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
+        gunnerFactory.bulkproduce(20);
+
+
         //Initiate Battle Scene
         towntab.setContent(stackPane);
     }
