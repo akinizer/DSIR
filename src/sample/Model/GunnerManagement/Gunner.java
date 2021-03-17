@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import sample.Model.RunnerManagement.Runner;
 
@@ -14,7 +15,7 @@ import java.util.Random;
 
 public class Gunner extends Label implements IGunner {
     public enum GunnerFireType {
-        STRAIGHT, HOMING
+        STRAIGHT, STRAIGHTBOSS, HOMING, HOMINGBOSS
     }
 
     enum ProjectileType {
@@ -103,9 +104,36 @@ public class Gunner extends Label implements IGunner {
             projectile.setText("+");
 
             projectile.fireHoming(runner, this, speed);
-        } else if (gunnerFireType == GunnerFireType.STRAIGHT) {
+        }
+        else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
+            setText("[H]");
+            setId("HommerBoss");
+            projectile.setText("+");
+
+            setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(),72));
+
+            projectile.fireHoming(runner, this, speed);
+        }
+        else if (gunnerFireType == GunnerFireType.STRAIGHT) {
             setText("[S]");
             setId("Strafe");
+            if (PT == ProjectileType.ZERO) {
+                PT = ProjectileType.ONE;
+                projectile.setText("1");
+            } else {
+                PT = ProjectileType.ZERO;
+                projectile.setText("0");
+            }
+
+            setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(),72));
+
+            projectile.fire(runner, this, speed);
+        }
+        else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
+            setText("[S]");
+            setId("StrafeBoss");
             if (PT == ProjectileType.ZERO) {
                 PT = ProjectileType.ONE;
                 projectile.setText("1");

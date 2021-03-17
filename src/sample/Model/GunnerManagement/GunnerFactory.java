@@ -46,12 +46,22 @@ public class GunnerFactory {
         gunfire.play();
     }
 
-    public void bulkproduce(int countStrafe, int countHommer) {
-        for (int i = 0; i < countStrafe; i++) {
-            produce(Gunner.GunnerFireType.STRAIGHT, 10, 50);
+    public void bulkproduce(int countStrafe, int countHommer, boolean enableBoss) {
+        if(!enableBoss) {
+            for (int i = 0; i < countStrafe; i++) {
+                produce(Gunner.GunnerFireType.STRAIGHT, 10, 50);
+            }
+            for (int i = 0; i < countHommer; i++) {
+                produce(Gunner.GunnerFireType.HOMING, 25, 5000);
+            }
         }
-        for (int i = 0; i < countHommer; i++) {
-            produce(Gunner.GunnerFireType.HOMING, 25, 5000);
+        else {
+            for (int i = 0; i < countStrafe; i++) {
+                produce(Gunner.GunnerFireType.STRAIGHTBOSS, 10, 50);
+            }
+            for (int i = 0; i < countHommer; i++) {
+                produce(Gunner.GunnerFireType.HOMINGBOSS, 25, 5000);
+            }
         }
     }
 
