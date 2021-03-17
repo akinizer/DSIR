@@ -14,9 +14,9 @@ public class Runner extends Label {
     //Components
     private TabPane maintab;
     private Tab towntab;
-    protected StackPane stackPane;
-    protected double width;
-    protected double height;
+    private StackPane stackPane;
+    private double width;
+    private double height;
     private Button actionButton, speedButton, vehicleButton;
     private ImageView iv;
 
