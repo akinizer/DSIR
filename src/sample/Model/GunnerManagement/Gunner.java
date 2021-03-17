@@ -126,9 +126,6 @@ public class Gunner extends Label implements IGunner {
                 projectile.setText("0");
             }
 
-            setFont(new Font(getFont().getName(),72));
-            projectile.setFont(new Font(getFont().getName(),72));
-
             projectile.fire(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
@@ -141,6 +138,8 @@ public class Gunner extends Label implements IGunner {
                 PT = ProjectileType.ZERO;
                 projectile.setText("0");
             }
+            setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(),72));
 
             projectile.fire(runner, this, speed);
         }
