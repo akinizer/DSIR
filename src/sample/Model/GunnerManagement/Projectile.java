@@ -44,7 +44,7 @@ class Projectile extends Label{
             if((xhead<=getTranslateX() && getTranslateX()<=xtail
             && yhead<=getTranslateY() && getTranslateY()<=ytail)){
                 timeline.stop();
-                //parent.getChildren().remove(this);
+                parent.getChildren().remove(this);
                 return;
             }
 
@@ -59,6 +59,54 @@ class Projectile extends Label{
         timeline.play();
     }
 
+    void fireGuided(Runner runner,Gunner gunner,int speed){
+        setTranslateX(gunner.getTranslateX());
+        setTranslateY(gunner.getTranslateY());
+
+        Timeline timeline = new Timeline();
+        double sourcex=gunner.getTranslateX();
+        double sourcey=gunner.getTranslateY();
+
+        runner.setStyle("-fx-border-color: red;");
+
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(100/speed),event -> {
+
+            double targetminx=runner.getTranslateX()-runner.getWidth()/2;
+            double targetmaxx=runner.getTranslateX()+runner.getWidth()/2;
+            double targetminy=runner.getTranslateY()-runner.getHeight()/2;
+            double targetmaxy=runner.getTranslateY()+runner.getHeight()/2;
+
+            StackPane parent = ((StackPane)getParent());
+            boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
+            boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+
+            if(!(validIntervalX && validIntervalY)){
+                timeline.stop();
+                parent.getChildren().remove(this);
+            }
+            double xhead=runner.getTranslateX()-5;
+            double yhead=runner.getTranslateY()-10;
+            double xtail=(runner.getTranslateX()+runner.getWidth()-5);
+            double ytail=(runner.getTranslateY()+runner.getHeight()-10);
+
+            if((xhead<=getTranslateX() && getTranslateX()<=xtail
+                    && yhead<=getTranslateY() && getTranslateY()<=ytail)){
+                timeline.stop();
+                parent.getChildren().remove(this);
+                return;
+            }
+
+            double targetx=runner.getTranslateX();
+            double targety=runner.getTranslateY();
+
+            setTranslateX(getTranslateX()+getSlopeSign(getTranslateX(),targetx));
+            setTranslateY(getTranslateY()+getSlope(getTranslateX(),getTranslateY(),targetx,targety)*getSlopeSign(getTranslateX(),targetx));
+        });
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
     void fire(Runner runner,Gunner gunner,int speed){
         setTranslateX(gunner.getTranslateX());
         setTranslateY(gunner.getTranslateY());
@@ -67,29 +115,44 @@ class Projectile extends Label{
         double sourcex=gunner.getTranslateX();
         double sourcey=gunner.getTranslateY();
 
+        runner.setStyle("-fx-border-color: red;");
+
         double targetx=runner.getTranslateX();
         double targety=runner.getTranslateY();
 
         KeyFrame keyFrame = new KeyFrame(Duration.millis(100/speed),event -> {
-            //runner.setStyle("-fx-border-color: red;"); //HITBOX OF RUNNER
-            StackPane parent = ((StackPane)getParent());
-            boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
-            boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
 
             double targetminx=runner.getTranslateX()-runner.getWidth()/2;
             double targetmaxx=runner.getTranslateX()+runner.getWidth()/2;
             double targetminy=runner.getTranslateY()-runner.getHeight()/2;
             double targetmaxy=runner.getTranslateY()+runner.getHeight()/2;
 
-            if(!(validIntervalX && validIntervalY)
-                    || (targetminx<=this.getTranslateX() && this.getTranslateX()<=targetmaxx && targetminy<=this.getTranslateY() && this.getTranslateY()<=targetmaxy)){
+            StackPane parent = ((StackPane)getParent());
+            boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
+            boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+
+
+
+            if(!(validIntervalX && validIntervalY)){
+                timeline.stop();
+                parent.getChildren().remove(this);
+            }
+            double xhead=runner.getTranslateX()-5;
+            double yhead=runner.getTranslateY()-10;
+            double xtail=(runner.getTranslateX()+runner.getWidth());
+            double ytail=(runner.getTranslateY()+runner.getHeight()-7.5);
+
+            if((xhead<=getTranslateX() && getTranslateX()<=xtail
+                    && yhead<=getTranslateY() && getTranslateY()<=ytail)){
                 timeline.stop();
                 parent.getChildren().remove(this);
                 return;
             }
 
-            setTranslateX(this.getTranslateX()+getSlopeSign(sourcex,targetx));
-            setTranslateY(this.getTranslateY()+getSlope(sourcex,sourcey,targetx,targety)*getSlopeSign(sourcex,targetx));
+
+
+            setTranslateX(getTranslateX()+getSlopeSign(sourcex,targetx));
+            setTranslateY(getTranslateY()+getSlope(sourcex,sourcey,targetx,targety)*getSlopeSign(sourcex,targetx));
         });
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Timeline.INDEFINITE);

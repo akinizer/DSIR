@@ -2,6 +2,8 @@ package sample.Model.GunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -37,22 +39,38 @@ public class GunnerFactory {
             gunnerlabel.fire(runnerLabel, projectileSpeed, gtype);
 
         Timeline gunfire = new Timeline();
-        KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown), event -> {
-            if (runnerLabel.isVisible())
-                gunnerlabel.fire(runnerLabel, projectileSpeed, gtype);
+        KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown),event -> {
+            if (runnerLabel.isVisible()) {
+                int overheat = gunnerlabel.getOverheatCount();
+
+                //BurstFire Action for Guided/GuidedBoss Projectile
+                if(gtype==Gunner.GunnerFireType.GUIDED || gtype==Gunner.GunnerFireType.GUIDEDBOSS) {
+                    //Burst of Projectiles are 3 for each 8 fire-duration
+                    if(overheat%8<=2)
+                        gunnerlabel.fire(runnerLabel, projectileSpeed, gtype);
+                }
+
+                //Action for Non-Guided Types
+                else gunnerlabel.fire(runnerLabel, projectileSpeed, gtype);
+
+            }
         });
+
         gunfire.getKeyFrames().add(gunkeyframe);
         gunfire.setCycleCount(Timeline.INDEFINITE);
         gunfire.play();
     }
 
-    public void bulkproduce(int countStrafe, int countHommer, boolean enableBoss) {
+    public void bulkproduce(int countStrafe, int countHommer, int countGuided, boolean enableBoss) {
         if(!enableBoss) {
             for (int i = 0; i < countStrafe; i++) {
                 produce(Gunner.GunnerFireType.STRAIGHT, 10, 50);
             }
             for (int i = 0; i < countHommer; i++) {
                 produce(Gunner.GunnerFireType.HOMING, 25, 5000);
+            }
+            for (int i = 0; i < countGuided; i++) {
+                produce(Gunner.GunnerFireType.GUIDED, 10, 500);
             }
         }
         else {
@@ -61,6 +79,9 @@ public class GunnerFactory {
             }
             for (int i = 0; i < countHommer; i++) {
                 produce(Gunner.GunnerFireType.HOMINGBOSS, 25, 5000);
+            }
+            for (int i = 0; i < countHommer; i++) {
+                produce(Gunner.GunnerFireType.GUIDEDBOSS, 10, 500);
             }
         }
     }

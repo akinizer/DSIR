@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class Gunner extends Label implements IGunner {
     public enum GunnerFireType {
-        STRAIGHT, STRAIGHTBOSS, HOMING, HOMINGBOSS
+        STRAIGHT, STRAIGHTBOSS, HOMING, HOMINGBOSS, GUIDED, GUIDEDBOSS
     }
 
     enum ProjectileType {
@@ -94,6 +94,7 @@ public class Gunner extends Label implements IGunner {
         return directionlist.get(random.nextInt(directionlist.size()));
     }
 
+    private int overheat=0;
     void fire(Runner runner, int speed, GunnerFireType gunnerFireType) {
         Projectile projectile = new Projectile();
         stackPane.getChildren().add(projectile);
@@ -114,6 +115,23 @@ public class Gunner extends Label implements IGunner {
             projectile.setFont(new Font(getFont().getName(),72));
 
             projectile.fireHoming(runner, this, speed);
+        }
+        if (gunnerFireType == GunnerFireType.GUIDED) {
+            setText("[G]");
+            setId("Guided");
+            projectile.setText("✱");
+
+            projectile.fireGuided(runner, this, speed);
+        }
+        else if (gunnerFireType == GunnerFireType.GUIDEDBOSS) {
+            setText("[G]");
+            setId("GuidedBoss");
+            projectile.setText("✱");
+
+            setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(),72));
+
+            projectile.fireGuided(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.STRAIGHT) {
             setText("[S]");
@@ -143,5 +161,9 @@ public class Gunner extends Label implements IGunner {
 
             projectile.fire(runner, this, speed);
         }
+    }
+
+    int getOverheatCount(){
+        return ++overheat;
     }
 }
