@@ -16,7 +16,7 @@ public class Runner extends Label {
     private Tab towntab;
     private StackPane stackPane;
     private double width;
-    private double height;
+    protected double height;
     private Button actionButton, speedButton, vehicleButton;
     private ImageView iv;
 
@@ -62,8 +62,6 @@ public class Runner extends Label {
         setGraphic(iv);
         setTranslateX(width);
         setTranslateY(height);
-        setPrefWidth(25);
-        setPrefHeight(25);
         setContentDisplay(ContentDisplay.CENTER);
         setTooltip();
         setVisible(false);
@@ -186,6 +184,9 @@ public class Runner extends Label {
         iv.setPreserveRatio(true);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
+
+        setPrefWidth(iv.getFitWidth());
+        setPrefHeight(iv.getFitHeight());
     }
     public void setJeepView(){
         iv=new ImageView(new Image(getClass().getResource("/sample/Resources/imagefile/jeep.png").toExternalForm()));
@@ -193,6 +194,9 @@ public class Runner extends Label {
         iv.setPreserveRatio(true);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
+
+        setPrefWidth(iv.getFitWidth());
+        setPrefHeight(iv.getFitHeight());
     }
     public void setTruckView(){
         iv=new ImageView(new Image(getClass().getResource("/sample/Resources/imagefile/truck.png").toExternalForm()));
@@ -200,6 +204,9 @@ public class Runner extends Label {
         iv.setPreserveRatio(true);
         iv.setRotate((direction-1)*90);
         setGraphic(iv);
+
+        setPrefWidth(iv.getFitWidth());
+        setPrefHeight(iv.getFitHeight());
     }
 
     //Runner Movement Speed Update

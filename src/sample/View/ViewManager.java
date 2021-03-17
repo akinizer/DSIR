@@ -1088,7 +1088,7 @@ public abstract class ViewManager {
 
         stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
 
-        gunnerFactory.bulkproduce(10, 0,false);
+        gunnerFactory.bulkproduce(0, 10,false);
        // gunnerFactory.waveproduce(0, 5,2,20);
 
         //Initiate Battle Scene
