@@ -1088,7 +1088,8 @@ public abstract class ViewManager {
 
         stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
 
-        gunnerFactory.bulkproduce(3, 5);
+        //gunnerFactory.bulkproduce(0, 50);
+        gunnerFactory.waveproduce(0, 5,2,20);
 
         //Initiate Battle Scene
         towntab.setContent(stackPane);

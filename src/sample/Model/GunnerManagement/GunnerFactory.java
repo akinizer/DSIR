@@ -3,6 +3,7 @@ package sample.Model.GunnerManagement;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import sample.Model.RunnerManagement.Runner;
@@ -52,5 +53,24 @@ public class GunnerFactory {
         for (int i = 0; i < countHommer; i++) {
             produce(Gunner.GunnerFireType.HOMING, 25, 5000);
         }
+    }
+
+    private int counter=0;
+    public void waveproduce(int countStrafe, int countHommer, int phaseduration, int upperlimit) {
+        Timeline timer = new Timeline();
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(phaseduration),event -> {
+            if(counter++ <upperlimit) {
+                for (int i = 0; i < countStrafe; i++) {
+                    produce(Gunner.GunnerFireType.STRAIGHT, 10, 50);
+                }
+                for (int i = 0; i < countHommer; i++) {
+                    produce(Gunner.GunnerFireType.HOMING, 25, 50);
+                }
+            }
+            else timer.stop();
+        });
+        timer.getKeyFrames().add(keyFrame);
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 }
