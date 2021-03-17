@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class Gunner extends Label implements IGunner {
     public enum GunnerFireType {
-        STRAIGHT, STRAIGHTBOSS, HOMING, HOMINGBOSS, GUIDED, GUIDEDBOSS
+        STRAIGHT, STRAIGHTBOSS, HOMING, HOMINGBOSS, GUIDED, GUIDEDBOSS, G_HOMING, G_HOMINGBOSS
     }
 
     enum ProjectileType {
@@ -107,6 +107,23 @@ public class Gunner extends Label implements IGunner {
             projectile.fireHoming(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
+            setText("[H]");
+            setId("HommerBoss");
+            projectile.setText("+");
+
+            setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(),72));
+
+            projectile.fireHoming(runner, this, speed);
+        }
+        else if (gunnerFireType == GunnerFireType.G_HOMING) {
+            setText("[H]");
+            setId("Hommer");
+            projectile.setText("+");
+
+            projectile.fireHoming(runner, this, speed);
+        }
+        else if (gunnerFireType == GunnerFireType.G_HOMINGBOSS) {
             setText("[H]");
             setId("HommerBoss");
             projectile.setText("+");
