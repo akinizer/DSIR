@@ -51,6 +51,8 @@ public class Runner extends Label {
         cooldown = 0;
         direction = 1;
 
+        isStatusPausedForCar=false;
+
         //settings initialization
         setPresets();
 
@@ -111,6 +113,13 @@ public class Runner extends Label {
                 //TODO: this setting disables cross movement,
                 // to ENABLE cross movement set all cases if and assign cross movement images with additional if cases
 
+                if (" ".equals(keyEvent.getText().toLowerCase())) {
+                    setPaused();
+                    gunnerFactory.pauseAction();
+                }
+
+                if(isPaused()) return;
+
                 //movement and movement speed, direction, distance
                 switch ( keyEvent.getText().toLowerCase() ) {
                     case "d":
@@ -139,11 +148,9 @@ public class Runner extends Label {
                         break;
                     case "f":
                         break;
-                    case " ":
-                        gunnerFactory.pauseAction();
-                        break;
 
                 }
+
 
                 //cooldown validation
                 if (isCooldownActive()) return;
@@ -262,6 +269,15 @@ public class Runner extends Label {
 
     public void setGunnerFactory(GunnerFactory gunnerFactory) {
         this.gunnerFactory = gunnerFactory;
+    }
+
+
+    private boolean isStatusPausedForCar;
+    private void setPaused(){
+        isStatusPausedForCar= !isStatusPausedForCar;
+    }
+    private boolean isPaused(){
+        return isStatusPausedForCar;
     }
 
 }

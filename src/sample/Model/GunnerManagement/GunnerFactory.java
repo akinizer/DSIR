@@ -2,8 +2,12 @@ package sample.Model.GunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import sample.Model.RunnerManagement.Runner;
 
@@ -17,6 +21,8 @@ public class GunnerFactory {
     private Runner runnerLabel;
 
     private List<Gunner> hangar = new ArrayList<>();
+    private Label label=new Label("| |");
+    private Label filter=new Label();
 
     public GunnerFactory(StackPane stackPane, double width, double height, TabPane maintab, Runner runner) {
         this.stackPane = stackPane;
@@ -24,6 +30,15 @@ public class GunnerFactory {
         this.height = height;
         this.maintab = maintab;
         this.runnerLabel = runner;
+
+        label.setFont(new Font(label.getFont().getName(), 72));
+        label.setTranslateX(maintab.getWidth()*0.45);
+        label.setTranslateY(maintab.getHeight()/3);
+
+        filter.setPrefWidth(maintab.getWidth());
+        filter.setPrefHeight(maintab.getHeight());
+        filter.setStyle("-fx-background-color: white;");
+        filter.setOpacity(0.5);
 
         isPaused=false;
     }
@@ -197,12 +212,16 @@ public class GunnerFactory {
             for (Gunner gunner : hangar) {
                 gunner.freezeFire();
             }
+            stackPane.getChildren().add(filter);
+            stackPane.getChildren().add(label);
         }
         else {
             isPaused=false;
             for (Gunner gunner : hangar) {
                 gunner.freeFire();
             }
+            stackPane.getChildren().remove(filter);
+            stackPane.getChildren().remove(label);
         }
     }
 
