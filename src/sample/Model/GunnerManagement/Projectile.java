@@ -32,7 +32,7 @@ class Projectile extends Label{
             boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
             boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
 
-            if(!(validIntervalX && validIntervalY)){
+            if(gunner.isCease() || !(validIntervalX && validIntervalY)){
                 timeline.stop();
                 parent.getChildren().remove(this);
             }

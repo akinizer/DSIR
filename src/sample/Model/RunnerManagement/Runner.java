@@ -90,7 +90,8 @@ public class Runner extends Label {
 
             //On Restart Remove all Gunners from Fields and Start generating them again
             gunnerFactory.demolishAllGunners();
-            gunnerFactory.typeproduce(Gunner.GunnerFireType.G_HOMING,20);
+            //gunnerFactory.continueProduction();
+            gunnerFactory.typeproduce(Gunner.GunnerFireType.HOMING,20);
             // gunnerFactory.bulkproduce(0, 0,0, 50, false);
             // gunnerFactory.bulkproduce(0, 0,50, 0, false);
             // gunnerFactory.bulkproduce(0, 50,0, 0, false);

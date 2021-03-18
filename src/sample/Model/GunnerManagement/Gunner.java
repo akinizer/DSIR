@@ -28,6 +28,8 @@ public class Gunner extends Label implements IGunner {
     private double height;
     private StackPane stackPane;
 
+    private boolean stopCommand;
+
     private enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
@@ -36,6 +38,8 @@ public class Gunner extends Label implements IGunner {
         this.stackPane = stackPane;
         this.width = maintab.getWidth();
         this.height = maintab.getHeight();
+
+        stopCommand=false;
 
         setGraphic(null);
         setVisible(true);
@@ -200,7 +204,15 @@ public class Gunner extends Label implements IGunner {
             setId("StrafeBoss");
             setFont(new Font(getFont().getName(),72));
         }
+
+
     }
 
+    void ceaseFire(){
+        stopCommand=true;
+    }
+    boolean isCease(){
+        return stopCommand;
+    }
 
 }

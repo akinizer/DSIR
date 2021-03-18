@@ -20,7 +20,6 @@ public class GunnerFactory {
     private Runner runnerLabel;
 
     private List<Gunner> hangar = new ArrayList<>();
-    private boolean stopCommand;
 
     public GunnerFactory(StackPane stackPane, double width, double height, TabPane maintab, Runner runner) {
         this.stackPane = stackPane;
@@ -29,34 +28,34 @@ public class GunnerFactory {
         this.maintab = maintab;
         this.runnerLabel = runner;
 
-        stopCommand=false;
-
 
     }
 
     private void produce(Gunner.GunnerFireType gtype, int projectileSpeed, int cooldown) {
 
-        if(stopCommand) return;
 
-        Gunner gunnerlabel = new Gunner(stackPane, maintab, width, height,gtype);
+        Gunner gunnerlabel = new Gunner(stackPane, maintab, width, height, gtype);
         hangar.add(gunnerlabel);
         stackPane.getChildren().add(gunnerlabel);
 
-        if (runnerLabel.isVisible())
+        if (runnerLabel.isVisible() && !gunnerlabel.isCease())
             gunnerlabel.fire(runnerLabel, projectileSpeed, gtype);
 
         Timeline gunfire = new Timeline();
-        KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown),event -> {
-            //check if runner is active and in the range of gunner
-            if(stopCommand) gunfire.stop();
+        KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown), event -> {
+            if(gunnerlabel.isCease()){
+                gunfire.stop();
+                return;
+            }
 
-            if (runnerLabel.isVisible() && isInRange(runnerLabel,gunnerlabel,gunnerlabel.getRange(gtype))) {
+            //check if runner is active and in the range of gunner
+            if (runnerLabel.isVisible() && isInRange(runnerLabel, gunnerlabel, gunnerlabel.getRange(gtype))) {
                 int overheat = gunnerlabel.getOverheatCount();
 
                 //BurstFire Action for Guided/GuidedBoss Projectile
-                if(gtype==Gunner.GunnerFireType.GUIDED || gtype==Gunner.GunnerFireType.GUIDEDBOSS) {
+                if (gtype == Gunner.GunnerFireType.GUIDED || gtype == Gunner.GunnerFireType.GUIDEDBOSS) {
                     //Burst of Projectiles are 3 for each 8 fire-duration
-                    if(overheat%8<=2)
+                    if (overheat % 8 <= 2)
                         gunnerlabel.fire(runnerLabel, projectileSpeed, gtype);
                 }
 
@@ -178,8 +177,11 @@ public class GunnerFactory {
     }
 
     public void demolishAllGunners(){
-
+        for (Gunner gunner:hangar) {
+            gunner.ceaseFire();
+        }
         stackPane.getChildren().removeAll(hangar);
         hangar.clear();
     }
+
 }

@@ -28,6 +28,7 @@ public class LoginStage extends Stage {
         //Name Entry
         String defaultstringName = "Enter Name";
         TextField name = new TextField(defaultstringName);
+        name.setAlignment(Pos.CENTER);
         name.setPrefSize(125, 28);
         name.setOnMouseClicked(mouseEvent -> {
             if (name.getText().isEmpty() || name.getText().isEmpty())
@@ -39,6 +40,7 @@ public class LoginStage extends Stage {
         //Occupation Entry
         String defaultstringOccupation = "Enter Occupation";
         TextField occupation = new TextField(defaultstringOccupation);
+        occupation.setAlignment(Pos.CENTER);
         occupation.setPrefSize(256, 28);
         occupation.setOnMouseClicked(mouseEvent -> {
             if (occupation.getText().isEmpty() || occupation.getText().isEmpty())
