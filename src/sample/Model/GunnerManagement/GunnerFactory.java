@@ -24,6 +24,8 @@ public class GunnerFactory {
         this.height = height;
         this.maintab = maintab;
         this.runnerLabel = runner;
+
+        isPaused=false;
     }
 
     private void produce(Gunner.GunnerFireType gtype, int projectileSpeed, int cooldown) {
@@ -38,6 +40,9 @@ public class GunnerFactory {
 
         Timeline gunfire = new Timeline();
         KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown), event -> {
+            if(gunnerlabel.isDisable()) gunfire.pause();
+            else gunfire.play();
+
             if (gunnerlabel.isCease()) {
                 gunfire.stop();
                 return;
@@ -169,6 +174,36 @@ public class GunnerFactory {
         }
         stackPane.getChildren().removeAll(hangar);
         hangar.clear();
+    }
+    public void recalibreAllGunners(){
+        for (Gunner gunner : hangar) {
+            gunner.freeFire();
+        }
+        typeproduce(Gunner.GunnerFireType.G_HOMING, 20);
+        //gunnerFactory.continueProduction();
+        // gunnerFactory.bulkproduce(0, 0,0, 50, false);
+        // gunnerFactory.bulkproduce(0, 0,50, 0, false);
+        // gunnerFactory.bulkproduce(0, 50,0, 0, false);
+        // gunnerFactory.bulkproduce(50, 0,0, 0, false);
+        // gunnerFactory.bulkproduce(5, 5,5, 20, false);
+        // gunnerFactory.waveproduce(0, 5,2,20);
+        //gunnerFactory.typeproduce(Gunner.GunnerFireType.HOMINGBOSS,1);
+    }
+
+    private boolean isPaused;
+    public void pauseAction(){
+        if(!isPaused) {
+            isPaused=true;
+            for (Gunner gunner : hangar) {
+                gunner.freezeFire();
+            }
+        }
+        else {
+            isPaused=false;
+            for (Gunner gunner : hangar) {
+                gunner.freeFire();
+            }
+        }
     }
 
 }

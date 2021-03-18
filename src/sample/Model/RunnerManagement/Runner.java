@@ -90,15 +90,8 @@ public class Runner extends Label {
 
             //On Restart Remove all Gunners from Fields and Start generating them again
             gunnerFactory.demolishAllGunners();
-            //gunnerFactory.continueProduction();
-            gunnerFactory.typeproduce(Gunner.GunnerFireType.G_HOMING, 20);
-            // gunnerFactory.bulkproduce(0, 0,0, 50, false);
-            // gunnerFactory.bulkproduce(0, 0,50, 0, false);
-            // gunnerFactory.bulkproduce(0, 50,0, 0, false);
-            // gunnerFactory.bulkproduce(50, 0,0, 0, false);
-            // gunnerFactory.bulkproduce(5, 5,5, 20, false);
-            // gunnerFactory.waveproduce(0, 5,2,20);
-            //gunnerFactory.typeproduce(Gunner.GunnerFireType.HOMINGBOSS,1);
+            gunnerFactory.recalibreAllGunners();
+
 
             setTooltip();
 
@@ -146,6 +139,10 @@ public class Runner extends Label {
                         break;
                     case "f":
                         break;
+                    case " ":
+                        gunnerFactory.pauseAction();
+                        break;
+
                 }
 
                 //cooldown validation

@@ -40,6 +40,7 @@ public class Gunner extends Label implements IGunner {
         this.height = maintab.getHeight();
 
         stopCommand = false;
+        freezeCommand = false;
 
         setGraphic(null);
         setVisible(true);
@@ -59,7 +60,10 @@ public class Gunner extends Label implements IGunner {
     @Override
     public void setMotionListener() {
         Timeline timer = new Timeline();
+
         KeyFrame keyFrame = new KeyFrame(Duration.millis(25), event -> {
+            if(isFreezeFire()) return;
+
             if (getTranslateX() == 0) currentDirection = Direction.RIGHT;
             if (getTranslateY() == 0) currentDirection = Direction.DOWN;
             if (getTranslateX() == width) currentDirection = Direction.LEFT;
@@ -201,6 +205,17 @@ public class Gunner extends Label implements IGunner {
 
     boolean isCease() {
         return stopCommand;
+    }
+
+    private boolean freezeCommand;
+    void freezeFire(){
+        freezeCommand=true;
+    }
+    void freeFire(){
+        freezeCommand=false;
+    }
+    boolean isFreezeFire(){
+        return freezeCommand;
     }
 
 }

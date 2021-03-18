@@ -10,8 +10,10 @@ import sample.Model.RunnerManagement.Runner;
 class Projectile extends Label {
 
     void fireHoming(Runner runner, Gunner gunner, int speed) {
-        setTranslateX(gunner.getTranslateX());
-        setTranslateY(gunner.getTranslateY());
+        if(!gunner.isFreezeFire()) {
+            setTranslateX(gunner.getTranslateX());
+            setTranslateY(gunner.getTranslateY());
+        }
 
         Timeline timeline = new Timeline();
         double sourcex = gunner.getTranslateX();
@@ -23,6 +25,10 @@ class Projectile extends Label {
             StackPane parent = ((StackPane) getParent());
             boolean validIntervalX = (getTranslateX() > 0 && getTranslateX() < parent.getWidth());
             boolean validIntervalY = (getTranslateY() > 0 && getTranslateY() < parent.getHeight());
+
+            if (gunner.isFreezeFire()) {
+                return;
+            }
 
             if (gunner.isCease() || !(validIntervalX && validIntervalY)) {
                 timeline.stop();
