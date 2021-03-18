@@ -2,6 +2,7 @@ package sample.Model.GunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Background;
@@ -222,6 +223,30 @@ public class GunnerFactory {
             }
             stackPane.getChildren().remove(filter);
             stackPane.getChildren().remove(label);
+
+            Label resume=new Label("▶");
+            resume.setFont(new Font(resume.getFont().getName(), 144));
+            resume.setPrefWidth(maintab.getWidth());
+            resume.setPrefHeight(maintab.getHeight());
+            resume.setAlignment(Pos.CENTER);
+
+            stackPane.getChildren().add(resume);
+
+            Timeline timer = new Timeline();
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.1),event -> {
+                if(resume.getOpacity()==0.0) {
+                    stackPane.getChildren().remove(resume);
+                    timer.stop();
+                }
+                else{
+                    resume.setOpacity(resume.getOpacity()-0.1);
+                }
+            });
+            timer.getKeyFrames().add(keyFrame);
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
+
+
         }
     }
 
