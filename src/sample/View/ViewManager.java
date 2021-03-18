@@ -15,7 +15,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
-import sample.Model.GunnerManagement.Gunner;
 import sample.Model.GunnerManagement.GunnerFactory;
 import sample.Model.RunnerManagement.Runner;
 import sample.Model.StageManagement.FleetStage;
@@ -1051,7 +1050,7 @@ public abstract class ViewManager {
         vehicleButton.setDisable(true);
 
         //RUNNER CLASS
-        Runner runnerLabel = new Runner(maintab, width, height, actionButton, speedButton, vehicleButton, towntab,stackPane);
+        Runner runnerLabel = new Runner(maintab, width, height, actionButton, speedButton, vehicleButton, towntab, stackPane);
         speedButton.setOnMouseClicked(mouseEvent -> {
             if (speedButton.getText().equals("On")) {
                 speedButton.setText("Off");

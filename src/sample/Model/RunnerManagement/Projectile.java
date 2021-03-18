@@ -11,20 +11,20 @@ import sample.Model.UtilityManagement.UtilityManager;
 
 class Projectile extends Label {
     //attributes
-    private double x,y;
+    private double x, y;
     private double speed;
     private double cooldown;
 
     //constructor
     Projectile(double x, double y) { //up 1, right 2, down 3, left 4
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
 
         setPresets();
     }
 
     //settings
-    private void setPresets(){
+    private void setPresets() {
         setTranslateX(x);
         setTranslateY(y);
         setMinWidth(5);
@@ -32,9 +32,11 @@ class Projectile extends Label {
         setAlignment(Pos.CENTER);
         setVisible(false);
     }
-    private boolean adjust=false;
+
+    private boolean adjust = false;
     private double counterCycle;
-    void fire(int direction,String projectileType){
+
+    void fire(int direction, String projectileType) {
         switch ( projectileType ) {
             case "minigun": {
                 setStyle("-fx-background-color: " + UtilityManager.getHexColor(Color.RED));
@@ -44,17 +46,17 @@ class Projectile extends Label {
                 Timeline timer = new Timeline();
                 timer.getKeyFrames().add(new KeyFrame(Duration.millis(100 / speed), event -> {
                     //remove the projectile out of City Hall
-                    StackPane parent = ((StackPane)getParent());
-                    boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
-                    boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+                    StackPane parent = ((StackPane) getParent());
+                    boolean validIntervalX = (getTranslateX() > 0 && getTranslateX() < parent.getWidth());
+                    boolean validIntervalY = (getTranslateY() > 0 && getTranslateY() < parent.getHeight());
 
-                    if(!(validIntervalX && validIntervalY)){
+                    if (!(validIntervalX && validIntervalY)) {
                         timer.stop();
                         parent.getChildren().remove(this);
                         return;
                     }
                     //if projectile is inside battle scene, execute fire projectile operation
-                        //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+                    //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
 
                     switch ( direction ) {
                         case 1:
@@ -100,32 +102,32 @@ class Projectile extends Label {
                 speed = 1;
                 cooldown = 4;
 
-                counterCycle=0;
+                counterCycle = 0;
                 Timeline timer = new Timeline();
                 timer.getKeyFrames().add(new KeyFrame(Duration.millis(100 / speed), event -> {
                     //remove the projectile out of City Hall
-                    StackPane parent = ((StackPane)getParent());
-                    boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
-                    boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+                    StackPane parent = ((StackPane) getParent());
+                    boolean validIntervalX = (getTranslateX() > 0 && getTranslateX() < parent.getWidth());
+                    boolean validIntervalY = (getTranslateY() > 0 && getTranslateY() < parent.getHeight());
 
-                    if(!(validIntervalX && validIntervalY)){
+                    if (!(validIntervalX && validIntervalY)) {
                         timer.stop();
                         parent.getChildren().remove(this);
                         return;
                     }
                     //if projectile is inside battle scene, execute fire projectile operation
-                        //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+                    //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
 
                     counterCycle++;
                     switch ( direction ) {
 
                         case 1:
-                            setTranslateY(getTranslateY() - counterCycle/2);
+                            setTranslateY(getTranslateY() - counterCycle / 2);
                             setRotate(0);
                             setVisible(true);
                             break;
                         case 2:
-                            setTranslateX(getTranslateX() + counterCycle/2);
+                            setTranslateX(getTranslateX() + counterCycle / 2);
                             setRotate(90);
                             if (!adjust) {
                                 setTranslateY(getTranslateY() - 5);
@@ -136,12 +138,12 @@ class Projectile extends Label {
                             setVisible(true);
                             break;
                         case 3:
-                            setTranslateY(getTranslateY() + counterCycle/2);
+                            setTranslateY(getTranslateY() + counterCycle / 2);
                             setRotate(180);
                             setVisible(true);
                             break;
                         case 4:
-                            setTranslateX(getTranslateX() - counterCycle/2);
+                            setTranslateX(getTranslateX() - counterCycle / 2);
                             setRotate(270);
                             if (!adjust) {
                                 setTranslateY(getTranslateY() - 5);
@@ -163,17 +165,17 @@ class Projectile extends Label {
                 Timeline timer = new Timeline();
                 timer.getKeyFrames().add(new KeyFrame(Duration.millis(100 / speed), event -> {
                     //remove the projectile out of City Hall
-                    StackPane parent = ((StackPane)getParent());
-                    boolean validIntervalX=(getTranslateX()>0 && getTranslateX()<parent.getWidth());
-                    boolean validIntervalY=(getTranslateY()>0 && getTranslateY()<parent.getHeight());
+                    StackPane parent = ((StackPane) getParent());
+                    boolean validIntervalX = (getTranslateX() > 0 && getTranslateX() < parent.getWidth());
+                    boolean validIntervalY = (getTranslateY() > 0 && getTranslateY() < parent.getHeight());
 
-                    if(!(validIntervalX && validIntervalY)){
+                    if (!(validIntervalX && validIntervalY)) {
                         timer.stop();
                         parent.getChildren().remove(this);
                         return;
                     }
                     //if projectile is inside battle scene, execute fire projectile operation
-                        //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
+                    //System.out.println("open fire!!!");//if bullet is fired it gives a message, otherwise the rest will be ignored by return case
 
                     switch ( direction ) {
                         case 1:
@@ -216,10 +218,11 @@ class Projectile extends Label {
     }
 
     //getters and setters
-    double getSpeed(){
+    double getSpeed() {
         return this.speed;
     }
-    double getCooldown(){
+
+    double getCooldown() {
         return this.cooldown;
     }
 }

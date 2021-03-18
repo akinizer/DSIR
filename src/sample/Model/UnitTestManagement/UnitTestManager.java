@@ -3,7 +3,9 @@ package sample.Model.UnitTestManagement;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import sample.Controller;
@@ -15,7 +17,7 @@ public abstract class UnitTestManager {
 
     //Unit Test1
     public static void UnitTest_getTownBuildings() throws Exception {
-        Stage primaryStage=Main.getPrimaryStage();
+        Stage primaryStage = Main.getPrimaryStage();
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
@@ -36,7 +38,7 @@ public abstract class UnitTestManager {
 
     //Unit Test2
     public static void UnitTest_getDojoBuilding() throws Exception {
-        Stage primaryStage=Main.getPrimaryStage();
+        Stage primaryStage = Main.getPrimaryStage();
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
@@ -55,7 +57,7 @@ public abstract class UnitTestManager {
 
     //Unit Test3
     public static void UnitTest_getGameTabContents() throws Exception {
-        Stage primaryStage=Main.getPrimaryStage();
+        Stage primaryStage = Main.getPrimaryStage();
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
@@ -75,7 +77,7 @@ public abstract class UnitTestManager {
 
     //Unit Test4
     public static void UnitTest_runApplicationWithDefaultCharacterPresets() throws Exception {
-        Stage primaryStage=Main.getPrimaryStage();
+        Stage primaryStage = Main.getPrimaryStage();
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
@@ -101,7 +103,7 @@ public abstract class UnitTestManager {
 
     ///stage Loaders
     private static void initDefaultStageLoader() throws Exception {
-        Stage primaryStage=Main.getPrimaryStage();
+        Stage primaryStage = Main.getPrimaryStage();
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader
@@ -115,7 +117,7 @@ public abstract class UnitTestManager {
     }
 
     private static void initDefaultStageLoaderParamaters(String name, String occupation) throws Exception {
-        Stage primaryStage=Main.getPrimaryStage();
+        Stage primaryStage = Main.getPrimaryStage();
         //access tabs via controller
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/sample/fxmls/sample.fxml")); //initialize loader using fxml file
         Parent root = loader.load(); //prepare loader

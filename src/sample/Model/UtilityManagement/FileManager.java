@@ -32,13 +32,13 @@ public abstract class FileManager {
         return null;
     }
 
-    public static List<String> readLineFromFile(String name) {
-        List<String> resultset=null;
+    private static List<String> readLineFromFile(String name) {
+        List<String> resultset = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(urlDatafile)))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith(name)) {
-                    resultset =  Arrays.asList(line.split(","));
+                    resultset = Arrays.asList(line.split(","));
                     break;
                 }
             }
@@ -49,13 +49,13 @@ public abstract class FileManager {
     }
 
     private static List<String> readLineFromFileNameAndOccupation(String name, String occupation) {
-        List<String> resultset=null;
+        List<String> resultset = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(urlDatafile)))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] linearr = line.split(",");
                 if (linearr[0].equals(name) && linearr[1].equals(occupation)) {
-                    resultset =  Arrays.asList(linearr);
+                    resultset = Arrays.asList(linearr);
                     break;
                 }
             }
@@ -66,11 +66,11 @@ public abstract class FileManager {
     }
 
     public static boolean checkUserExists(String name) {
-        return readLineFromFile(name)!=null;
+        return readLineFromFile(name) != null;
     }
 
-    public static boolean checkLoginValid(String name,String occupation) {
-        return readLineFromFileNameAndOccupation(name,occupation)!=null;
+    public static boolean checkLoginValid(String name, String occupation) {
+        return readLineFromFileNameAndOccupation(name, occupation) != null;
     }
 
     //UPDATE/WRITE
@@ -115,7 +115,7 @@ public abstract class FileManager {
         bw.close();
     }
 
-    public static URI getUriPathFromResources(String path) throws URISyntaxException {
+    private static URI getUriPathFromResources(String path) throws URISyntaxException {
         return new URI(Main.class.getResource(path).toExternalForm());
     }
 
@@ -158,7 +158,7 @@ public abstract class FileManager {
     }
 
     public static void writeFileTest2() {
-        BufferedWriter bw = null;
+        BufferedWriter bw;
         try (FileWriter fw = new FileWriter("src/sample/Resources/datafile/data2.txt")) {
             bw = new BufferedWriter(fw);
             bw.write("test");
@@ -187,15 +187,15 @@ public abstract class FileManager {
         return false;
     }
 
-    public static String getProjectSourcePath(){
-        return Paths.get("").toAbsolutePath().toString()+"/src";
+    private static String getProjectSourcePath() {
+        return Paths.get("").toAbsolutePath().toString() + "/src";
     }
 
-    public static boolean isDirectory(String url){
-       return new File(getProjectSourcePath()+url).isDirectory();
+    public static boolean isDirectory(String url) {
+        return new File(getProjectSourcePath() + url).isDirectory();
     }
 
-    public static File[] getAllFilesFromDirectory(String path){
+    public static File[] getAllFilesFromDirectory(String path) {
         try {
             return new File(Main.class.getResource(path).toURI().toString()).listFiles();
         } catch (URISyntaxException e) {

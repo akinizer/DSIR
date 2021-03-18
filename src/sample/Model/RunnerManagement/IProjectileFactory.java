@@ -4,14 +4,10 @@ import java.util.List;
 
 public interface IProjectileFactory {
 
-    public void addProjectile(Projectile projectile);
-
-    public void removeProjectile(Projectile projectile);
-
-    public int getAmount();
-
-    public List<Projectile> getProjectiles();
-
-    public boolean doesProjectileExist(double x,double y);
+    void addProjectile(Projectile projectile);
+    void removeProjectile(Projectile projectile);
+    int getAmount();
+    List<Projectile> getProjectiles();
+    boolean doesProjectileExist(double x, double y);
 
 }

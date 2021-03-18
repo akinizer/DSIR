@@ -39,7 +39,7 @@ public class Gunner extends Label implements IGunner {
         this.width = maintab.getWidth();
         this.height = maintab.getHeight();
 
-        stopCommand=false;
+        stopCommand = false;
 
         setGraphic(null);
         setVisible(true);
@@ -99,7 +99,8 @@ public class Gunner extends Label implements IGunner {
         return directionlist.get(random.nextInt(directionlist.size()));
     }
 
-    private int overheat=0;
+    private int overheat = 0;
+
     void fire(Runner runner, int speed, GunnerFireType gunnerFireType) {
         Projectile projectile = new Projectile();
         stackPane.getChildren().add(projectile);
@@ -107,32 +108,27 @@ public class Gunner extends Label implements IGunner {
         if (gunnerFireType == GunnerFireType.HOMING) {
             projectile.setText("+");
             projectile.fireHoming(runner, this, speed);
-        }
-        else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
+        } else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
             projectile.setText("+");
-            projectile.setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(), 72));
             projectile.fireHoming(runner, this, speed);
-        }
-        else if (gunnerFireType == GunnerFireType.G_HOMING) {
+        } else if (gunnerFireType == GunnerFireType.G_HOMING) {
             projectile.setText("+");
             projectile.fireHoming(runner, this, speed);
-        }
-        else if (gunnerFireType == GunnerFireType.G_HOMINGBOSS) {
+        } else if (gunnerFireType == GunnerFireType.G_HOMINGBOSS) {
             projectile.setText("+");
-            projectile.setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(), 72));
 
             projectile.fireHoming(runner, this, speed);
         }
         if (gunnerFireType == GunnerFireType.GUIDED) {
             projectile.setText("✱");
             projectile.fireGuided(runner, this, speed);
-        }
-        else if (gunnerFireType == GunnerFireType.GUIDEDBOSS) {
+        } else if (gunnerFireType == GunnerFireType.GUIDEDBOSS) {
             projectile.setText("✱");
-            projectile.setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(), 72));
             projectile.fireGuided(runner, this, speed);
-        }
-        else if (gunnerFireType == GunnerFireType.STRAIGHT) {
+        } else if (gunnerFireType == GunnerFireType.STRAIGHT) {
             if (PT == ProjectileType.ZERO) {
                 PT = ProjectileType.ONE;
                 projectile.setText("1");
@@ -141,8 +137,7 @@ public class Gunner extends Label implements IGunner {
                 projectile.setText("0");
             }
             projectile.fire(runner, this, speed);
-        }
-        else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
+        } else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
             if (PT == ProjectileType.ZERO) {
                 PT = ProjectileType.ONE;
                 projectile.setText("1");
@@ -150,16 +145,16 @@ public class Gunner extends Label implements IGunner {
                 PT = ProjectileType.ZERO;
                 projectile.setText("0");
             }
-            projectile.setFont(new Font(getFont().getName(),72));
+            projectile.setFont(new Font(getFont().getName(), 72));
             projectile.fire(runner, this, speed);
         }
     }
 
-    int getOverheatCount(){
+    int getOverheatCount() {
         return ++overheat;
     }
 
-    double getRange(GunnerFireType gtype){
+    double getRange(GunnerFireType gtype) {
         if (gtype == GunnerFireType.G_HOMING || gtype == GunnerFireType.G_HOMINGBOSS) {
             return -1;
         } else {
@@ -167,51 +162,44 @@ public class Gunner extends Label implements IGunner {
         }
     }
 
-    private void gunnerSettings(GunnerFireType gunnerFireType){
+    private void gunnerSettings(GunnerFireType gunnerFireType) {
         if (gunnerFireType == GunnerFireType.HOMING) {
             setText("[H]");
             setId("Hommer");
-        }
-        else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
+        } else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
             setText("[H]");
             setId("HommerBoss");
-            setFont(new Font(getFont().getName(),72));
-        }
-        else if (gunnerFireType == GunnerFireType.G_HOMING) {
+            setFont(new Font(getFont().getName(), 72));
+        } else if (gunnerFireType == GunnerFireType.G_HOMING) {
             setText("[-]");
             setId("Hommer");
-        }
-        else if (gunnerFireType == GunnerFireType.G_HOMINGBOSS) {
+        } else if (gunnerFireType == GunnerFireType.G_HOMINGBOSS) {
             setText("[-]");
             setId("HommerBoss");
-            setFont(new Font(getFont().getName(),72));
+            setFont(new Font(getFont().getName(), 72));
         }
         if (gunnerFireType == GunnerFireType.GUIDED) {
             setText("[G]");
             setId("Guided");
-        }
-        else if (gunnerFireType == GunnerFireType.GUIDEDBOSS) {
+        } else if (gunnerFireType == GunnerFireType.GUIDEDBOSS) {
             setText("[G]");
             setId("GuidedBoss");
-            setFont(new Font(getFont().getName(),72));
-        }
-        else if (gunnerFireType == GunnerFireType.STRAIGHT) {
+            setFont(new Font(getFont().getName(), 72));
+        } else if (gunnerFireType == GunnerFireType.STRAIGHT) {
             setText("[S]");
             setId("Strafe");
-        }
-        else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
+        } else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
             setText("[S]");
             setId("StrafeBoss");
-            setFont(new Font(getFont().getName(),72));
+            setFont(new Font(getFont().getName(), 72));
         }
-
-
     }
 
-    void ceaseFire(){
-        stopCommand=true;
+    void ceaseFire() {
+        stopCommand = true;
     }
-    boolean isCease(){
+
+    boolean isCease() {
         return stopCommand;
     }
 

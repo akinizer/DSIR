@@ -2,10 +2,7 @@ package sample.Model.GunnerManagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import sample.Model.RunnerManagement.Runner;
@@ -27,8 +24,6 @@ public class GunnerFactory {
         this.height = height;
         this.maintab = maintab;
         this.runnerLabel = runner;
-
-
     }
 
     private void produce(Gunner.GunnerFireType gtype, int projectileSpeed, int cooldown) {
@@ -43,7 +38,7 @@ public class GunnerFactory {
 
         Timeline gunfire = new Timeline();
         KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown), event -> {
-            if(gunnerlabel.isCease()){
+            if (gunnerlabel.isCease()) {
                 gunfire.stop();
                 return;
             }
@@ -70,43 +65,36 @@ public class GunnerFactory {
         gunfire.play();
     }
 
-    public void typeproduce(Gunner.GunnerFireType gft,int count){
-        if(gft== Gunner.GunnerFireType.STRAIGHT) {
+    public void typeproduce(Gunner.GunnerFireType gft, int count) {
+        if (gft == Gunner.GunnerFireType.STRAIGHT) {
             for (int i = 0; i < count; i++) {
                 produce(gft, 10, 50);
             }
-        }
-        else if(gft== Gunner.GunnerFireType.HOMING) {
+        } else if (gft == Gunner.GunnerFireType.HOMING) {
             for (int i = 0; i < count; i++) {
                 produce(gft, 25, 5000);
             }
-        }
-        else if(gft== Gunner.GunnerFireType.GUIDED) {
+        } else if (gft == Gunner.GunnerFireType.GUIDED) {
             for (int i = 0; i < count; i++) {
                 produce(gft, 10, 500);
             }
-        }
-        else if(gft== Gunner.GunnerFireType.G_HOMING) {
+        } else if (gft == Gunner.GunnerFireType.G_HOMING) {
             for (int i = 0; i < count; i++) {
                 produce(Gunner.GunnerFireType.G_HOMING, 10, 50);
             }
-        }
-        else if(gft== Gunner.GunnerFireType.STRAIGHTBOSS) {
+        } else if (gft == Gunner.GunnerFireType.STRAIGHTBOSS) {
             for (int i = 0; i < count; i++) {
                 produce(Gunner.GunnerFireType.STRAIGHTBOSS, 10, 50);
             }
-        }
-        else if(gft== Gunner.GunnerFireType.HOMINGBOSS) {
+        } else if (gft == Gunner.GunnerFireType.HOMINGBOSS) {
             for (int i = 0; i < count; i++) {
                 produce(Gunner.GunnerFireType.HOMINGBOSS, 25, 5000);
             }
-        }
-        else if(gft== Gunner.GunnerFireType.GUIDEDBOSS) {
+        } else if (gft == Gunner.GunnerFireType.GUIDEDBOSS) {
             for (int i = 0; i < count; i++) {
                 produce(Gunner.GunnerFireType.GUIDEDBOSS, 10, 500);
             }
-        }
-        else if(gft== Gunner.GunnerFireType.G_HOMINGBOSS) {
+        } else if (gft == Gunner.GunnerFireType.G_HOMINGBOSS) {
             for (int i = 0; i < count; i++) {
                 produce(Gunner.GunnerFireType.G_HOMINGBOSS, 5, 50);
             }
@@ -115,7 +103,7 @@ public class GunnerFactory {
     }
 
     public void bulkproduce(int countStrafe, int countHommer, int countGuided, int countG_Homing, boolean enableBoss) {
-        if(!enableBoss) {
+        if (!enableBoss) {
             for (int i = 0; i < countStrafe; i++) {
                 produce(Gunner.GunnerFireType.STRAIGHT, 10, 50);
             }
@@ -128,8 +116,7 @@ public class GunnerFactory {
             for (int i = 0; i < countG_Homing; i++) {
                 produce(Gunner.GunnerFireType.G_HOMING, 10, 50);
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < countStrafe; i++) {
                 produce(Gunner.GunnerFireType.STRAIGHTBOSS, 10, 50);
             }
@@ -145,39 +132,39 @@ public class GunnerFactory {
         }
     }
 
-    private int counter=0;
+    private int counter = 0;
+
     public void waveproduce(int countStrafe, int countHommer, int phaseduration, int upperlimit) {
         Timeline timer = new Timeline();
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(phaseduration),event -> {
-            if(counter++ <upperlimit) {
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(phaseduration), event -> {
+            if (counter++ < upperlimit) {
                 for (int i = 0; i < countStrafe; i++) {
                     produce(Gunner.GunnerFireType.STRAIGHT, 10, 50);
                 }
                 for (int i = 0; i < countHommer; i++) {
                     produce(Gunner.GunnerFireType.HOMING, 25, 50);
                 }
-            }
-            else timer.stop();
+            } else timer.stop();
         });
         timer.getKeyFrames().add(keyFrame);
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
 
-    private boolean isInRange(Runner runner, Gunner gunner, double range){
-        if(range==-1) return true;
+    private boolean isInRange(Runner runner, Gunner gunner, double range) {
+        if (range == -1) return true;
 
-        double deltax=Math.abs(runner.getTranslateX() - gunner.getTranslateX());
-        double deltay=Math.abs(runner.getTranslateY() - gunner.getTranslateY());
+        double deltax = Math.abs(runner.getTranslateX() - gunner.getTranslateX());
+        double deltay = Math.abs(runner.getTranslateY() - gunner.getTranslateY());
 
-        double distance=Math.sqrt(Math.pow(deltax,2)+Math.pow(deltay,2));
+        double distance = Math.sqrt(Math.pow(deltax, 2) + Math.pow(deltay, 2));
 
-        return distance<=range;
+        return distance <= range;
 
     }
 
-    public void demolishAllGunners(){
-        for (Gunner gunner:hangar) {
+    public void demolishAllGunners() {
+        for (Gunner gunner : hangar) {
             gunner.ceaseFire();
         }
         stackPane.getChildren().removeAll(hangar);
