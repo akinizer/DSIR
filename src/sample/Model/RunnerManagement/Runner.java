@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import sample.Model.GunnerManagement.Gunner;
+import sample.Model.GunnerManagement.GunnerFactory;
 
 public class Runner extends Label {
 
@@ -27,6 +29,8 @@ public class Runner extends Label {
 
     private Timeline cooldownTimer;
     private Projectile projectile;
+
+    private GunnerFactory gunnerFactory;
 
     //Constructor
     public Runner(TabPane maintab, double width, double height, Button actionButton, Button speedButton, Button vehicleButton,Tab towntab, StackPane stackPane){
@@ -83,6 +87,17 @@ public class Runner extends Label {
             speedButton.setDisable(false);
             vehicleButton.setDisable(false);
             distancecounter=0;
+
+            //On Restart Remove all Gunners from Fields and Start generating them again
+            gunnerFactory.demolishAllGunners();
+            gunnerFactory.typeproduce(Gunner.GunnerFireType.G_HOMING,20);
+            // gunnerFactory.bulkproduce(0, 0,0, 50, false);
+            // gunnerFactory.bulkproduce(0, 0,50, 0, false);
+            // gunnerFactory.bulkproduce(0, 50,0, 0, false);
+            // gunnerFactory.bulkproduce(50, 0,0, 0, false);
+            // gunnerFactory.bulkproduce(5, 5,5, 20, false);
+            // gunnerFactory.waveproduce(0, 5,2,20);
+            //gunnerFactory.typeproduce(Gunner.GunnerFireType.HOMINGBOSS,1);
 
             setTooltip();
 
@@ -239,6 +254,10 @@ public class Runner extends Label {
     private boolean isCooldownActive(){
         long elapsed=(System.currentTimeMillis() - starttime)/1000;
         return starttime!=-1 && elapsed < (long)cooldown;
+    }
+
+    public void setGunnerFactory(GunnerFactory gunnerFactory){
+        this.gunnerFactory=gunnerFactory;
     }
 
 }

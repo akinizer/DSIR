@@ -20,6 +20,7 @@ public class GunnerFactory {
     private Runner runnerLabel;
 
     private List<Gunner> hangar = new ArrayList<>();
+    private boolean stopCommand;
 
     public GunnerFactory(StackPane stackPane, double width, double height, TabPane maintab, Runner runner) {
         this.stackPane = stackPane;
@@ -27,9 +28,15 @@ public class GunnerFactory {
         this.height = height;
         this.maintab = maintab;
         this.runnerLabel = runner;
+
+        stopCommand=false;
+
+
     }
 
     private void produce(Gunner.GunnerFireType gtype, int projectileSpeed, int cooldown) {
+
+        if(stopCommand) return;
 
         Gunner gunnerlabel = new Gunner(stackPane, maintab, width, height,gtype);
         hangar.add(gunnerlabel);
@@ -41,6 +48,8 @@ public class GunnerFactory {
         Timeline gunfire = new Timeline();
         KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown),event -> {
             //check if runner is active and in the range of gunner
+            if(stopCommand) gunfire.stop();
+
             if (runnerLabel.isVisible() && isInRange(runnerLabel,gunnerlabel,gunnerlabel.getRange(gtype))) {
                 int overheat = gunnerlabel.getOverheatCount();
 
@@ -166,5 +175,11 @@ public class GunnerFactory {
 
         return distance<=range;
 
+    }
+
+    public void demolishAllGunners(){
+
+        stackPane.getChildren().removeAll(hangar);
+        hangar.clear();
     }
 }

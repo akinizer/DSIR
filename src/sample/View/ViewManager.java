@@ -1051,7 +1051,7 @@ public abstract class ViewManager {
         vehicleButton.setDisable(true);
 
         //RUNNER CLASS
-        Runner runnerLabel = new Runner(maintab, width, height, actionButton, speedButton, vehicleButton, towntab, stackPane);
+        Runner runnerLabel = new Runner(maintab, width, height, actionButton, speedButton, vehicleButton, towntab,stackPane);
         speedButton.setOnMouseClicked(mouseEvent -> {
             if (speedButton.getText().equals("On")) {
                 speedButton.setText("Off");
@@ -1081,6 +1081,7 @@ public abstract class ViewManager {
 
         //GUNNER CLASS
         GunnerFactory gunnerFactory = new GunnerFactory(stackPane, width, height, maintab, runnerLabel);
+        runnerLabel.setGunnerFactory(gunnerFactory);
 
         returnButton.setOnMouseReleased(mouseEvent -> {
             actionLabel.setVisible(false);
@@ -1088,14 +1089,6 @@ public abstract class ViewManager {
         });
 
         stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
-
-        // gunnerFactory.bulkproduce(0, 0,0, 50, false);
-        // gunnerFactory.bulkproduce(0, 0,50, 0, false);
-        // gunnerFactory.bulkproduce(0, 50,0, 0, false);
-        // gunnerFactory.bulkproduce(50, 0,0, 0, false);
-        // gunnerFactory.bulkproduce(5, 5,5, 20, false);
-        // gunnerFactory.waveproduce(0, 5,2,20);
-        gunnerFactory.typeproduce(Gunner.GunnerFireType.G_HOMING,50);
 
         //Initiate Battle Scene
         towntab.setContent(stackPane);
