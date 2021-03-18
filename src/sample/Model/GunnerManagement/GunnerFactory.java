@@ -29,9 +29,9 @@ public class GunnerFactory {
         this.runnerLabel = runner;
     }
 
-    public void produce(Gunner.GunnerFireType gtype, int projectileSpeed, int cooldown) {
+    private void produce(Gunner.GunnerFireType gtype, int projectileSpeed, int cooldown) {
 
-        Gunner gunnerlabel = new Gunner(stackPane, maintab, width, height);
+        Gunner gunnerlabel = new Gunner(stackPane, maintab, width, height,gtype);
         hangar.add(gunnerlabel);
         stackPane.getChildren().add(gunnerlabel);
 
@@ -40,7 +40,8 @@ public class GunnerFactory {
 
         Timeline gunfire = new Timeline();
         KeyFrame gunkeyframe = new KeyFrame(Duration.millis(cooldown),event -> {
-            if (runnerLabel.isVisible()) {
+            //check if runner is active and in the range of gunner
+            if (runnerLabel.isVisible() && isInRange(runnerLabel,gunnerlabel,gunnerlabel.getRange(gtype))) {
                 int overheat = gunnerlabel.getOverheatCount();
 
                 //BurstFire Action for Guided/GuidedBoss Projectile
@@ -59,6 +60,50 @@ public class GunnerFactory {
         gunfire.getKeyFrames().add(gunkeyframe);
         gunfire.setCycleCount(Timeline.INDEFINITE);
         gunfire.play();
+    }
+
+    public void typeproduce(Gunner.GunnerFireType gft,int count){
+        if(gft== Gunner.GunnerFireType.STRAIGHT) {
+            for (int i = 0; i < count; i++) {
+                produce(gft, 10, 50);
+            }
+        }
+        else if(gft== Gunner.GunnerFireType.HOMING) {
+            for (int i = 0; i < count; i++) {
+                produce(gft, 25, 5000);
+            }
+        }
+        else if(gft== Gunner.GunnerFireType.GUIDED) {
+            for (int i = 0; i < count; i++) {
+                produce(gft, 10, 500);
+            }
+        }
+        else if(gft== Gunner.GunnerFireType.G_HOMING) {
+            for (int i = 0; i < count; i++) {
+                produce(Gunner.GunnerFireType.G_HOMING, 10, 50);
+            }
+        }
+        else if(gft== Gunner.GunnerFireType.STRAIGHTBOSS) {
+            for (int i = 0; i < count; i++) {
+                produce(Gunner.GunnerFireType.STRAIGHTBOSS, 10, 50);
+            }
+        }
+        else if(gft== Gunner.GunnerFireType.HOMINGBOSS) {
+            for (int i = 0; i < count; i++) {
+                produce(Gunner.GunnerFireType.HOMINGBOSS, 25, 5000);
+            }
+        }
+        else if(gft== Gunner.GunnerFireType.GUIDEDBOSS) {
+            for (int i = 0; i < count; i++) {
+                produce(Gunner.GunnerFireType.GUIDEDBOSS, 10, 500);
+            }
+        }
+        else if(gft== Gunner.GunnerFireType.G_HOMINGBOSS) {
+            for (int i = 0; i < count; i++) {
+                produce(Gunner.GunnerFireType.G_HOMINGBOSS, 5, 50);
+            }
+        }
+
     }
 
     public void bulkproduce(int countStrafe, int countHommer, int countGuided, int countG_Homing, boolean enableBoss) {
@@ -109,5 +154,17 @@ public class GunnerFactory {
         timer.getKeyFrames().add(keyFrame);
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+    }
+
+    private boolean isInRange(Runner runner, Gunner gunner, double range){
+        if(range==-1) return true;
+
+        double deltax=Math.abs(runner.getTranslateX() - gunner.getTranslateX());
+        double deltay=Math.abs(runner.getTranslateY() - gunner.getTranslateY());
+
+        double distance=Math.sqrt(Math.pow(deltax,2)+Math.pow(deltay,2));
+
+        return distance<=range;
+
     }
 }

@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.Main;
+import sample.Model.GunnerManagement.Gunner;
 import sample.Model.GunnerManagement.GunnerFactory;
 import sample.Model.RunnerManagement.Runner;
 import sample.Model.StageManagement.FleetStage;
@@ -1088,8 +1089,13 @@ public abstract class ViewManager {
 
         stackPane.getChildren().addAll(actionLabel, titleLabel, runnerLabel, actionButton, speedButton, vehicleButton, returnButton);
 
-        gunnerFactory.bulkproduce(0, 0,0, 100, false);
-       // gunnerFactory.waveproduce(0, 5,2,20);
+        // gunnerFactory.bulkproduce(0, 0,0, 50, false);
+        // gunnerFactory.bulkproduce(0, 0,50, 0, false);
+        // gunnerFactory.bulkproduce(0, 50,0, 0, false);
+        // gunnerFactory.bulkproduce(50, 0,0, 0, false);
+        // gunnerFactory.bulkproduce(5, 5,5, 20, false);
+        // gunnerFactory.waveproduce(0, 5,2,20);
+        gunnerFactory.typeproduce(Gunner.GunnerFireType.G_HOMING,50);
 
         //Initiate Battle Scene
         towntab.setContent(stackPane);

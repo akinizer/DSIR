@@ -32,7 +32,7 @@ public class Gunner extends Label implements IGunner {
         UP, DOWN, LEFT, RIGHT
     }
 
-    Gunner(StackPane stackPane, TabPane maintab, double width, double height) {
+    Gunner(StackPane stackPane, TabPane maintab, double width, double height, GunnerFireType gunnerFireType) {
         this.stackPane = stackPane;
         this.width = maintab.getWidth();
         this.height = maintab.getHeight();
@@ -46,6 +46,7 @@ public class Gunner extends Label implements IGunner {
         setTranslateY(new Random().nextInt((int) height));
 
         setMotionListener();
+        gunnerSettings(gunnerFireType);
     }
 
     private int count = 0;
@@ -100,59 +101,34 @@ public class Gunner extends Label implements IGunner {
         stackPane.getChildren().add(projectile);
 
         if (gunnerFireType == GunnerFireType.HOMING) {
-            setText("[H]");
-            setId("Hommer");
             projectile.setText("+");
-
             projectile.fireHoming(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
-            setText("[H]");
-            setId("HommerBoss");
             projectile.setText("+");
-
-            setFont(new Font(getFont().getName(),72));
             projectile.setFont(new Font(getFont().getName(),72));
-
             projectile.fireHoming(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.G_HOMING) {
-            setText("[H]");
-            setId("Hommer");
             projectile.setText("+");
-
             projectile.fireHoming(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.G_HOMINGBOSS) {
-            setText("[H]");
-            setId("HommerBoss");
             projectile.setText("+");
-
-            setFont(new Font(getFont().getName(),72));
             projectile.setFont(new Font(getFont().getName(),72));
 
             projectile.fireHoming(runner, this, speed);
         }
         if (gunnerFireType == GunnerFireType.GUIDED) {
-            setText("[G]");
-            setId("Guided");
             projectile.setText("✱");
-
             projectile.fireGuided(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.GUIDEDBOSS) {
-            setText("[G]");
-            setId("GuidedBoss");
             projectile.setText("✱");
-
-            setFont(new Font(getFont().getName(),72));
             projectile.setFont(new Font(getFont().getName(),72));
-
             projectile.fireGuided(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.STRAIGHT) {
-            setText("[S]");
-            setId("Strafe");
             if (PT == ProjectileType.ZERO) {
                 PT = ProjectileType.ONE;
                 projectile.setText("1");
@@ -160,12 +136,9 @@ public class Gunner extends Label implements IGunner {
                 PT = ProjectileType.ZERO;
                 projectile.setText("0");
             }
-
             projectile.fire(runner, this, speed);
         }
         else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
-            setText("[S]");
-            setId("StrafeBoss");
             if (PT == ProjectileType.ZERO) {
                 PT = ProjectileType.ONE;
                 projectile.setText("1");
@@ -173,9 +146,7 @@ public class Gunner extends Label implements IGunner {
                 PT = ProjectileType.ZERO;
                 projectile.setText("0");
             }
-            setFont(new Font(getFont().getName(),72));
             projectile.setFont(new Font(getFont().getName(),72));
-
             projectile.fire(runner, this, speed);
         }
     }
@@ -183,4 +154,53 @@ public class Gunner extends Label implements IGunner {
     int getOverheatCount(){
         return ++overheat;
     }
+
+    double getRange(GunnerFireType gtype){
+        if (gtype == GunnerFireType.G_HOMING || gtype == GunnerFireType.G_HOMINGBOSS) {
+            return -1;
+        } else {
+            return 200;
+        }
+    }
+
+    private void gunnerSettings(GunnerFireType gunnerFireType){
+        if (gunnerFireType == GunnerFireType.HOMING) {
+            setText("[H]");
+            setId("Hommer");
+        }
+        else if (gunnerFireType == GunnerFireType.HOMINGBOSS) {
+            setText("[H]");
+            setId("HommerBoss");
+            setFont(new Font(getFont().getName(),72));
+        }
+        else if (gunnerFireType == GunnerFireType.G_HOMING) {
+            setText("[-]");
+            setId("Hommer");
+        }
+        else if (gunnerFireType == GunnerFireType.G_HOMINGBOSS) {
+            setText("[-]");
+            setId("HommerBoss");
+            setFont(new Font(getFont().getName(),72));
+        }
+        if (gunnerFireType == GunnerFireType.GUIDED) {
+            setText("[G]");
+            setId("Guided");
+        }
+        else if (gunnerFireType == GunnerFireType.GUIDEDBOSS) {
+            setText("[G]");
+            setId("GuidedBoss");
+            setFont(new Font(getFont().getName(),72));
+        }
+        else if (gunnerFireType == GunnerFireType.STRAIGHT) {
+            setText("[S]");
+            setId("Strafe");
+        }
+        else if (gunnerFireType == GunnerFireType.STRAIGHTBOSS) {
+            setText("[S]");
+            setId("StrafeBoss");
+            setFont(new Font(getFont().getName(),72));
+        }
+    }
+
+
 }
